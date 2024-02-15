@@ -1,0 +1,12 @@
+insert.php => Could not connect to database (chat).
+insert.php => Could not connect to database (chat).
+insert.php => Could not connect to database (chat).
+insert.php => Could not connect to database (chat).
+insert.php => Invalid type: messageSeeder
+insert.php => Invalid type: messageSeeder
+insert.php => Invalid type: messageSeeder
+insert.php => Invalid type: messageSeeder
+insert.php => Invalid type: messageSeeder
+insert.php => Invalid type: messageSeeder
+fetch.php => Could not connect to database (chat).
+insert.php => Invalid type: messageSeeder
