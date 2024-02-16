@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 
+
 class MessageController extends Controller
 {
-    public function set($text, $chat)
+    public function set($text, $chat_name)
     {
         $messageText = strip_tags(trim($text));
+        $currentTime = Message::CreateTime();
 
         if (!empty($messageText)) {
             try {
-                Message::insertData($messageText, 191, $chat);
+                Message::create(['text_message' => $messageText, 'send_time' => $currentTime,'user_id' => 191, 'chat_name' => $chat_name, 'deleted' => 0]);
                 header('Content-Type: application/json');
                 http_response_code(200);
                 return view('response', ['res' => json_encode([
@@ -26,43 +28,19 @@ class MessageController extends Controller
         }
     }
 
-    public function update($id, $newMessage)
-    {
-        $id = strip_tags(trim($id));
-        $newMessage = strip_tags(trim($newMessage));
-
-        if (!empty($id)) {
-            try {
-                Message::updateData($id, 'messageSeeder', $newMessage);
-                header('Content-Type: application/json');
-                http_response_code(200);
-                return view('response', ['res' => json_encode([
-                    'status' => 'success',
-                    'messageSeeder' => '',
-                    'data' => $newMessage
-                ])]);
-
-            } catch (\Exception $err) {
-                header('Content-Type: application/json');
-                http_response_code(500);
-                error_log('update.php => ' . $err->getMessage() . "\n", 3, "err.txt");
-            }
-        }
-    }
-
     public function delete($id, $deleteType)
     {
         switch ($deleteType) {
-            case 'single-real':
+            case 'physicalDelete':
             {
                 if (!empty($id)) {
                     try {
-                        Message::deleteData($id);
+                        Message::find($id)->delete();
                         header('Content-Type: application/json');
                         http_response_code(200);
                         return view('response', ['res' => json_encode([
                             'status' => 'success',
-                            'messageSeeder' => 'deleted...',
+                            'message' => 'deleted...',
                         ])]);
 
                     } catch (\Exception $err) {
@@ -73,11 +51,11 @@ class MessageController extends Controller
                 }
                 break;
             }
-            case 'single-physical':
+            case 'softDelete':
             {
                 if (!empty($id)) {
                     try {
-                        Message::deleteDataphysical($id);
+                        dd(Message::find($id)->update(['deleted' => '1']));
                         header('Content-Type: application/json');
                         http_response_code(200);
                         echo json_encode([
@@ -94,15 +72,15 @@ class MessageController extends Controller
             }
             case 'integrated':
             {
-                $chatlistName = $data['activeChatlist'];
+                $chatlistName = 'farawin';
                 if (!empty($chatlistName)) {
                     try {
-                        Message::deleteChatHistory($chatlistName);
+                        Message::where('chat_name', $chatlistName)->delete();
                         header('Content-Type: application/json');
                         http_response_code(200);
                         return view('response', ['res' => json_encode([
                             'status' => 'success',
-                            'messageSeeder' => 'deleted...',
+                            'message' => 'deleted...',
                         ])]);
                     } catch (\Exception $err) {
                         header('Content-Type: application/json');
@@ -114,18 +92,45 @@ class MessageController extends Controller
             }
 
         }
-//        return view('response',['action'=>'delete']);
-
     }
-    public function get($uploaded = 0)
+
+    public function update($id, $newMessage)
     {
+        $id = strip_tags(trim($id));
+        $newMessage = strip_tags(trim($newMessage));
+
+        if (!empty($id)) {
+            try {
+                Message::find($id)->update(['text_message' => $newMessage]);
+                header('Content-Type: application/json');
+                http_response_code(200);
+                return view('response', ['res' => json_encode([
+                    'status' => 'success',
+                    'data' => $newMessage,
+                ])]);
+
+            } catch (\Exception $err) {
+                header('Content-Type: application/json');
+                http_response_code(500);
+                error_log('update.php => ' . $err->getMessage() . "\n", 3, "err.txt");
+            }
+        }
+    }
+
+    public function get(int $uploaded = 0)
+    {
+        $result=[];
         try {
-            $messages = Message::selectAllData($uploaded);
+//            ->take($uploaded)
+            $messages = Message::where('deleted',0)->orderBy('send_time')->get()->toArray();
+            foreach ($messages as $message){
+                array_push($result,$message['text_message']);
+            }
             header('Content-Type: application/json');
             http_response_code(200);
             return view('response', ['res' => json_encode([
                 'status' => 'success',
-                'messageSeeder' => '',
+                'message' => '',
                 'data' => $messages
             ])]);
 
@@ -134,6 +139,6 @@ class MessageController extends Controller
             http_response_code(500);
             error_log('fetch.php => ' . $err->getMessage() . "\n", 3, "err.txt");
         }
-        return response([],500);
+//        return response([], 500);
     }
 }

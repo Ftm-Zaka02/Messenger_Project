@@ -19,10 +19,10 @@ Route::get('/', function () {
 });
 
 Route::prefix('messages')->group(function () {
-    Route::get('/set/{text}/{chat}', [MessageController::class, 'set'])->where('text', '[A-Za-z]+')->whereIn('chat', ['farawin', 'Go Channel']);
+    Route::get('/set/{text}/{chat}', [MessageController::class, 'set'])->where('text', '[A-Za-z]+')->whereIn('chat_name', ['farawin', 'Go Channel']);
     Route::get('/get/{uploaded?}', [MessageController::class, 'get']);
     Route::get('/update/{dataId}/{newMessage}', [MessageController::class, 'update']);
-    Route::get('/delete/{deleteId}/{deleteType}', [MessageController::class, 'delete'])->whereIn('deleteType', ['integrated', 'single-physical', 'single-real']);
+    Route::get('/delete/{deleteId}/{deleteType}', [MessageController::class, 'delete'])->whereIn('deleteType', ['integrated', 'physicalDelete', 'softDelete']);
 });
 
 
