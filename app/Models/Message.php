@@ -19,6 +19,6 @@ class Message extends Model
     use CreateSendTime;
     public $timestamps = false;
     protected $connection = "mysql";
-    protected $table = 'message';
+    protected $table = 'messages';
     protected $fillable = ['text_message', 'send_time', 'user_id', 'chat_name','deleted'];
 }

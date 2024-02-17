@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('messageSeeder', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->string('messageSeeder');
-            $table->string('description')->nullable();
+            $table->longText('text_message');
+            $table->integer('send_time');
+            $table->smallInteger('user_id');
+            $table->text('chat_name');
+            $table->boolean('deleted')->default(0);
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('messageSeeder');
+        Schema::dropIfExists('message');
     }
 };
