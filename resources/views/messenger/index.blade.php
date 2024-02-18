@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="fa">
-
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Chat</title>
-    <link rel="stylesheet" href="../style/style_chat.css" />
-    <link rel="stylesheet" href="../style/style_chat_folders.css" />
-    <link rel="stylesheet" href="../style/style_chat_chatlist.css" />
-    <link rel="stylesheet" href="../style/style_chat_dialog.css" />
-    <link rel="stylesheet" href="../style/style_icons_and_fonts.css" />
-    <link rel="stylesheet" href="../style/style_add_contacts.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="{{ asset('css/style/style_chat.css') }} " rel="stylesheet">
+    <link href="{{ asset('css/style/style_chat_folders.css') }} " rel="stylesheet">
+    <link href="{{ asset('css/style/style_chat_chatlist.css') }} " rel="stylesheet">
+    <link href="{{ asset('css/style/style_chat_dialog.css') }} " rel="stylesheet">
+    <link href="{{ asset('css/style/style_icons_and_fonts.css') }} " rel="stylesheet">
+    <link href="{{ asset('css/style/style_add_contacts.css') }} " rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
             integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
@@ -41,7 +40,7 @@
             </div>
             <div class="search__box">
                 <input type="search" name="search_input" id="search_input" class="search__input"
-                       placeholder="search" />
+                       placeholder="search"/>
             </div>
         </div>
 
@@ -52,7 +51,7 @@
         <div class="dialog__wrapper">
             <div class="dialog__header">
                 <div class="dialog__header-right">
-                    <img src="../../image/user.png" alt="profile" class="message__img" />
+                    <img src="{{asset('image/user.png')}}" alt="profile" class="message__img"/>
                     <div class="dialog__user">
                         <div id="dialog__name" class="dialog__name">name</div>
                         <span class="dialog__status" data-sub="1000Sub .">Online</span>
@@ -82,10 +81,11 @@
             <div class="emoji__main" id="emojiMain"></div>
 
             <form id="send_form" id="footer" class="dialog__footer" onkeyup="IconChanger()" onclick="IconChanger()">
+                @csrf
                 <div id="dialog__attach" class="dialog__attach dialog__attach--file"></div>
 
                 <input type="file" name="dialog__input--attach" id="dialog__input--attach"
-                       class="dialog__attach--input" />
+                       class="dialog__attach--input"/>
                 <button id="dialog__icon" class="dialog__voice" type="submit"></button>
                 <div class="dialog__message">
                         <textarea name="dialog__message" id="dialog__message" class="dialog__message--input"
@@ -109,23 +109,23 @@
         <h3 class="chatlist__title">اضافه کردن مخاطب</h3>
         <div class="main-input">
             <input class="input-add" type="tel" name="phone-Contact" id="phone-Contact" placeholder=" " autofocus
-                   required />
+                   required/>
             <div class="cut"></div>
             <label for="phone-Contact" class="placeholder">شماره موبایل مخاطب</label>
         </div>
         <div class="main-input">
-            <input class="input-add" type="text" name="name-Contact" id="name-Contact" placeholder=" " required />
+            <input class="input-add" type="text" name="name-Contact" id="name-Contact" placeholder=" " required/>
             <div class="cut cut-long"></div>
             <label for="Contact" class="placeholder">نام مخاطب</label>
         </div>
-        <input id="addition" type="button" class="submit-add" value="افزودن مخاطب" />
+        <input id="addition" type="button" class="submit-add" value="افزودن مخاطب"/>
     </form>
 </section>
 
 <section id="messengerSettings" class="section-Contact" style="display: none">
     <button id="closed" class="close-btn"></button>
     <form name="form-contact" id="form-contact" method="post">
-        <input id="submit" type="button" class="submit-add" value="ثبت تنطیمات" />
+        <input id="submit" type="button" class="submit-add" value="ثبت تنطیمات"/>
     </form>
 </section>
 
@@ -136,7 +136,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
         integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
 </script>
-<script src="../js/pageReaction.js"></script>
+<script src="{{asset("js/messenger/pageReaction.js")}}"></script>
 </body>
 
 </html>
