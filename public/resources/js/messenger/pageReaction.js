@@ -382,7 +382,7 @@ const sendMesseg = (
     messagePhoto.setAttribute("class", "message__photo");
 
     let messageImg = document.createElement("img");
-    messageImg.src = "../../image/user.png";
+    messageImg.src = "../../resources/image/user.png";
     messageImg.setAttribute("class", "message__img");
 
     messagePhoto.appendChild(messageImg);
@@ -651,8 +651,9 @@ $("#deleteChat").click(() => {
             type: "get",
             url: "messages/delete",
             dataType: "json",
-            data: {activeChatList: activeChatlist, deleteType: "integrated"},
-            success: function () {
+            data: {chatListName: activeChatlist, deleteType: "integrated"},
+            success: function (res) {
+                console.log(res);
                 let messages = document.getElementsByClassName("message");
                 let len = messages.length - 1;
                 for (let i = len; i >= 0; i--) {
