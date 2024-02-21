@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('send_time');
             $table->smallInteger('user_id');
             $table->text('chat_name');
+            $table->enum('chat_type', ['pv','group','channel'])->default('group');
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
