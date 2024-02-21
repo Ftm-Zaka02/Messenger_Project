@@ -572,7 +572,7 @@ $(document).ready(function () {
             type: "post",
             url: "messages/set",
             data: values + "&activeChatlist=" + activeChatlist,
-            success: function () {
+            success: function (res) {
                 dialog.value = null;
             },
         });
@@ -684,8 +684,9 @@ function updateMessage(messageBox) {
                 url: "messages/update",
                 dataType: "json",
                 data: {dataID: dataID, newMessage: newMessage},
-                success: function (res) {
-                    span.textContent = res["data"];
+                success: function (response) {
+                    if(response["data"])
+                        span.textContent = newMessage;
                     dialog.value = null;
                 },
             });

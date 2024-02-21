@@ -10,23 +10,24 @@ class MessageController extends Controller
 {
     public function set(Request $request)
     {
-        var_dump($request->all());
         $chat_name = $request->input('activeChatlist');
         $messageText = strip_tags(trim($request->input('dialog__message')));
         $currentTime = Message::CreateTime();
-
         if (!empty($messageText)) {
             try {
-                Message::create(['text_message' => $messageText, 'send_time' => $currentTime, 'user_id' => 191, 'chat_name' => $chat_name, 'deleted' => 0]);
-                header('Content-Type: application/json');
-                http_response_code(200);
-                return view('response', ['res' => json_encode([
+                $model=Message::create(['text_message' => $messageText, 'send_time' => $currentTime, 'user_id' => 191, 'chat_name' => $chat_name, 'deleted' => 0]);
+                $res=json_encode([
                     'status' => 'success',
-                ])]);
-            } catch (\Exception $err) {
-                header('Content-Type: application/json');
-                http_response_code(500);
-                error_log('insert.php => ' . $err->getMessage() . "\n", 3, "err.txt");
+                    'data'=>$model,
+                ]);
+                return response($res, 200);
+            } catch (\Exception $error) {
+                error_log('insert.php => ' . $error->getMessage() . "\n", 3, "err.txt");
+                $res=json_encode([
+                    'status' => 'error',
+                    'message'=>$error->getMessage(),
+                ]);
+                return response($res, 500);
             }
         }
     }
@@ -40,18 +41,17 @@ class MessageController extends Controller
             {
                 if (!empty($id)) {
                     try {
-                        Message::find($id)->delete();
-                        header('Content-Type: application/json');
-                        http_response_code(200);
+                        $model=Message::find($id)->delete();
                         $res = json_encode([
                             'status' => 'success',
-                            'message' => 'deleted...',
+                            'data' => $model,
                         ]);
                         return response($res, 200);
-                    } catch (\Exception $err) {
-                        error_log($err->getMessage() . "\n", 3, "err.txt");
-                        $res = json_encode([
-                            'status' => 'failed',
+                    } catch (\Exception $error) {
+                        error_log($error->getMessage() . "\n", 3, "err.txt");
+                        $res=json_encode([
+                            'status' => 'error',
+                            'message'=>$error->getMessage(),
                         ]);
                         return response($res, 500);
                     }
@@ -62,16 +62,17 @@ class MessageController extends Controller
             {
                 if (!empty($id)) {
                     try {
-                        Message::find($id)->update(['deleted' => '1']);
+                        $model=Message::find($id)->update(['deleted' => '1']);
                         $res = json_encode([
                             'status' => 'success',
-                            'message' => 'deleted...',
+                            'data' => $model,
                         ]);
                         return response($res, 200);
-                    } catch (\Exception $err) {
-                        error_log($err->getMessage() . "\n", 3, "err.txt");
-                        $res = json_encode([
-                            'status' => 'failed',
+                    } catch (\Exception $error) {
+                        error_log($error->getMessage() . "\n", 3, "err.txt");
+                        $res=json_encode([
+                            'status' => 'error',
+                            'message'=>$error->getMessage(),
                         ]);
                         return response($res, 500);
                     }
@@ -83,17 +84,19 @@ class MessageController extends Controller
                 $chatlistName = 'farawin';
                 if (!empty($chatlistName)) {
                     try {
-                        Message::where('chat_name', $chatlistName)->delete();
-                        header('Content-Type: application/json');
-                        http_response_code(200);
-                        return view('response', ['res' => json_encode([
+                        $model=Message::where('chat_name', $chatlistName)->delete();
+                        $res = json_encode([
                             'status' => 'success',
-                            'message' => 'deleted...',
-                        ])]);
-                    } catch (\Exception $err) {
-                        header('Content-Type: application/json');
-                        http_response_code(500);
-                        error_log('delete.php => ' . $err->getMessage() . "\n", 3, "err.txt");
+                            'data' => $model,
+                        ]);
+                        return response($res, 200);
+                    } catch (\Exception $error) {
+                        error_log('delete.php => ' . $error->getMessage() . "\n", 3, "err.txt");
+                        $res=json_encode([
+                            'status' => 'error',
+                            'message'=>$error->getMessage(),
+                        ]);
+                        return response($res, 500);
                     }
                 }
                 break;
@@ -107,16 +110,17 @@ class MessageController extends Controller
         $newMessage = strip_tags(trim($request->input('newMessage')));
         if (!empty($id)) {
             try {
-                Message::find($id)->update(['text_message' => $newMessage]);
+                $model=Message::find($id)->update(['text_message' => $newMessage]);
                 $res = json_encode([
                     'status' => 'success',
-                    'data' => $newMessage,
+                    'data' => $model,
                 ]);
                 return response($res, 200);
-            } catch (\Exception $err) {
-                error_log('update.php => ' . $err->getMessage() . "\n", 3, "err.txt");
-                $res = json_encode([
-                    'status' => 'failed',
+            } catch (\Exception $error) {
+                error_log('update.php => ' . $error->getMessage() . "\n", 3, "err.txt");
+                $res=json_encode([
+                    'status' => 'error',
+                    'message'=>$error->getMessage(),
                 ]);
                 return response($res, 500);
             }
@@ -127,20 +131,20 @@ class MessageController extends Controller
     {
         $result = [];
         try {
-            $messages = Message::where('deleted', 0)->orderBy('send_time')->get()->toArray();
-            foreach ($messages as $message) {
+            $model = Message::where('deleted', 0)->orderBy('send_time')->get()->toArray();
+            foreach ($model as $message) {
                 array_push($result, $message['text_message']);
             }
             $res = json_encode([
                 'status' => 'success',
-                'message' => '',
-                'data' => $messages
+                'data' => $model
             ]);
             return response($res, 200);
-        } catch (\Exception $err) {
-            error_log('fetch.php => ' . $err->getMessage() . "\n", 3, "err.txt");
-            $res = json_encode([
-                'status' => 'failed',
+        } catch (\Exception $error) {
+            error_log('fetch.php => ' . $error->getMessage() . "\n", 3, "err.txt");
+            $res=json_encode([
+                'status' => 'error',
+                'message'=>$error->getMessage(),
             ]);
             return response($res, 500);
         }
