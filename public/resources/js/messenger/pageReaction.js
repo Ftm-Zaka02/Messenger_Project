@@ -161,7 +161,7 @@ const CreateContactBox = (object) => {
         activeChatlist = chatlistName.textContent;
         nameDialog.textContent = chatlistName.textContent;
         dialogSection.setAttribute("style", "display:block;");
-        fetch("/js/jsonFiles/ChatList.json")
+        fetch("resources/js/jsonFiles/ChatList.json")
             .then(function (response) {
                 return response.json();
             })
@@ -330,7 +330,7 @@ const refreshChatlist = function () {
         ContactlistSection.innerHTML = "";
     }
 
-    fetch("/js/jsonFiles/Contacts.json")
+    fetch("resources/js/jsonFiles/Contacts.json")
         .then(function (response) {
             return response.json();
         })

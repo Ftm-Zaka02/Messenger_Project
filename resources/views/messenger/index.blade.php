@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Chat</title>
-    <link href="{{ asset('css/style/style_chat.css') }} " rel="stylesheet">
-    <link href="{{ asset('css/style/style_chat_folders.css') }} " rel="stylesheet">
-    <link href="{{ asset('css/style/style_chat_chatlist.css') }} " rel="stylesheet">
-    <link href="{{ asset('css/style/style_chat_dialog.css') }} " rel="stylesheet">
-    <link href="{{ asset('css/style/style_icons_and_fonts.css') }} " rel="stylesheet">
-    <link href="{{ asset('css/style/style_add_contacts.css') }} " rel="stylesheet">
+    <link href="{{ asset('resources/css/style/style_chat.css') }} " rel="stylesheet">
+    <link href="{{ asset('resources/css/style/style_chat_folders.css') }} " rel="stylesheet">
+    <link href="{{ asset('resources/css/style/style_chat_chatlist.css') }} " rel="stylesheet">
+    <link href="{{ asset('resources/css/style/style_chat_dialog.css') }} " rel="stylesheet">
+    <link href="{{ asset('resources/css/style/style_icons_and_fonts.css') }} " rel="stylesheet">
+    <link href="{{ asset('resources/css/style/style_add_contacts.css') }} " rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
@@ -51,7 +51,7 @@
         <div class="dialog__wrapper">
             <div class="dialog__header">
                 <div class="dialog__header-right">
-                    <img src="{{asset('image/user.png')}}" alt="profile" class="message__img"/>
+                    <img src="{{asset('resources/image/user.png')}}" alt="profile" class="message__img"/>
                     <div class="dialog__user">
                         <div id="dialog__name" class="dialog__name">name</div>
                         <span class="dialog__status" data-sub="1000Sub .">Online</span>
@@ -136,7 +136,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
         integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
 </script>
-<script src="{{asset("js/messenger/pageReaction.js")}}"></script>
+<script src="{{asset("resources/js/messenger/pageReaction.js")}}"></script>
 </body>
 
 </html>
