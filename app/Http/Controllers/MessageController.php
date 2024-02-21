@@ -10,12 +10,12 @@ class MessageController extends Controller
 {
     public function set(Request $request)
     {
-        $chat_name = $request->input('activeChatlist');
-        $messageText = strip_tags(trim($request->input('dialog__message')));
-        $currentTime = Message::CreateTime();
+        $chatName = $request->input('activeChatList');
+        $messageText = strip_tags(trim($request->input('dialogMessage')));
+        $currentTime = time();
         if (!empty($messageText)) {
             try {
-                $model=Message::create(['text_message' => $messageText, 'send_time' => $currentTime, 'user_id' => 191, 'chat_name' => $chat_name, 'deleted' => 0]);
+                $model=Message::create(['text_message' => $messageText, 'send_time' => $currentTime, 'user_id' => 191, 'chat_name' => $chatName, 'deleted' => 0]);
                 $res=json_encode([
                     'status' => 'success',
                     'data'=>$model,
@@ -34,14 +34,14 @@ class MessageController extends Controller
 
     public function delete(Request $request)
     {
-        $id = $request->input('dataID');
+        $dataID = $request->input('dataID');
         $deleteType = $request->input('deleteType');
         switch ($deleteType) {
             case 'physicalDelete':
             {
-                if (!empty($id)) {
+                if (!empty($dataID)) {
                     try {
-                        $model=Message::find($id)->delete();
+                        $model=Message::find($dataID)->delete();
                         $res = json_encode([
                             'status' => 'success',
                             'data' => $model,
@@ -60,9 +60,9 @@ class MessageController extends Controller
             }
             case 'softDelete':
             {
-                if (!empty($id)) {
+                if (!empty($dataID)) {
                     try {
-                        $model=Message::find($id)->update(['deleted' => '1']);
+                        $model=Message::find($dataID)->update(['deleted' => '1']);
                         $res = json_encode([
                             'status' => 'success',
                             'data' => $model,
@@ -81,10 +81,10 @@ class MessageController extends Controller
             }
             case 'integrated':
             {
-                $chatlistName = 'farawin';
-                if (!empty($chatlistName)) {
+                $chatListName = 'farawin';
+                if (!empty($chatListName)) {
                     try {
-                        $model=Message::where('chat_name', $chatlistName)->delete();
+                        $model=Message::where('chat_name', $chatListName)->delete();
                         $res = json_encode([
                             'status' => 'success',
                             'data' => $model,
@@ -106,11 +106,11 @@ class MessageController extends Controller
 
     public function update(Request $request)
     {
-        $id = strip_tags(trim($request->input('dataID')));
+        $dataID = strip_tags(trim($request->input('dataID')));
         $newMessage = strip_tags(trim($request->input('newMessage')));
-        if (!empty($id)) {
+        if (!empty($dataID)) {
             try {
-                $model=Message::find($id)->update(['text_message' => $newMessage]);
+                $model=Message::find($dataID)->update(['text_message' => $newMessage]);
                 $res = json_encode([
                     'status' => 'success',
                     'data' => $model,

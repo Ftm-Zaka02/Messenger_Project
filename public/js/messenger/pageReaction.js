@@ -571,7 +571,7 @@ $(document).ready(function () {
         $.ajax({
             type: "post",
             url: "messages/set",
-            data: values + "&activeChatlist=" + activeChatlist,
+            data: values + "&activeChatList=" + activeChatlist,
             success: function (res) {
                 dialog.value = null;
             },

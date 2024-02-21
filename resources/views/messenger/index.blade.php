@@ -88,7 +88,7 @@
                        class="dialog__attach--input"/>
                 <button id="dialog__icon" class="dialog__voice" type="submit"></button>
                 <div class="dialog__message">
-                        <textarea name="dialog__message" id="dialog__message" class="dialog__message--input"
+                        <textarea name="dialogMessage" id="dialog__message" class="dialog__message--input"
                                   placeholder="message..."></textarea>
                 </div>
                 <div class="dialog__tools">
