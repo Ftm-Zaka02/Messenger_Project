@@ -1,5 +1,0 @@
-fetch.php => SQLSTATE[42S22]: Column not found: 1054 Unknown column 'messages.deleted_at' in 'where clause' (SQL: select * from `messages` where `messages`.`deleted_at` is null order by `send_time` asc)
-fetch.php => SQLSTATE[42S22]: Column not found: 1054 Unknown column 'messages.deleted_at' in 'where clause' (SQL: select * from `messages` where `messages`.`deleted_at` is null order by `send_time` asc)
-fetch.php => SQLSTATE[42S22]: Column not found: 1054 Unknown column 'messages.deleted_at' in 'where clause' (SQL: select * from `messages` where `deleted` = 0 and `messages`.`deleted_at` is null order by `send_time` asc)
-fetch.php => SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' (SQL: select * from `messages` where `deleted` = 0 and `messages`.`deleted_at` is null order by `send_time` asc)
-SQLSTATE[HY000] [2002] php_network_getaddresses: getaddrinfo for matterhorn.liara.cloud failed: No such host is known.  (SQL: select * from `messages` where `messages`.`id` = 12 and `messages`.`deleted_at` is null limit 1)

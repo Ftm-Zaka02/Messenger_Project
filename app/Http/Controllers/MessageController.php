@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Log;
 
 class MessageController extends Controller
 {
@@ -21,7 +21,7 @@ class MessageController extends Controller
                 ]);
                 return response($res, 200);
             } catch (\Exception $error) {
-                error_log('insert.php => ' . $error->getMessage() . "\n", 3, "err.txt");
+                Log::error('creating message got error: '.$error->getMessage());
                 $res = json_encode([
                     'status' => 'error',
                     'message' => $error->getMessage(),
@@ -48,7 +48,7 @@ class MessageController extends Controller
                         ]);
                         return response($res, 200);
                     } catch (\Exception $error) {
-                        error_log($error->getMessage() . "\n", 3, "err.txt");
+                        Log::error('deleting message got error: '.$error->getMessage());
                         $res = json_encode([
                             'status' => 'error',
                             'message' => $error->getMessage(),
@@ -69,7 +69,7 @@ class MessageController extends Controller
                         ]);
                         return response($res, 200);
                     } catch (\Exception $error) {
-                        error_log($error->getMessage() . "\n", 3, "err.txt");
+                        Log::error('deleting message got error: '.$error->getMessage());
                         $res = json_encode([
                             'status' => 'error',
                             'message' => $error->getMessage(),
@@ -90,7 +90,7 @@ class MessageController extends Controller
                         ]);
                         return response($res, 200);
                     } catch (\Exception $error) {
-                        error_log('delete.php => ' . $error->getMessage() . "\n", 3, "err.txt");
+                        Log::error('deleting history got error: '.$error->getMessage());
                         $res = json_encode([
                             'status' => 'error',
                             'message' => $error->getMessage(),
@@ -116,7 +116,7 @@ class MessageController extends Controller
                 ]);
                 return response($res, 200);
             } catch (\Exception $error) {
-                error_log('update.php => ' . $error->getMessage() . "\n", 3, "err.txt");
+                Log::error('updating message got error: '.$error->getMessage());
                 $res = json_encode([
                     'status' => 'error',
                     'message' => $error->getMessage(),
@@ -140,7 +140,7 @@ class MessageController extends Controller
             ]);
             return response($res, 200);
         } catch (\Exception $error) {
-            error_log('fetch.php => ' . $error->getMessage() . "\n", 3, "err.txt");
+            Log::error('getting messages got error: '.$error->getMessage());
             $res = json_encode([
                 'status' => 'error',
                 'message' => $error->getMessage(),
