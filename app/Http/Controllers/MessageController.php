@@ -15,17 +15,17 @@ class MessageController extends Controller
         $currentTime = time();
         if (!empty($messageText)) {
             try {
-                $model=Message::create(['text_message' => $messageText, 'send_time' => $currentTime, 'user_id' => 191, 'chat_name' => $chatName, 'deleted' => 0]);
-                $res=json_encode([
+                $model = Message::create(['text_message' => $messageText, 'send_time' => $currentTime, 'user_id' => 191, 'chat_name' => $chatName]);
+                $res = json_encode([
                     'status' => 'success',
-                    'data'=>$model,
+                    'data' => $model,
                 ]);
                 return response($res, 200);
             } catch (\Exception $error) {
                 error_log('insert.php => ' . $error->getMessage() . "\n", 3, "err.txt");
-                $res=json_encode([
+                $res = json_encode([
                     'status' => 'error',
-                    'message'=>$error->getMessage(),
+                    'message' => $error->getMessage(),
                 ]);
                 return response($res, 500);
             }
@@ -41,7 +41,7 @@ class MessageController extends Controller
             {
                 if (!empty($dataID)) {
                     try {
-                        $model=Message::find($dataID)->delete();
+                        $model = Message::find($dataID)->delete();
                         $res = json_encode([
                             'status' => 'success',
                             'data' => $model,
@@ -49,9 +49,9 @@ class MessageController extends Controller
                         return response($res, 200);
                     } catch (\Exception $error) {
                         error_log($error->getMessage() . "\n", 3, "err.txt");
-                        $res=json_encode([
+                        $res = json_encode([
                             'status' => 'error',
-                            'message'=>$error->getMessage(),
+                            'message' => $error->getMessage(),
                         ]);
                         return response($res, 500);
                     }
@@ -62,7 +62,7 @@ class MessageController extends Controller
             {
                 if (!empty($dataID)) {
                     try {
-                        $model=Message::find($dataID)->update(['deleted' => '1']);
+                        $model = Message::find($dataID)->delete();
                         $res = json_encode([
                             'status' => 'success',
                             'data' => $model,
@@ -70,9 +70,9 @@ class MessageController extends Controller
                         return response($res, 200);
                     } catch (\Exception $error) {
                         error_log($error->getMessage() . "\n", 3, "err.txt");
-                        $res=json_encode([
+                        $res = json_encode([
                             'status' => 'error',
-                            'message'=>$error->getMessage(),
+                            'message' => $error->getMessage(),
                         ]);
                         return response($res, 500);
                     }
@@ -84,7 +84,7 @@ class MessageController extends Controller
                 $chatListName = 'farawin';
                 if (!empty($chatListName)) {
                     try {
-                        $model=Message::where('chat_name', $chatListName)->delete();
+                        $model = Message::where('chat_name', $chatListName)->delete();
                         $res = json_encode([
                             'status' => 'success',
                             'data' => $model,
@@ -92,9 +92,9 @@ class MessageController extends Controller
                         return response($res, 200);
                     } catch (\Exception $error) {
                         error_log('delete.php => ' . $error->getMessage() . "\n", 3, "err.txt");
-                        $res=json_encode([
+                        $res = json_encode([
                             'status' => 'error',
-                            'message'=>$error->getMessage(),
+                            'message' => $error->getMessage(),
                         ]);
                         return response($res, 500);
                     }
@@ -110,7 +110,7 @@ class MessageController extends Controller
         $newMessage = strip_tags(trim($request->input('newMessage')));
         if (!empty($dataID)) {
             try {
-                $model=Message::find($dataID)->update(['text_message' => $newMessage]);
+                $model = Message::find($dataID)->update(['text_message' => $newMessage]);
                 $res = json_encode([
                     'status' => 'success',
                     'data' => $model,
@@ -118,9 +118,9 @@ class MessageController extends Controller
                 return response($res, 200);
             } catch (\Exception $error) {
                 error_log('update.php => ' . $error->getMessage() . "\n", 3, "err.txt");
-                $res=json_encode([
+                $res = json_encode([
                     'status' => 'error',
-                    'message'=>$error->getMessage(),
+                    'message' => $error->getMessage(),
                 ]);
                 return response($res, 500);
             }
@@ -131,7 +131,7 @@ class MessageController extends Controller
     {
         $result = [];
         try {
-            $model = Message::where('deleted', 0)->orderBy('send_time')->get()->toArray();
+            $model = Message::orderBy('send_time')->get();
             foreach ($model as $message) {
                 array_push($result, $message['text_message']);
             }
@@ -142,9 +142,9 @@ class MessageController extends Controller
             return response($res, 200);
         } catch (\Exception $error) {
             error_log('fetch.php => ' . $error->getMessage() . "\n", 3, "err.txt");
-            $res=json_encode([
+            $res = json_encode([
                 'status' => 'error',
-                'message'=>$error->getMessage(),
+                'message' => $error->getMessage(),
             ]);
             return response($res, 500);
         }

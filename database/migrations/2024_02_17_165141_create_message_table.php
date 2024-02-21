@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('send_time');
             $table->smallInteger('user_id');
             $table->text('chat_name');
-            $table->boolean('deleted')->default(0);
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

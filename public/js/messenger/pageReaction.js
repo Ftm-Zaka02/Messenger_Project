@@ -572,7 +572,7 @@ $(document).ready(function () {
             type: "post",
             url: "messages/set",
             data: values + "&activeChatList=" + activeChatlist,
-            success: function (res) {
+            success: function () {
                 dialog.value = null;
             },
         });
@@ -651,8 +651,8 @@ $("#deleteChat").click(() => {
             type: "get",
             url: "messages/delete",
             dataType: "json",
-            data: {activeChatlist: activeChatlist, deleteType: "integrated"},
-            success: function (res) {
+            data: {activeChatList: activeChatlist, deleteType: "integrated"},
+            success: function () {
                 let messages = document.getElementsByClassName("message");
                 let len = messages.length - 1;
                 for (let i = len; i >= 0; i--) {
@@ -767,8 +767,8 @@ const uploadMessage = async () => {
         url: "messages/get",
         dataType: "json",
         data: {uploaded: uploaded},
-        success: function (data) {
-            data = data["data"];
+        success: function (response) {
+            data = response["data"];
             for (let i = 0; i < data.length; i++) {
                 let {id, text_message, user_id, send_time, chat_name} = data[i];
                 function getTime(send_time) {
