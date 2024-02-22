@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-
+use App\Http\Requests\validator\messages\SetPostRequest;
+use App\Http\Requests\validator\messages\DeletePostRequest;
+use App\Http\Requests\validator\messages\UpdatePostRequest;
 class MessageController extends Controller
 {
-    public function set(Request $request)
+    public function set(SetPostRequest $request)
     {
-        $chatName = $request->input('activeChatList');
-        $messageText = strip_tags(trim($request->input('dialogMessage')));
+        $validated = $request->validated();
+        $chatName = $validated['activeChatList'];
+        $messageText = strip_tags(trim($validated['dialogMessage']));
         if (!empty($messageText)) {
             try {
                 $model=Message::insertMessage($chatName,$messageText);
@@ -31,11 +34,12 @@ class MessageController extends Controller
         }
     }
 
-    public function delete(Request $request)
+    public function delete(DeletePostRequest $request)
     {
-        $dataID = $request->input('dataID');
-        $deleteType = $request->input('deleteType');
-        $chatListName = $request->input('activeChatList');
+        $validated = $request->validated();
+        $dataID = $validated['dataID'];
+        $deleteType = $validated['deleteType'];
+//        $chatListName = $validated['activeChatList'];
         switch ($deleteType) {
             case 'physicalDelete':
             {
@@ -103,10 +107,11 @@ class MessageController extends Controller
         }
     }
 
-    public function update(Request $request)
+    public function update(UpdatePostRequest $request)
     {
-        $dataID = strip_tags(trim($request->input('dataID')));
-        $newMessage = strip_tags(trim($request->input('newMessage')));
+        $validated = $request->validated();
+        $dataID = strip_tags(trim($validated['dataID']));
+        $newMessage = strip_tags(trim($validated['newMessage']));
         if (!empty($dataID)) {
             try {
                 $model=Message::updateMessage($dataID,$newMessage);
@@ -126,11 +131,11 @@ class MessageController extends Controller
         }
     }
 
-    public function get(int $uploaded = 0)
+    public function get()
     {
         $result = [];
         try {
-            $model = Message::getMessage($uploaded);
+            $model = Message::getMessage();
             foreach ($model as $message) {
                 array_push($result, $message['text_message']);
             }

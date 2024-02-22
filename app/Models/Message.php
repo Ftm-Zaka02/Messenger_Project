@@ -38,7 +38,7 @@ class Message extends Model
         $model = self::where('chat_name', $chatListName)->delete();
         return $model;
     }
-    public static function getMessage($uploaded=0)
+    public static function getMessage()
     {
         $model=self::orderBy('send_time')->get();
         return $model;

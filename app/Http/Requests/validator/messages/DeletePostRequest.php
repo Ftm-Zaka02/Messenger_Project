@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\validator\messages;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePostRequest extends FormRequest
+class DeletePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
+    protected $stopOnFirstFailure = true;
+
     public function authorize()
     {
         return true;
@@ -24,7 +26,9 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'activeChatList' => 'nullable|max:255',
+            'dataID' => 'nullable|max:3',
+            'deleteType' => 'required|max:255',
         ];
     }
 }
