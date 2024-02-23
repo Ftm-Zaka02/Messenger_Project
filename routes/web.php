@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::prefix('messages')->group(function () {
     Route::post('/set', [MessageController::class, 'set']);
-    Route::get('/get/{uploaded?}', [MessageController::class, 'get']);
+    Route::get('/get', [MessageController::class, 'get']);
     Route::get('/update', [MessageController::class, 'update']);
     Route::get('/delete', [MessageController::class, 'delete']);
 });

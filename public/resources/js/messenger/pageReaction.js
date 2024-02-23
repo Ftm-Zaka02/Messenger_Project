@@ -760,7 +760,7 @@ function creatMessageMenu(messageBox) {
 
 //! fetch data from database
 
-let uploaded = 0;
+let uploaded = 1;
 
 const uploadMessage = async () => {
     await $.ajax({
@@ -769,7 +769,7 @@ const uploadMessage = async () => {
         dataType: "json",
         data: {uploaded: uploaded},
         success: function (response) {
-            data = response["data"];
+            data = response["data"]["data"];
             for (let i = 0; i < data.length; i++) {
                 let {id, text_message, user_id, send_time, chat_name} = data[i];
                 function getTime(send_time) {
@@ -788,7 +788,7 @@ const uploadMessage = async () => {
                     continue;
                 }
             }
-            uploaded += data.length;
+            uploaded += 1;
         },
     });
 };
@@ -797,8 +797,8 @@ $("#dialog__refresh").click(() => {
     uploadMessage();
 });
 
-// $(document).ready(function () {
-//     setInterval(() => {
-//         uploadMessage();
-//     }, 3000);
-// });
+$(document).ready(function () {
+    setInterval(() => {
+        uploadMessage();
+    }, 5000);
+});
