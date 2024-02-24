@@ -797,8 +797,8 @@ $("#dialog__refresh").click(() => {
     uploadMessage();
 });
 
-$(document).ready(function () {
-    setInterval(() => {
-        uploadMessage();
-    }, 5000);
-});
+// $(document).ready(function () {
+//     setInterval(() => {
+//         uploadMessage();
+//     }, 10000);
+// });

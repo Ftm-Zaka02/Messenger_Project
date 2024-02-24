@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('messenger.index');
 });
 
-Route::prefix('messages')->group(function () {
+Route::prefix('messages')->middleware(['throttle:messenger'])->group(function () {
     Route::post('/set', [MessageController::class, 'set']);
     Route::get('/get', [MessageController::class, 'get']);
     Route::get('/update', [MessageController::class, 'update']);
