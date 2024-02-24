@@ -686,7 +686,7 @@ function updateMessage(messageBox) {
                 dataType: "json",
                 data: {dataID: dataID, newMessage: newMessage},
                 success: function (response) {
-                    if(response["data"])
+                    if (response["data"])
                         span.textContent = newMessage;
                     dialog.value = null;
                 },
@@ -772,6 +772,7 @@ const uploadMessage = async () => {
             data = response["data"]["data"];
             for (let i = 0; i < data.length; i++) {
                 let {id, text_message, user_id, send_time, chat_name} = data[i];
+
                 function getTime(send_time) {
                     const date = new Date(send_time * 1000);
                     const time = [date.getHours(), date.getMinutes()];
@@ -802,3 +803,6 @@ $("#dialog__refresh").click(() => {
 //         uploadMessage();
 //     }, 10000);
 // });
+$("#dialog__attach").click(() => {
+    document.getElementById('uploadFileForm').style = "display:block;";
+})

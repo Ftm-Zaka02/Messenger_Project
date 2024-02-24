@@ -99,6 +99,13 @@
             <div id="footerChannels" class="dialog__footer--channels" style="display: none">
                 بی صدا
             </div>
+
+            <form id="uploadFileForm" method="post" enctype="multipart/form-data" class="section-Contact ">
+                @csrf
+                <input type="file" name='file'>
+                <button id='uploadBtn' type="submit" class="submit-add">upload</button>
+            </form>
+
         </div>
     </div>
 </section>

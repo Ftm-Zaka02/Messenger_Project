@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\validator\messages\SetPostRequest;
 use App\Http\Requests\validator\messages\DeletePostRequest;
 use App\Http\Requests\validator\messages\UpdatePostRequest;
@@ -130,7 +131,6 @@ class MessageController extends Controller
             }
         }
     }
-
     public function get(Request $request)
     {
         $uploaded=$request->input('uploaded');
@@ -150,4 +150,5 @@ class MessageController extends Controller
             return response($response, 500);
         }
     }
+
 }

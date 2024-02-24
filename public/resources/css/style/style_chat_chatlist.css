@@ -193,3 +193,13 @@
     background: #46b1ef;
     min-height: max-content;
 }
+#uploadFileForm{
+    display: none;
+    width: 300px;
+    height: 150px;
+    justify-content: space-between;
+    margin: 60px;
+    top: 200px;
+    left: 300px;
+}
+
