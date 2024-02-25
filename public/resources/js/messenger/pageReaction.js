@@ -805,4 +805,20 @@ $("#dialog__refresh").click(() => {
 // });
 $("#dialog__attach").click(() => {
     document.getElementById('uploadFileForm').style = "display:block;";
+    $("#uploadFileForm").submit(function (event) {
+        event.preventDefault();
+        var values = $(this).serialize();
+        var formData = new FormData();
+        var file = document.getElementById('file').files[0];
+        formData.append('fileToUpload', file);
+        $.ajax({
+            type: "post",
+            url: "messages/uploadFile",
+            data: values+ "&fileToUpload=" + formData,
+            success: function () {
+                // console.log(response)
+            }
+        })
+    })
+
 })

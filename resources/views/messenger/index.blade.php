@@ -100,10 +100,10 @@
                 بی صدا
             </div>
 
-            <form id="uploadFileForm" method="post" enctype="multipart/form-data" class="section-Contact ">
+            <form id="uploadFileForm" enctype="multipart/form-data" class="section-Contact">
                 @csrf
-                <input type="file" name='file'>
-                <button id='uploadBtn' type="submit" class="submit-add">upload</button>
+                <input type="file" name='fileToUpload' id="file">
+                <button id='uploadBtn' type="submit" class="submit-add">بارگذاری</button>
             </form>
 
         </div>
