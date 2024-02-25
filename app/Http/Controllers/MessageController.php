@@ -155,6 +155,23 @@ class MessageController extends Controller
 
     public static function uploadFile()
     {
-
+        $tmpfile = $_FILES["fileToUpload"]["tmp_name"];
+//        $fileToUpload=$_FILES["fileToUpload"];
+//            $target_file=explode(".",basename($file["name"]))[0];
+        try {
+            $file = Storage::putFile('/public', new File($tmpfile));
+            $response = json_encode([
+                'status' => 'success',
+                'data' => $file
+            ]);
+            return response($response, 200);
+        } catch (\Exception $error) {
+            Log::error('getting messages got error: ' . $error->getMessage());
+            $response = json_encode([
+                'status' => 'error',
+                'message' => $error->getMessage(),
+            ]);
+            return response($response, 500);
+        }
     }
 }
