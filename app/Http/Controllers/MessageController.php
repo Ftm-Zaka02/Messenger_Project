@@ -8,6 +8,8 @@ use App\Http\Requests\validator\messages\UpdatePostRequest;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
 
 class MessageController extends Controller
 {
@@ -150,5 +152,9 @@ class MessageController extends Controller
             return response($response, 500);
         }
     }
-    
+
+    public static function uploadFile()
+    {
+
+    }
 }
