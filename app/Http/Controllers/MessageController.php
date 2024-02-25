@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\validator\messages\DeletePostRequest;
+use App\Http\Requests\validator\messages\SetPostRequest;
+use App\Http\Requests\validator\messages\UpdatePostRequest;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
-use App\Http\Requests\validator\messages\SetPostRequest;
-use App\Http\Requests\validator\messages\DeletePostRequest;
-use App\Http\Requests\validator\messages\UpdatePostRequest;
+
 class MessageController extends Controller
 {
     public function set(SetPostRequest $request)
@@ -18,14 +18,14 @@ class MessageController extends Controller
         $messageText = strip_tags(trim($validated['dialogMessage']));
         if (!empty($messageText)) {
             try {
-                $model=Message::insertMessage($chatName,$messageText);
+                $model = Message::insertMessage($chatName, $messageText);
                 $response = json_encode([
                     'status' => 'success',
                     'data' => $model,
                 ]);
                 return response($response, 200);
             } catch (\Exception $error) {
-                Log::error('creating message got error: '.$error->getMessage());
+                Log::error('creating message got error: ' . $error->getMessage());
                 $response = json_encode([
                     'status' => 'error',
                     'message' => $error->getMessage(),
@@ -46,14 +46,14 @@ class MessageController extends Controller
             {
                 if (!empty($dataID)) {
                     try {
-                        $model=Message::physicalDeleteMessage($dataID);
+                        $model = Message::physicalDeleteMessage($dataID);
                         $response = json_encode([
                             'status' => 'success',
                             'data' => $model,
                         ]);
                         return response($response, 200);
                     } catch (\Exception $error) {
-                        Log::error('deleting message got error: '.$error->getMessage());
+                        Log::error('deleting message got error: ' . $error->getMessage());
                         $response = json_encode([
                             'status' => 'error',
                             'message' => $error->getMessage(),
@@ -74,7 +74,7 @@ class MessageController extends Controller
                         ]);
                         return response($response, 200);
                     } catch (\Exception $error) {
-                        Log::error('deleting message got error: '.$error->getMessage());
+                        Log::error('deleting message got error: ' . $error->getMessage());
                         $response = json_encode([
                             'status' => 'error',
                             'message' => $error->getMessage(),
@@ -88,14 +88,14 @@ class MessageController extends Controller
             {
                 if (!empty($chatListName)) {
                     try {
-                        $model=Message::chatHistoryDelete($chatListName);
+                        $model = Message::chatHistoryDelete($chatListName);
                         $response = json_encode([
                             'status' => 'success',
                             'data' => $model,
                         ]);
                         return response($response, 200);
                     } catch (\Exception $error) {
-                        Log::error('deleting history got error: '.$error->getMessage());
+                        Log::error('deleting history got error: ' . $error->getMessage());
                         $response = json_encode([
                             'status' => 'error',
                             'message' => $error->getMessage(),
@@ -115,14 +115,14 @@ class MessageController extends Controller
         $newMessage = strip_tags(trim($validated['newMessage']));
         if (!empty($dataID)) {
             try {
-                $model=Message::updateMessage($dataID,$newMessage);
+                $model = Message::updateMessage($dataID, $newMessage);
                 $response = json_encode([
                     'status' => 'success',
                     'data' => $model,
                 ]);
                 return response($response, 200);
             } catch (\Exception $error) {
-                Log::error('updating message got error: '.$error->getMessage());
+                Log::error('updating message got error: ' . $error->getMessage());
                 $response = json_encode([
                     'status' => 'error',
                     'message' => $error->getMessage(),
@@ -133,7 +133,7 @@ class MessageController extends Controller
     }
     public function get(Request $request)
     {
-        $uploaded=$request->input('uploaded');
+        $uploaded = $request->input('uploaded');
         try {
             $model = Message::getMessage($uploaded);
             $response = json_encode([
@@ -142,7 +142,7 @@ class MessageController extends Controller
             ]);
             return response($response, 200);
         } catch (\Exception $error) {
-            Log::error('getting messages got error: '.$error->getMessage());
+            Log::error('getting messages got error: ' . $error->getMessage());
             $response = json_encode([
                 'status' => 'error',
                 'message' => $error->getMessage(),
@@ -150,5 +150,5 @@ class MessageController extends Controller
             return response($response, 500);
         }
     }
-
+    
 }

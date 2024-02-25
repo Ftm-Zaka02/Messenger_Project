@@ -807,18 +807,24 @@ $("#dialog__attach").click(() => {
     document.getElementById('uploadFileForm').style = "display:block;";
     $("#uploadFileForm").submit(function (event) {
         event.preventDefault();
-        var values = $(this).serialize();
-        var formData = new FormData();
         var file = document.getElementById('file').files[0];
-        formData.append('fileToUpload', file);
+        var formData = $('#uploadFileForm').serialize();
+        var combinedData = new FormData();
+        combinedData.append('fileToUpload', file);
+        formData = decodeURIComponent(formData.replace(/\+/g, ' '));
+        $.each(formData.split('&'), function (index, field) {
+            var kv = field.split('=');
+            combinedData.append(kv[0], kv[1]);
+        });
         $.ajax({
-            type: "post",
-            url: "messages/uploadFile",
-            data: values+ "&fileToUpload=" + formData,
-            success: function () {
-                // console.log(response)
+            url: 'messages/uploadFile',
+            type: 'POST',
+            data: combinedData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                $("#uploadFileForm").remove();
             }
-        })
+        });
     })
-
 })
