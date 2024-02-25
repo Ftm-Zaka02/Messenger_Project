@@ -57,6 +57,9 @@ return [
         ],
 
     ],
+    'links' => [
+        public_path('storage/uploaded') => storage_path('app/public'),
+    ],
 
     /*
     |--------------------------------------------------------------------------
