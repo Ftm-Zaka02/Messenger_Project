@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\validator\messages\DeletePostRequest;
 use App\Http\Requests\validator\messages\SetPostRequest;
 use App\Http\Requests\validator\messages\UpdatePostRequest;
+use App\Http\Requests\validator\messages\UploadFileRequest;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\File;
 
 class MessageController extends Controller
 {
@@ -133,6 +132,7 @@ class MessageController extends Controller
             }
         }
     }
+
     public function get(Request $request)
     {
         $uploaded = $request->input('uploaded');
@@ -152,26 +152,24 @@ class MessageController extends Controller
             return response($response, 500);
         }
     }
-
-    public static function uploadFile()
+    public static function uploadFile(Request $request)
     {
-        $tmpfile = $_FILES["fileToUpload"]["tmp_name"];
-//        $fileToUpload=$_FILES["fileToUpload"];
-//            $target_file=explode(".",basename($file["name"]))[0];
-        try {
-            $file = Storage::putFile('/public', new File($tmpfile));
-            $response = json_encode([
-                'status' => 'success',
-                'data' => $file
-            ]);
-            return response($response, 200);
-        } catch (\Exception $error) {
-            Log::error('getting messages got error: ' . $error->getMessage());
-            $response = json_encode([
-                'status' => 'error',
-                'message' => $error->getMessage(),
-            ]);
-            return response($response, 500);
+        if ($request->hasFile('fileToUpload') && $request->file('fileToUpload')->isValid()) {
+            try {
+                $path = $request->file('fileToUpload')->store('uploads', 'public');
+                $response = json_encode([
+                    'status' => 'success',
+                    'data' => $path
+                ]);
+                return response($response, 200);
+            } catch (\Exception $error) {
+                Log::error('getting messages got error: ' . $error->getMessage());
+                $response = json_encode([
+                    'status' => 'error',
+                    'message' => $error->getMessage(),
+                ]);
+                return response($response, 500);
+            }
         }
     }
 }
