@@ -152,11 +152,13 @@ class MessageController extends Controller
             return response($response, 500);
         }
     }
-    public static function uploadFile(Request $request)
+    public static function uploadFile(UploadFileRequest $request)
     {
         if ($request->hasFile('fileToUpload') && $request->file('fileToUpload')->isValid()) {
+            $validated=$request->validated();
+            $fileToUpload=$validated['fileToUpload'];
             try {
-                $path = $request->file('fileToUpload')->store('uploads', 'public');
+                $path = $fileToUpload->store('uploaded', 'public');
                 $response = json_encode([
                     'status' => 'success',
                     'data' => $path
