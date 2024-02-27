@@ -39,12 +39,11 @@ class MessageController extends Controller
     public function delete(DeletePostRequest $request)
     {
         $validated = $request->validated();
-        $dataID = $validated['dataID'];
         $deleteType = $validated['deleteType'];
-//        $chatListName = $validated['activeChatList'];
         switch ($deleteType) {
             case 'physicalDelete':
             {
+                $dataID = $validated['dataID'];
                 if (!empty($dataID)) {
                     try {
                         $model = Message::physicalDeleteMessage($dataID);
@@ -66,6 +65,7 @@ class MessageController extends Controller
             }
             case 'softDelete':
             {
+                $dataID = $validated['dataID'];
                 if (!empty($dataID)) {
                     try {
                         $model = Message::softDeleteMessage($dataID);
@@ -87,6 +87,7 @@ class MessageController extends Controller
             }
             case 'integrated':
             {
+                $chatListName = $validated['chatListName'];
                 if (!empty($chatListName)) {
                     try {
                         $model = Message::chatHistoryDelete($chatListName);
