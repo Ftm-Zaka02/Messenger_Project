@@ -16,8 +16,9 @@ class MessageController extends Controller
     {
         $validated = $request->validated();
         $fileToUpload = $validated['fileToUpload'];
+        $fileName = $fileToUpload->getClientOriginalName();
         try {
-            $path = $fileToUpload->store('uploaded', 'public');
+            $path = $fileToUpload->storeAs('public/uploaded', $fileName);
             $response = json_encode([
                 'status' => 'success',
                 'data' => $path
