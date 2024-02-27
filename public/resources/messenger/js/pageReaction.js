@@ -161,7 +161,7 @@ const CreateContactBox = (object) => {
         activeChatlist = chatlistName.textContent;
         nameDialog.textContent = chatlistName.textContent;
         dialogSection.setAttribute("style", "display:block;");
-        fetch("resources/js/jsonFiles/ChatList.json")
+        fetch("resources/messenger/js/jsonFiles/ChatList.json")
             .then(function (response) {
                 return response.json();
             })
@@ -237,7 +237,7 @@ const CreateContactBox = (object) => {
     chatlistMessage.classList.add("chatlist__message");
 
     if (object.profile === undefined) {
-        chatlistImg.src = "../../image/user.png";
+        chatlistImg.src = "../image/user.png";
     } else if (object.profile !== "") {
         chatlistImg.src = object.profile;
     }
@@ -330,7 +330,7 @@ const refreshChatlist = function () {
         ContactlistSection.innerHTML = "";
     }
 
-    fetch("resources/js/jsonFiles/Contacts.json")
+    fetch("resources/messenger/js/jsonFiles/Contacts.json")
         .then(function (response) {
             return response.json();
         })
@@ -382,7 +382,7 @@ const sendMesseg = (
     messagePhoto.setAttribute("class", "message__photo");
 
     let messageImg = document.createElement("img");
-    messageImg.src = "../../resources/image/user.png";
+    messageImg.src = "../../resources/messenger/image/user.png";
     messageImg.setAttribute("class", "message__img");
 
     messagePhoto.appendChild(messageImg);
