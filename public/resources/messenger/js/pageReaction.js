@@ -653,7 +653,6 @@ $("#deleteChat").click(() => {
             dataType: "json",
             data: {chatListName: activeChatlist, deleteType: "integrated"},
             success: function (res) {
-                console.log(res);
                 let messages = document.getElementsByClassName("message");
                 let len = messages.length - 1;
                 for (let i = len; i >= 0; i--) {

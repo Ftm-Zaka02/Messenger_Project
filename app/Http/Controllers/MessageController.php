@@ -12,28 +12,48 @@ use Illuminate\Support\Facades\Log;
 
 class MessageController extends Controller
 {
+    public static function uploadFile(UploadFileRequest $request)
+    {
+        $validated = $request->validated();
+        $fileToUpload = $validated['fileToUpload'];
+        try {
+            $path = $fileToUpload->store('uploaded', 'public');
+            $response = json_encode([
+                'status' => 'success',
+                'data' => $path
+            ]);
+            return response($response, 200);
+        } catch (\Exception $error) {
+            Log::error('getting messages got error: ' . $error->getMessage());
+            $response = json_encode([
+                'status' => 'error',
+                'message' => $error->getMessage(),
+            ]);
+            return response($response, 500);
+        }
+    }
+
     public function set(SetPostRequest $request)
     {
         $validated = $request->validated();
         $chatName = $validated['activeChatList'];
         $messageText = strip_tags(trim($validated['dialogMessage']));
-        if (!empty($messageText)) {
-            try {
-                $model = Message::insertMessage($chatName, $messageText);
-                $response = json_encode([
-                    'status' => 'success',
-                    'data' => $model,
-                ]);
-                return response($response, 200);
-            } catch (\Exception $error) {
-                Log::error('creating message got error: ' . $error->getMessage());
-                $response = json_encode([
-                    'status' => 'error',
-                    'message' => $error->getMessage(),
-                ]);
-                return response($response, 500);
-            }
+        try {
+            $model = Message::insertMessage($chatName, $messageText);
+            $response = json_encode([
+                'status' => 'success',
+                'data' => $model,
+            ]);
+            return response($response, 200);
+        } catch (\Exception $error) {
+            Log::error('creating message got error: ' . $error->getMessage());
+            $response = json_encode([
+                'status' => 'error',
+                'message' => $error->getMessage(),
+            ]);
+            return response($response, 500);
         }
+
     }
 
     public function delete(DeletePostRequest $request)
@@ -115,23 +135,22 @@ class MessageController extends Controller
         $validated = $request->validated();
         $dataID = strip_tags(trim($validated['dataID']));
         $newMessage = strip_tags(trim($validated['newMessage']));
-        if (!empty($dataID)) {
-            try {
-                $model = Message::updateMessage($dataID, $newMessage);
-                $response = json_encode([
-                    'status' => 'success',
-                    'data' => $model,
-                ]);
-                return response($response, 200);
-            } catch (\Exception $error) {
-                Log::error('updating message got error: ' . $error->getMessage());
-                $response = json_encode([
-                    'status' => 'error',
-                    'message' => $error->getMessage(),
-                ]);
-                return response($response, 500);
-            }
+        try {
+            $model = Message::updateMessage($dataID, $newMessage);
+            $response = json_encode([
+                'status' => 'success',
+                'data' => $model,
+            ]);
+            return response($response, 200);
+        } catch (\Exception $error) {
+            Log::error('updating message got error: ' . $error->getMessage());
+            $response = json_encode([
+                'status' => 'error',
+                'message' => $error->getMessage(),
+            ]);
+            return response($response, 500);
         }
+
     }
 
     public function get(Request $request)
@@ -151,28 +170,6 @@ class MessageController extends Controller
                 'message' => $error->getMessage(),
             ]);
             return response($response, 500);
-        }
-    }
-    public static function uploadFile(UploadFileRequest $request)
-    {
-        if ($request->hasFile('fileToUpload') && $request->file('fileToUpload')->isValid()) {
-            $validated=$request->validated();
-            $fileToUpload=$validated['fileToUpload'];
-            try {
-                $path = $fileToUpload->store('uploaded', 'public');
-                $response = json_encode([
-                    'status' => 'success',
-                    'data' => $path
-                ]);
-                return response($response, 200);
-            } catch (\Exception $error) {
-                Log::error('getting messages got error: ' . $error->getMessage());
-                $response = json_encode([
-                    'status' => 'error',
-                    'message' => $error->getMessage(),
-                ]);
-                return response($response, 500);
-            }
         }
     }
 }
