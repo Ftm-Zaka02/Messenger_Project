@@ -29,7 +29,7 @@ class Message extends Model
 
     public static function physicalDeleteMessage($dataID)
     {
-        $model = self::find($dataID)->delete();
+        $model = self::find($dataID)->forceDelete();
         return $model;
     }
 
@@ -41,7 +41,7 @@ class Message extends Model
 
     public static function chatHistoryDelete($chatListName)
     {
-        $model = self::where('chat_name', $chatListName)->delete();
+        $model = self::where('chat_name', $chatListName)->forceDelete();
         return $model;
     }
 
