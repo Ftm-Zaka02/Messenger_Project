@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('messenger.index');
 });
+Route::get('/loginPage', function () {
+    return view('messenger.login');
+});
 
 Route::prefix('messages')->middleware(['throttle:messenger'])->group(function () {
     Route::post('/set', [MessageController::class, 'set']);

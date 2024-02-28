@@ -122,6 +122,6 @@
         </div>
       </div>
     </div>
-    <script src="{{asset("resources/messenger/js/validationSignin.js")}}"></script>
+    <script src="{{asset("resources/messenger/js/validationLogin.js")}}"></script>
   </body>
 </html>
