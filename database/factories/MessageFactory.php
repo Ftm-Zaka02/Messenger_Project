@@ -1,11 +1,11 @@
 <?php
 
 namespace Database\Factories;
+use App\Models\messenger\Message;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Message;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Message>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\messenger\Message>
  */
 class MessageFactory extends Factory
 {

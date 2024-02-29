@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\messenger;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\validator\messages\DeletePostRequest;
 use App\Http\Requests\validator\messages\SetPostRequest;
 use App\Http\Requests\validator\messages\UpdatePostRequest;
 use App\Http\Requests\validator\messages\UploadFileRequest;
-use App\Models\Message;
+use App\Models\messenger\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
