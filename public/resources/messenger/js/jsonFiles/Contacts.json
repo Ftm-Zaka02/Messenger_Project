@@ -1,33 +1,18 @@
 [
   {
     "nationalCode": "",
-    "fName": "Go Channel",
+    "fName": "Php Channel",
     "lName": "",
     "phone": "",
-    "fullNname": "Go Channel",
-    "userName": "@go_channel",
+    "fullNname": "Php Channel",
+    "userName": "@php_channel",
     "profile": "../../resources/messenger/image/user.png",
     "chatType": "channel",
-    "sender": "Go Channel",
-    "lastMessage": "Golang",
+    "sender": "Php Channel",
+    "lastMessage": "Php",
     "date": "12:00 ب.ط",
     "numberMessages": "10",
     "messageSendingStatus": ""
-  },
-  {
-    "nationalCode": "0927088177",
-    "fName": "Donya",
-    "lName": "Dastkin",
-    "phone": "09399652583",
-    "fullNname": "Donya Dastkin",
-    "userName": "@donyaa-583",
-    "profile": "../../resources/messenger/image/user.png",
-    "chatType": "pv",
-    "sender": "Donya Dastkin",
-    "lastMessage": "Hiii",
-    "date": "13:00 ب.ط",
-    "numberMessages": "2",
-    "messageSendingStatus": "send"
   },
   {
     "nationalCode": "",
