@@ -26,7 +26,7 @@ class DeletePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'chatListName' => 'nullable|max:255',
+            'chatListName' => 'nullable|max:255|string',
             'dataID' => 'nullable|max:3',
             'deleteType' => 'required|max:255',
         ];
