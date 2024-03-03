@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    session(['userID' => '191']);
     return view('messenger.index');
 });
 Route::get('/loginPage', function () {

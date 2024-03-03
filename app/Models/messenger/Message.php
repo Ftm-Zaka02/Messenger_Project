@@ -15,10 +15,10 @@ class Message extends Model
     protected $table = 'messages';
     protected $fillable = ['text_message', 'send_time', 'user_id', 'chat_type', 'chat_name', 'deleted_at'];
 
-    public static function insertMessage($chatName, $messageText)
+    public static function insertMessage($chatName, $messageText,$userID)
     {
         $currentTime = time();
-        $model = self::create(['text_message' => $messageText, 'send_time' => $currentTime, 'user_id' => 191, 'chat_name' => $chatName]);
+        $model = self::create(['text_message' => $messageText, 'send_time' => $currentTime, 'user_id' => $userID, 'chat_name' => $chatName]);
         return $model;
     }
 

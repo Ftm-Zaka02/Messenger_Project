@@ -38,10 +38,11 @@ class MessageController extends Controller
     public function set(SetPostRequest $request)
     {
         $validated = $request->validated();
+        $userID = $request->session()->get('userID');
         $chatName = $validated['activeChatList'];
         $messageText = strip_tags(trim($validated['dialogMessage']));
         try {
-            $model = Message::insertMessage($chatName, $messageText);
+            $model = Message::insertMessage($chatName, $messageText, $userID);
             $response = json_encode([
                 'status' => 'success',
                 'data' => $model,
@@ -55,7 +56,26 @@ class MessageController extends Controller
             ]);
             return response($response, 500);
         }
+    }
 
+    public function get(Request $request)
+    {
+        $uploaded = $request->input('uploaded');
+        try {
+            $model = Message::getMessage($uploaded);
+            $response = json_encode([
+                'status' => 'success',
+                'data' => $model
+            ]);
+            return response($response, 200);
+        } catch (\Exception $error) {
+            Log::error('getting messages got error: ' . $error->getMessage());
+            $response = json_encode([
+                'status' => 'error',
+                'message' => $error->getMessage(),
+            ]);
+            return response($response, 500);
+        }
     }
 
     public function delete(DeletePostRequest $request)
@@ -153,25 +173,5 @@ class MessageController extends Controller
             return response($response, 500);
         }
 
-    }
-
-    public function get(Request $request)
-    {
-        $uploaded = $request->input('uploaded');
-        try {
-            $model = Message::getMessage($uploaded);
-            $response = json_encode([
-                'status' => 'success',
-                'data' => $model
-            ]);
-            return response($response, 200);
-        } catch (\Exception $error) {
-            Log::error('getting messages got error: ' . $error->getMessage());
-            $response = json_encode([
-                'status' => 'error',
-                'message' => $error->getMessage(),
-            ]);
-            return response($response, 500);
-        }
     }
 }
