@@ -181,7 +181,7 @@ $("#SigninForm").submit(function (event) {
     var values = $(this).serialize();
     $.ajax({
         type: "post",
-        url: "signin",
+        url: "login",
         data: values,
         success: function () {
         },

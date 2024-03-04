@@ -30,6 +30,7 @@ Route::prefix('messages')->middleware(['throttle:messenger'])->group(function ()
     Route::post('/uploadFile',[MessageController::class, 'uploadFile']);
 });
 
+Route::post('/login',[AuthController::class, 'login']);
 
 
 
