@@ -227,7 +227,7 @@ form {
 }
 
 .overlay {
-    background-image: url(../image/back_login.jpg);
+    background-image: url(../../image/back_login.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     color: #FFF;

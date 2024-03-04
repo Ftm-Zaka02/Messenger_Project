@@ -61,12 +61,10 @@
           </button>
         </form>
       </div>
-      <div
-        onkeydown="ValidationSignin()"
-        onchange="ValidationSignin()"
+      <div id="mainDiv"
         class="form-main sign-in-container"
       >
-        <form name="Signin" id="Signin" action="./index.blade.php" method="post">
+        <form name="Signin" action="./index.blade.php" method="post">
           <h1>ورود به حساب</h1>
           <input
             class="input"
@@ -99,7 +97,7 @@
               مرا بخاطر بسپار!
             </label>
           </div>
-          <button type="submit" disabled id="SigninBtn" class="submit-disabled">
+          <button type="submit" disabled id="signinBtn" class="submit-disabled">
             ورود
           </button>
         </form>
@@ -109,7 +107,7 @@
           <div class="overlay-panel overlay-left">
             <h1>خوش اومدی</h1>
             <p>برای استفاده از خدمات ما ابتدا باید وارد حسابت بشی!</p>
-            <button class="submit" id="signIn">ورود</button>
+            <button class="submit" id="SignInButton">ورود</button>
           </div>
           <div class="overlay-panel overlay-right">
             <h1>سلام دوست من</h1>
@@ -117,11 +115,11 @@
               اگر هنوز نمیدونی چطور از خدمات ما استفاده کنی، فقط کافیه ثبت نام
               کنی!
             </p>
-            <button class="submit" id="signUp">ثبت نام</button>
+            <button class="submit" id="SignUpButton">ثبت نام</button>
           </div>
         </div>
       </div>
     </div>
-    <script src="{{asset("resources/messenger/js/validationLogin.js")}}"></script>
   </body>
+  <script src="{{asset("resources/messenger/js/validationLogin.js")}}"></script>
 </html>
