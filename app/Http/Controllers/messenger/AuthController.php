@@ -11,6 +11,6 @@ class AuthController extends Controller
 {
    public static function login(LoginRequest $request)
    {
-       $validated = $request->validated();
+
    }
 }
