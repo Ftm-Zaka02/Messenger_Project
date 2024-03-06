@@ -4,6 +4,7 @@ namespace App\Http\Controllers\messenger;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\validator\LoginRequest;
+use App\Http\Requests\validator\SignUpRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -34,6 +35,11 @@ class AuthController extends Controller
             ]);
             return response($response, 500);
         }
+
+    }
+
+    public static function signup(SignUpRequest $request)
+    {
 
     }
 }
