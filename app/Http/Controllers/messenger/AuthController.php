@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 
-
 class AuthController extends Controller
 {
     public static function login(LoginRequest $request)
@@ -40,8 +39,23 @@ class AuthController extends Controller
 
     }
 
-    public static function signup(SignUpRequest $request)
+    public static function signUp(SignUpRequest $request)
     {
-
+        $phone = $request['phone'];
+        $password = $request['password'];
+        try {
+            UserController::insert($phone, $password);
+            $response = json_encode([
+                'status' => 'success',
+            ]);
+            return response($response, 200);
+        } catch (\Exception $error) {
+            Log::error('inserting user got error: ' . $error->getMessage());
+            $response = json_encode([
+                'status' => 'error',
+                'message' => $error->getMessage(),
+            ]);
+            return response($response, 500);
+        }
     }
 }

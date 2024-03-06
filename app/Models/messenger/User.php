@@ -42,7 +42,7 @@ class User extends Authenticatable
 //    protected $casts = [
 //        'email_verified_at' => 'datetime',
 //    ];
-    public static function signUpUser($phone,$password)
+    public static function insertUser($phone,$password)
     {
         $model = self::create(['phone'=>$phone,'password'=>Hash::make($password)]);
         return $model;
