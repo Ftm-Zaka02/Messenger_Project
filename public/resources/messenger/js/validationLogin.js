@@ -187,4 +187,14 @@ $("#SigninForm").submit(function (event) {
         },
     });
 })
-
+$("#SignupForm").submit(function (event) {
+    event.preventDefault();
+    var values = $(this).serialize();
+    $.ajax({
+        type: "post",
+        url: "signup",
+        data: values,
+        success: function () {
+        },
+    });
+})
