@@ -32,6 +32,7 @@ Route::prefix('messages')->middleware(['throttle:messenger'])->group(function ()
 });
 
 Route::post('/login',[AuthController::class, 'login']);
+Route::post('/signup',[AuthController::class, 'signup']);
 
 
 
