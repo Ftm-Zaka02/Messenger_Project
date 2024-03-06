@@ -8,6 +8,8 @@ use App\Http\Requests\validator\SignUpRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
+
+
 class AuthController extends Controller
 {
     public static function login(LoginRequest $request)
