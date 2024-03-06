@@ -16,7 +16,8 @@
         onchange="ValidationSignup()"
         class="form-main sign-up-container"
     >
-        <form name="Signup" id="Signup" action="./index.blade.php" method="post">
+        <form name="Signup" id="SignupForm">
+            @csrf
             <h1>ساخت حساب کاربری</h1>
             <input
                 class="input"
@@ -66,7 +67,7 @@
     <div id="mainDiv"
          class="form-main sign-in-container"
     >
-        <form id="SigninForm" name="Signin" action="./index.blade.php" method="post">
+        <form id="SigninForm" name="Signin">
             @csrf
             <h1>ورود به حساب</h1>
             <input

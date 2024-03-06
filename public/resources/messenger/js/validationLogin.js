@@ -86,7 +86,7 @@ const ValidationSignup = () => {
         Password === false &&
         Filde === false
     ) {
-        signupBtn.disabled = false;
+        signupBtn.disabled = true;
         signupBtn.setAttribute("class", "submit_disabled");
     } else if (
         Phone !== false &&
@@ -95,7 +95,7 @@ const ValidationSignup = () => {
         Filde !== false
     ) {
         ErrorMessageS.textContent = "";
-        signupBtn.disabled = true;
+        signupBtn.disabled = false;
         signupBtn.setAttribute("class", "submit");
     }
 };
@@ -187,3 +187,4 @@ $("#SigninForm").submit(function (event) {
         },
     });
 })
+
