@@ -38,6 +38,7 @@ class MessageController extends Controller
     public function set(SetPostRequest $request)
     {
         $validated = $request->validated();
+        $userID=191;
         $chatName = $validated['activeChatList'];
         $messageText = strip_tags(trim($validated['dialogMessage']));
         try {

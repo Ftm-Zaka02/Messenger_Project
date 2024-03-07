@@ -17,11 +17,12 @@ return new class extends Migration
             $table->id();
             $table->longText('text_message');
             $table->integer('send_time');
-            $table->smallInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->text('chat_name');
             $table->enum('chat_type', ['pv','group','channel'])->default('group');
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('message');
+        Schema::dropIfExists('messages');
     }
 };
