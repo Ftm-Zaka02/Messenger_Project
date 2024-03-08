@@ -15,7 +15,8 @@ class MessageController extends Controller
 {
     public static function uploadFile(UploadFileRequest $request)
     {
-        $fileToUpload = $request['fileToUpload'];
+        $data=$request->validated();
+        $fileToUpload = $data['fileToUpload'];
         $fileName = $fileToUpload->getClientOriginalName();
         try {
             $path = $fileToUpload->storeAs('public/uploaded', $fileName);
@@ -36,9 +37,10 @@ class MessageController extends Controller
 
     public function set(SetPostRequest $request)
     {
+        $data=$request->validated();
         $userID=191;
-        $chatName = $request['activeChatList'];
-        $messageText = strip_tags(trim($request['dialogMessage']));
+        $chatName = $data['activeChatList'];
+        $messageText = strip_tags(trim($data['dialogMessage']));
         try {
             $model = Message::insertMessage($chatName, $messageText, $userID);
             $response = json_encode([
@@ -78,11 +80,12 @@ class MessageController extends Controller
 
     public function delete(DeletePostRequest $request)
     {
-        $deleteType = $request['deleteType'];
+        $data=$request->validated();
+        $deleteType = $data['deleteType'];
         switch ($deleteType) {
             case 'physicalDelete':
             {
-                $dataID = $request['dataID'];
+                $dataID = $data['dataID'];
                 if (!empty($dataID)) {
                     try {
                         $model = Message::physicalDeleteMessage($dataID);
@@ -104,7 +107,7 @@ class MessageController extends Controller
             }
             case 'softDelete':
             {
-                $dataID = $request['dataID'];
+                $dataID = $data['dataID'];
                 if (!empty($dataID)) {
                     try {
                         $model = Message::softDeleteMessage($dataID);
@@ -126,7 +129,7 @@ class MessageController extends Controller
             }
             case 'integrated':
             {
-                $chatListName = $request['chatListName'];
+                $chatListName = $data['chatListName'];
                 if (!empty($chatListName)) {
                     try {
                         $model = Message::chatHistoryDelete($chatListName);
@@ -151,8 +154,9 @@ class MessageController extends Controller
 
     public function update(UpdatePostRequest $request)
     {
-        $dataID = strip_tags(trim($request['dataID']));
-        $newMessage = strip_tags(trim($request['newMessage']));
+        $data=$request->validated();
+        $dataID = strip_tags(trim($data['dataID']));
+        $newMessage = strip_tags(trim($data['newMessage']));
         try {
             $model = Message::updateMessage($dataID, $newMessage);
             $response = json_encode([
