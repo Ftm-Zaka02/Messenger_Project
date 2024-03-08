@@ -5,7 +5,6 @@ namespace App\Http\Controllers\messenger;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\validator\LoginRequest;
 use App\Http\Requests\validator\SignUpRequest;
-use App\Models\messenger\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -45,7 +44,7 @@ class AuthController extends Controller
         $phone = $request['phone'];
         $password = $request['password'];
         try {
-            User::insertUser($phone, $password);
+            \App\Models\User::insertUser($phone, $password);
             $response = json_encode([
                 'status' => 'success',
             ]);
