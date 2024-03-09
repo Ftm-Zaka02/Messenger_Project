@@ -10,6 +10,8 @@ use App\Http\Requests\validator\messages\UploadFileRequest;
 use App\Models\messenger\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+
 
 class MessageController extends Controller
 {
@@ -38,7 +40,7 @@ class MessageController extends Controller
     public function set(SetPostRequest $request)
     {
         $data=$request->validated();
-        $userID=191;
+        $userID=Auth::user()->getAuthIdentifier();
         $chatName = $data['activeChatList'];
         $messageText = strip_tags(trim($data['dialogMessage']));
         try {

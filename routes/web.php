@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('messenger.index');
-})->middleware('auth');
+})->middleware('auth')->name('chat');
+
 Route::get('/loginPage', function () {
     return view('messenger.login');
 })->name('login');
