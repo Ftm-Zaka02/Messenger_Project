@@ -67,7 +67,7 @@
     <div id="mainDiv"
          class="form-main sign-in-container"
     >
-        <form id="SigninForm" name="Signin">
+        <form id="SigninForm" name="Signin" method="post" action="/login">
             @csrf
             <h1>ورود به حساب</h1>
             <input

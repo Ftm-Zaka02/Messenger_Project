@@ -176,17 +176,18 @@ const ValidationSignin = () => {
 mainDiv.addEventListener("keydown", ValidationSignin)
 mainDiv.addEventListener("change", ValidationSignin)
 
-$("#SigninForm").submit(function (event) {
-    event.preventDefault();
-    var values = $(this).serialize();
-    $.ajax({
-        type: "post",
-        url: "login",
-        data: values,
-        success: function () {
-        },
-    });
-})
+// $("#SigninForm").submit(function (event) {
+//     event.preventDefault();
+//     var values = $(this).serialize();
+//     $.ajax({
+//         type: "post",
+//         url: "login",
+//         data: values,
+//         success: function () {
+//         },
+//     });
+// })
+
 $("#SignupForm").submit(function (event) {
     event.preventDefault();
     var values = $(this).serialize();

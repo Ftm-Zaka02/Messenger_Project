@@ -20,13 +20,13 @@ class AuthController extends Controller
                 $response = json_encode([
                     'status' => 'success',
                 ]);
-                return response($response, 200);
+                return redirect()->route('chat');
             } else {
                 $response = json_encode([
                     'status' => 'failed',
                     'message' => 'phone and password not match!',
                 ]);
-                return response($response, 403);
+                return redirect()->back()->withErrors($response);
             }
         } catch (\Exception $error) {
             Log::error('Login user got error: ' . $error->getMessage());
@@ -36,7 +36,6 @@ class AuthController extends Controller
             ]);
             return response($response, 500);
         }
-
     }
 
     public static function signUp(SignUpRequest $request)
