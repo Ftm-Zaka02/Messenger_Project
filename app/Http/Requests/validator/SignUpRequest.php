@@ -3,6 +3,7 @@
 namespace App\Http\Requests\validator;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class SignUpRequest extends FormRequest
 {
@@ -25,8 +26,15 @@ class SignUpRequest extends FormRequest
     {
         return [
             'phone' => 'required|max:11',
-            'password' => 'required|max:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
-            'repassword' => 'required|max:8',
+            'password' => ['required', 'confirmed',
+                Password::min(8)
+                    ->mixedCase()
+                    ->letters()
+                    ->numbers()
+                    ->symbols()
+                    ->uncompromised(),
+            ],
+            'repassword' => 'required|min:8'
         ];
     }
 }
