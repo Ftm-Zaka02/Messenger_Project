@@ -4,12 +4,14 @@
     <title>Sign In & Sign Up</title>
     <link href="{{ asset('resources/messenger/css/style/style_login.css') }} " rel="stylesheet">
     <link href="{{ asset('resources/messenger/css/style/style_icons_and_fonts.css') }} " rel="stylesheet">
+    <link href="{{ asset('resources/messenger/css/style/style_add_contacts.css') }} " rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="UTF-8"/>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body id="dialogBody">
 <div class="container" id="container">
     <div
         onkeydown="ValidationSignup()"

@@ -82,6 +82,7 @@
 
             <form id="send_form" id="footer" class="dialog__footer" onkeyup="IconChanger()" onclick="IconChanger()">
                 @csrf
+
                 <div id="dialog__attach" class="dialog__attach dialog__attach--file"></div>
 
                 <input type="file" name="dialog__input--attach" id="dialog__input--attach"

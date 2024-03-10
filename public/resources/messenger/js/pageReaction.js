@@ -575,6 +575,10 @@ $(document).ready(function () {
             success: function () {
                 dialog.value = null;
             },
+            error:function (error){
+                error=error.responseJSON.message
+                createPopupBox(error)
+            }
         });
     });
 });
@@ -586,7 +590,7 @@ dialog.addEventListener("keydown", (event) => {
 });
 
 //! delete data from database
-function createPopup(text, deleteType) {
+function createDeletePopup(text, deleteType) {
     let box = document.createElement("section");
     box.id = "popup";
     let submitBtn = document.createElement("button");
@@ -637,11 +641,15 @@ function deleteMessageBox(messageBox) {
             messageBox.remove();
             $("#popup").remove();
         },
+        error:function (error){
+            error=error.responseJSON.message
+            createPopupBox(error)
+        }
     });
 }
 
 $("#deleteChat").click(() => {
-    let submitBtn = createPopup(
+    let submitBtn = createDeletePopup(
         "آیا نسبت به حذف تاریخچه مطمئن هستید؟",
         "integrated"
     );
@@ -660,6 +668,10 @@ $("#deleteChat").click(() => {
                     smg.remove();
                 }
             },
+            error:function (error){
+                error=error.responseJSON.message
+                createPopupBox(error)
+            }
         });
         $("#popup").remove();
     }
@@ -689,6 +701,10 @@ function updateMessage(messageBox) {
                         span.textContent = newMessage;
                     dialog.value = null;
                 },
+                error:function (error){
+                    error=error.responseJSON.message
+                    createPopupBox(error)
+                }
             });
         });
 }
@@ -715,7 +731,7 @@ function creatMessageMenu(messageBox) {
                 td.textContent = "حذف";
                 td.addEventListener("click", () => {
                     if (dataID) {
-                        let submitBtn = createPopup("پیام حذف شود؟", "single");
+                        let submitBtn = createDeletePopup("پیام حذف شود؟", "single");
                         submitBtn.addEventListener("click", () => {
                             deleteMessageBox(messageBox);
                         });
@@ -790,6 +806,10 @@ const uploadMessage = async () => {
             }
             uploaded += 1;
         },
+        error:function (error){
+            error=error.responseJSON.message
+            createPopupBox(error)
+        }
     });
 };
 
@@ -821,9 +841,28 @@ $("#dialog__attach").click(() => {
             data: combinedData,
             processData: false,
             contentType: false,
-            success: function (response) {
+            success: function () {
                 $("#uploadFileForm").remove();
+            },
+            error:function (error){
+                error=error.responseJSON.message
+                createPopupBox(error)
             }
         });
     })
 })
+
+function createPopupBox(text){
+    let box = document.createElement("section");
+    box.classList.add("section-Contact");
+    box.id = "popup";
+    let submitBtn = document.createElement("button");
+    box.textContent = text;
+    submitBtn.classList.add("submit-add");
+    submitBtn.textContent = "تایید";
+    submitBtn.addEventListener("click", () => {
+        dialogBody.removeChild(box);
+    });
+    box.appendChild(submitBtn);
+    dialogBody.appendChild(box);
+}

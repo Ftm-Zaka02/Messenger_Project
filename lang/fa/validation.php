@@ -116,6 +116,10 @@ return array(
     */
     'attributes' => array(
         "dialogMessage"=>"متن پیام",
+        "chatListName"=>"نام چت",
+        "activeChatList"=>"چت فعال",
+        "newMessage"=>"متن پیام",
+        "fileToUpload"=>"فایل",
         "name" => "نام",
         "username" => "نام کاربری",
         "email" => "پست الکترونیکی",

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'password' => 'Passwords must be at least eight characters and match the confirmation.',
+    'password' => 'رمز عبور باید حداقل هشت کاراکتر باشد و با تاییدیه مطابقت داشته باشد.',
     'reset' => 'رمز عبور شما تغییر کرد!',
     'sent' => 'ما ایمیل تغییر رمز عبور را براتون ایمیل کردیم!',
     'token' => 'token تغییر پسورد شما معتبر نیست',

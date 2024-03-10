@@ -197,5 +197,26 @@ $("#SignupForm").submit(function (event) {
         data: values,
         success: function () {
         },
+        error:function (error){
+            error=error.responseJSON.message
+            createPopupBox(error)
+        }
     });
 })
+
+function createPopupBox(text){
+    dialogBody=document.getElementById("dialogBody");
+    let box = document.createElement("section");
+    box.style.zIndex="100"
+    box.classList.add("section-Contact");
+    box.id = "popup";
+    let submitBtn = document.createElement("button");
+    box.textContent = text;
+    submitBtn.classList.add("submit-add");
+    submitBtn.textContent = "تایید";
+    submitBtn.addEventListener("click", () => {
+        dialogBody.removeChild(box);
+    });
+    box.appendChild(submitBtn);
+    dialogBody.appendChild(box);
+}
