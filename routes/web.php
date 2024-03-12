@@ -20,7 +20,7 @@ Route::middleware('auth')->get('/', function () {
 
 Route::get('/loginPage', function () {
     return view('messenger.login');
-});
+})->name('loginPage');
 
 Route::middleware('throttle:3,1')->post('/login', [AuthController::class, 'login']);
 Route::post('/signup', [AuthController::class, 'signUp']);
