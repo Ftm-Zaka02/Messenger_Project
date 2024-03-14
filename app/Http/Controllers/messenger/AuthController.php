@@ -23,7 +23,7 @@ class AuthController extends Controller
                 $response = json_encode([
                     'status' => 'success',
                 ]);
-                Notification::send(auth()->user(),new LoginConfirmation());
+                Notification::send(auth()->user(),new LoginConfirmation('Login was successful'));
                 return redirect()->route('chat');
             } else {
                 $response = json_encode([

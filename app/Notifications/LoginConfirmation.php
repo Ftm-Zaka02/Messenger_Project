@@ -10,15 +10,15 @@ use Illuminate\Notifications\Notification;
 class LoginConfirmation extends Notification
 {
     use Queueable;
-
+public $message;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($message)
     {
-        //
+        $this->message=$message;
     }
 
     /**
@@ -29,7 +29,7 @@ class LoginConfirmation extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail','database'];
     }
 
     /**
@@ -41,7 +41,7 @@ class LoginConfirmation extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
+                    ->line($this->message);
 //                    ->action('Notification Action', url('/'))
 //                    ->line('Thank you for using our application!');
     }
@@ -55,7 +55,7 @@ class LoginConfirmation extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+           'message'=>$this->message
         ];
     }
 }
