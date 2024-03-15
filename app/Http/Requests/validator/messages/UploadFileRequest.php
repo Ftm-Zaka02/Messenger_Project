@@ -25,6 +25,7 @@ class UploadFileRequest extends FormRequest
     {
         return [
             'fileToUpload' => 'required|file|mimes:jpeg,png,pdf,txt|max:10048',
+            'activeChatList' => 'required|max:255|string',
         ];
     }
 }

@@ -13,9 +13,9 @@ class Message extends Model
     protected $connection = "mysql";
 //    protected $connection = "pgsql";
     protected $table = 'messages';
-    protected $fillable = ['text_message', 'send_time', 'user_id', 'chat_type', 'chat_name', 'deleted_at'];
+    protected $fillable = ['text_message', 'send_time', 'user_id', 'chat_type', 'chat_name', 'content_name', 'deleted_at'];
 
-    public static function insertMessage($chatName, $messageText,$userID)
+    public static function insertMessage($chatName, $messageText, $userID)
     {
         $currentTime = time();
         $model = self::create(['text_message' => $messageText, 'send_time' => $currentTime, 'user_id' => $userID, 'chat_name' => $chatName]);
@@ -53,5 +53,11 @@ class Message extends Model
             $dataPage = self::orderBy('send_time', 'desc')->paginate(5, ['*'], 'page', $uploaded);
             return $dataPage;
         }
+    }
+
+    public static function uploadFile($name, $userID,$chatName)
+    {
+        $model = self::create(['content_name' => $name, 'send_time' => time(), 'user_id' => $userID,'chat_name' => $chatName]);
+        return $model;
     }
 }
