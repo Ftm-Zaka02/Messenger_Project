@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\messenger;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\validator\LoginRequest;
 use App\Http\Requests\validator\SignUpRequest;
 use App\Notifications\LoginConfirmation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
-
 
 
 class AuthController extends Controller

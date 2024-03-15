@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\messenger\AuthController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\messenger\MessageController;
 use Illuminate\Support\Facades\Route;
 
