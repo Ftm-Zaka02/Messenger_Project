@@ -1,7 +1,5 @@
 let wavesurfer;
-let mediaRecorder,
-    chunks = [],
-    audioURL = "";
+let mediaRecorder, chunks = [], audioURL = "";
 const footer = document.getElementById("footer");
 const chatlist = document.getElementById("chatlist");
 const emojiIcon = document.getElementById("emojiIcon");
@@ -154,9 +152,7 @@ const CreateContactBox = (object) => {
     chatlistCard.classList.add("chatlist__cadre");
 
     chatlistCard.addEventListener("click", () => {
-        let chatlistisActive = document.getElementsByClassName(
-            "chatlist--is--active"
-        );
+        let chatlistisActive = document.getElementsByClassName("chatlist--is--active");
         let nameDialog = document.getElementById("dialog__name");
         activeChatlist = chatlistName.textContent;
         nameDialog.textContent = chatlistName.textContent;
@@ -170,12 +166,8 @@ const CreateContactBox = (object) => {
                     if (Contacts[i].Name === nameDialog.textContent) {
                         let dialogBody = document.getElementById("dialogBody");
                         let subChannel = document.getElementsByClassName("dialog__status");
-                        let channels = chatlistCard.getElementsByClassName(
-                            "chatlist__name--channel"
-                        );
-                        let group = chatlistCard.getElementsByClassName(
-                            "chatlist__name--channel"
-                        );
+                        let channels = chatlistCard.getElementsByClassName("chatlist__name--channel");
+                        let group = chatlistCard.getElementsByClassName("chatlist__name--channel");
                         if (group.length > 0) {
                             subChannel[0].classList.add("dialog__header-right--channel");
                             footerChannels.style = "display: none;";
@@ -196,11 +188,7 @@ const CreateContactBox = (object) => {
                         }
                         dialogBody.innerHTML = "";
                         for (let j = 0; j < Contacts[i].chatlist.length; j++) {
-                            sendMesseg(
-                                Contacts[i].chatlist[j].text,
-                                "text",
-                                Contacts[i].chatlist[j].type
-                            );
+                            sendMesseg(Contacts[i].chatlist[j].text, "text", Contacts[i].chatlist[j].type);
                         }
                     }
                 }
@@ -309,10 +297,7 @@ const addContact = function () {
         const Name = document.forms["form-contact"]["name-Contact"].value;
 
         const contactObject = {
-            fName: Name,
-            phone: phone,
-            fullNname: Name,
-            chatType: "pv",
+            fName: Name, phone: phone, fullNname: Name, chatType: "pv",
         };
 
         CreateContactBox(contactObject);
@@ -351,13 +336,7 @@ const IconChanger = function () {
     }
 };
 
-const sendMesseg = (
-    dialogg = dialog.value,
-    type = "text",
-    sender = 0,
-    dataId,
-    send_time
-) => {
+const sendMesseg = (dialogg = dialog.value, type = "text", sender = 0, dataId, send_time) => {
     let dialogBody = document.getElementById("dialogBody");
     let messageSelf = document.createElement("div");
     let messageCard = document.createElement("div");
@@ -396,29 +375,20 @@ const sendMesseg = (
         messageVoiceControl.setAttribute("class", "dialog__message--voice-control");
         let messageVoiceControlBtn = document.createElement("button");
         messageVoiceControlBtn.setAttribute("class", "dialog__message--playe");
-        messageVoiceControlBtn.addEventListener(
-            "click",
-            (startPlayingVoice = () => {
-                messageVoiceControlBtn.style = "transition: all 2s;";
-                wavesurfer.playPause();
+        messageVoiceControlBtn.addEventListener("click", (startPlayingVoice = () => {
+            messageVoiceControlBtn.style = "transition: all 2s;";
+            wavesurfer.playPause();
 
-                if (messageVoiceControlBtn.classList[0] === "dialog__message--pause") {
-                    messageVoiceControlBtn.setAttribute(
-                        "class",
-                        "dialog__message--playe"
-                    );
-                } else {
-                    messageVoiceControlBtn.setAttribute(
-                        "class",
-                        "dialog__message--pause"
-                    );
-                }
+            if (messageVoiceControlBtn.classList[0] === "dialog__message--pause") {
+                messageVoiceControlBtn.setAttribute("class", "dialog__message--playe");
+            } else {
+                messageVoiceControlBtn.setAttribute("class", "dialog__message--pause");
+            }
 
-                wavesurfer.once("finsh", () => {
-                    wavesurfer.stop();
-                });
-            })
-        );
+            wavesurfer.once("finsh", () => {
+                wavesurfer.stop();
+            });
+        }));
         messageVoiceControl.appendChild(messageVoiceControlBtn);
 
         let messageVoiceWave = document.createElement("div");
@@ -447,6 +417,17 @@ const sendMesseg = (
             messageCard.appendChild(sectionTools);
         });
         dialog.value = null;
+    }else if(type=="file"){
+        let file = document.createElement("img");
+        file.setAttribute("class", "message__image");
+        messageSelf.setAttribute("data-id", dataId);
+        file.src=dialogg;
+        messageCard.appendChild(file);
+        messageSelf.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+            const sectionTools = creatMessageMenu(messageSelf);
+            messageCard.appendChild(sectionTools);
+        });
     }
     messageSelf.appendChild(messageCard);
 };
@@ -541,9 +522,7 @@ const stopRecording = () => {
     footerVoice.style = "display:none;";
     if (audioURL !== "") {
         sendMesseg("", "voice", 0);
-        const messageVoiceWaveF = document.querySelectorAll(
-            ".dialog__message--play"
-        );
+        const messageVoiceWaveF = document.querySelectorAll(".dialog__message--play");
         wavesurfer = WaveSurfer.create({
             container: messageVoiceWaveF[messageVoiceWaveF.length - 1],
             waveColor: "#3f3f49",
@@ -575,8 +554,8 @@ $(document).ready(function () {
             success: function () {
                 dialog.value = null;
             },
-            error:function (error){
-                error=error.responseJSON.message
+            error: function (error) {
+                error = error.responseJSON.message
                 createPopupBox(error)
             }
         });
@@ -641,18 +620,15 @@ function deleteMessageBox(messageBox) {
             messageBox.remove();
             $("#popup").remove();
         },
-        error:function (error){
-            error=error.responseJSON.message
+        error: function (error) {
+            error = error.responseJSON.message
             createPopupBox(error)
         }
     });
 }
 
 $("#deleteChat").click(() => {
-    let submitBtn = createDeletePopup(
-        "آیا نسبت به حذف تاریخچه مطمئن هستید؟",
-        "integrated"
-    );
+    let submitBtn = createDeletePopup("آیا نسبت به حذف تاریخچه مطمئن هستید؟", "integrated");
 
     function deleteChatHistory() {
         $.ajax({
@@ -668,8 +644,8 @@ $("#deleteChat").click(() => {
                     smg.remove();
                 }
             },
-            error:function (error){
-                error=error.responseJSON.message
+            error: function (error) {
+                error = error.responseJSON.message
                 createPopupBox(error)
             }
         });
@@ -697,12 +673,11 @@ function updateMessage(messageBox) {
                 dataType: "json",
                 data: {dataID: dataID, newMessage: newMessage},
                 success: function (response) {
-                    if (response["data"])
-                        span.textContent = newMessage;
+                    if (response["data"]) span.textContent = newMessage;
                     dialog.value = null;
                 },
-                error:function (error){
-                    error=error.responseJSON.message
+                error: function (error) {
+                    error = error.responseJSON.message
                     createPopupBox(error)
                 }
             });
@@ -779,14 +754,10 @@ let uploaded = 1;
 
 const uploadMessage = async () => {
     await $.ajax({
-        type: "get",
-        url: "messages/get",
-        dataType: "json",
-        data: {uploaded: uploaded},
-        success: function (response) {
+        type: "get", url: "messages/get", dataType: "json", data: {uploaded: uploaded}, success: function (response) {
             data = response["data"]["data"];
             for (let i = 0; i < data.length; i++) {
-                let {id, text_message, user_id, send_time, chat_name} = data[i];
+                let {id, text_message, content_name, user_id, send_time, chat_name} = data[i];
 
                 function getTime(send_time) {
                     const date = new Date(send_time * 1000);
@@ -795,19 +766,26 @@ const uploadMessage = async () => {
                 }
 
                 if (chat_name == activeChatlist) {
-                    if (user_id == 191) {
-                        sendMesseg(text_message, "text", 0, id, getTime(send_time));
-                    } else {
-                        sendMesseg(text_message, "text", 1, id, getTime(send_time));
+                    if (content_name) {
+                        if (user_id == 191) {
+                            sendMesseg(content_name, "file", 0, id, getTime(send_time));
+                        } else {
+                            sendMesseg(content_name, "file", 1, id, getTime(send_time));
+                        }
+                    } else if (text_message) {
+                        if (user_id == 191) {
+                            sendMesseg(text_message, "text", 0, id, getTime(send_time));
+                        } else {
+                            sendMesseg(text_message, "text", 1, id, getTime(send_time));
+                        }
                     }
                 } else {
                     continue;
                 }
             }
             uploaded += 1;
-        },
-        error:function (error){
-            error=error.responseJSON.message
+        }, error: function (error) {
+            error = error.responseJSON.message
             createPopupBox(error)
         }
     });
@@ -828,7 +806,7 @@ $("#dialog__attach").click(() => {
         event.preventDefault();
         var file = document.getElementById('file').files[0];
         var formData = $('#uploadFileForm').serialize();
-        formData+="&activeChatList=" + activeChatlist;
+        formData += "&activeChatList=" + activeChatlist;
         var combinedData = new FormData();
         combinedData.append('fileToUpload', file);
         formData = decodeURIComponent(formData.replace(/\+/g, ' '));
@@ -845,15 +823,15 @@ $("#dialog__attach").click(() => {
             success: function () {
                 $("#uploadFileForm").remove();
             },
-            error:function (error){
-                error=error.responseJSON.message
+            error: function (error) {
+                error = error.responseJSON.message
                 createPopupBox(error)
             }
         });
     })
 })
 
-function createPopupBox(text){
+function createPopupBox(text) {
     let box = document.createElement("section");
     box.classList.add("section-Contact");
     box.id = "popup";

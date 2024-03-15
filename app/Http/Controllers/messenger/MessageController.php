@@ -68,6 +68,11 @@ class MessageController extends Controller
         $uploaded = $request->input('uploaded');
         try {
             $model = Message::getMessage($uploaded);
+            foreach ($model as $message){
+                if($message['content_name']){
+                    $message['content_name']='storage/uploaded/'.$message['content_name'];
+                }
+            }
             $response = json_encode([
                 'status' => 'success',
                 'data' => $model

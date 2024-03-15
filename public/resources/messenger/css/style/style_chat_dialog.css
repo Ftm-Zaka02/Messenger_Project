@@ -291,6 +291,7 @@
 }
 
 .message__card {
+    position: relative;
     border-radius: 20px;
     position: relative;
     top: 25px;
@@ -424,7 +425,11 @@
     flex-grow: 1;
     font-size: 14px;
 }
-
+.message__image{
+   width: 120px;
+    height: 100px;
+    margin: 8px;
+}
 /* .information {
     width: 15%;
     min-width: 200px;
