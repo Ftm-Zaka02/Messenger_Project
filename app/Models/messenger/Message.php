@@ -2,6 +2,7 @@
 
 namespace App\Models\messenger;
 
+use App\Events\DeleteFile;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -30,7 +31,12 @@ class Message extends Model
 
     public static function physicalDeleteMessage($dataID)
     {
-        $model = self::find($dataID)->forceDelete();
+        $model = self::find($dataID);
+        if ($model['content_name']) {
+          event(new DeleteFile($model));
+        } else {
+            $model->forceDelete();
+        }
         return $model;
     }
 
@@ -55,9 +61,9 @@ class Message extends Model
         }
     }
 
-    public static function uploadFile($name, $userID,$chatName)
+    public static function uploadFile($name, $userID, $chatName)
     {
-        $model = self::create(['content_name' => $name, 'send_time' => time(), 'user_id' => $userID,'chat_name' => $chatName]);
+        $model = self::create(['content_name' => $name, 'send_time' => time(), 'user_id' => $userID, 'chat_name' => $chatName]);
         return $model;
     }
 }
