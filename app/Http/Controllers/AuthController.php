@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Login;
 use App\Http\Requests\validator\LoginRequest;
 use App\Http\Requests\validator\SignUpRequest;
 use App\Notifications\LoginConfirmation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Notification;
+
 
 
 class AuthController extends Controller
@@ -21,7 +22,7 @@ class AuthController extends Controller
                 $response = json_encode([
                     'status' => 'success',
                 ]);
-                Notification::send(auth()->user(),new LoginConfirmation('Login was successful'));
+                event(new Login('Login was successful'));
                 return redirect()->route('chat');
             } else {
                 $response = json_encode([
