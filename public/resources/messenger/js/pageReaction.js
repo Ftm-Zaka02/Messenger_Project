@@ -783,7 +783,7 @@ const uploadMessage = async () => {
                     continue;
                 }
             }
-            uploaded += 1;
+                uploaded += 1;
         }, error: function (error) {
             error = error.responseJSON.message
             createPopupBox(error)
@@ -791,15 +791,15 @@ const uploadMessage = async () => {
     });
 };
 
-$("#dialog__refresh").click(() => {
-    uploadMessage();
-});
-
-// $(document).ready(function () {
-//     setInterval(() => {
-//         uploadMessage();
-//     }, 10000);
+// $("#dialog__refresh").click(() => {
+//     uploadMessage();
 // });
+
+$(document).ready(function () {
+    setInterval(() => {
+        uploadMessage();
+    }, 10000);
+});
 $("#dialog__attach").click(() => {
     document.getElementById('uploadFileForm').style = "display:block;";
     $("#uploadFileForm").submit(function (event) {

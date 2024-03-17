@@ -33,7 +33,7 @@ class Message extends Model
     {
         $model = self::find($dataID);
         if ($model['content_name']) {
-          event(new DeleteFile($model));
+            event(new DeleteFile($model));
         } else {
             $model->forceDelete();
         }
@@ -54,11 +54,8 @@ class Message extends Model
 
     public static function getMessage($uploaded)
     {
-        $count = self::count() / 5;
-        if ($uploaded <= $count) {
-            $dataPage = self::orderBy('send_time', 'desc')->paginate(5, ['*'], 'page', $uploaded);
-            return $dataPage;
-        }
+        $dataPage = self::orderBy('send_time', 'desc')->paginate(5, ['*'], 'page', $uploaded);
+        return $dataPage;
     }
 
     public static function uploadFile($name, $userID, $chatName)
