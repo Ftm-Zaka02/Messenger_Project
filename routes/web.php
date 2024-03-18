@@ -28,8 +28,9 @@ Route::post('/signup', [AuthController::class, 'signUp']);
 
 Route::prefix('messages')->middleware(['throttle:messenger'])->group(function () {
     Route::post('/set', [MessageController::class, 'set']);
-    Route::get('/get', [MessageController::class, 'get']);
     Route::get('/update', [MessageController::class, 'update']);
     Route::get('/delete', [MessageController::class, 'delete']);
     Route::post('/uploadFile', [MessageController::class, 'uploadFile']);
 });
+Route::get('messages/get', [MessageController::class, 'get']);
+

@@ -750,13 +750,13 @@ function creatMessageMenu(messageBox) {
 
 //! fetch data from database
 
-let uploaded = 1;
-let up = 0;
+let page = 1;
+let uploaded = 0;
 const uploadMessage = async () => {
     await $.ajax({
-        type: "get", url: "messages/get", dataType: "json", data: {uploaded: uploaded}, success: function (response) {
+        type: "get", url: "messages/get", dataType: "json", data: {page: page}, success: function (response) {
             data = response["data"]["data"];
-            for (let i = up; i < data.length; i++) {
+            for (let i = uploaded; i < data.length; i++) {
                 let {id, text_message, content_name, user_id, send_time, chat_name} = data[i];
 
                 function getTime(send_time) {
@@ -784,10 +784,10 @@ const uploadMessage = async () => {
                 }
             }
             if (data.length != 5) {
-                up = data.length;
+                uploaded = data.length;
             } else {
-                uploaded += 1;
-                up = 0;
+                page += 1;
+                uploaded = 0;
             }
         }, error: function (error) {
             error = error.responseJSON.message
