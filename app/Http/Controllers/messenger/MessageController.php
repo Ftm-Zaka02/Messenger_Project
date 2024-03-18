@@ -65,9 +65,9 @@ class MessageController extends Controller
 
     public function get(Request $request)
     {
-        $uploaded = $request->input('uploaded');
+        $page = $request->input('page');
         try {
-            $model = Message::getMessage($uploaded);
+            $model = Message::getMessage($page);
             foreach ($model as $message){
                 if($message['content_name']){
                     $message['content_name']='storage/uploaded/'.$message['content_name'];

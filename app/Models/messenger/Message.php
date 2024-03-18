@@ -52,9 +52,9 @@ class Message extends Model
         return $model;
     }
 
-    public static function getMessage($uploaded)
+    public static function getMessage($page)
     {
-        $dataPage = self::orderBy('send_time', 'desc')->paginate(5, ['*'], 'page', $uploaded);
+        $dataPage = self::paginate(5, ['*'], 'page', $page);
         return $dataPage;
     }
 
