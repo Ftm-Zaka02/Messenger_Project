@@ -417,11 +417,11 @@ const sendMesseg = (dialogg = dialog.value, type = "text", sender = 0, dataId, s
             messageCard.appendChild(sectionTools);
         });
         dialog.value = null;
-    }else if(type=="file"){
+    } else if (type == "file") {
         let file = document.createElement("img");
         file.setAttribute("class", "message__image");
         messageSelf.setAttribute("data-id", dataId);
-        file.src=dialogg;
+        file.src = dialogg;
         messageCard.appendChild(file);
         messageSelf.addEventListener("contextmenu", (e) => {
             e.preventDefault();
@@ -751,12 +751,12 @@ function creatMessageMenu(messageBox) {
 //! fetch data from database
 
 let uploaded = 1;
-
+let up = 0;
 const uploadMessage = async () => {
     await $.ajax({
         type: "get", url: "messages/get", dataType: "json", data: {uploaded: uploaded}, success: function (response) {
             data = response["data"]["data"];
-            for (let i = 0; i < data.length; i++) {
+            for (let i = up; i < data.length; i++) {
                 let {id, text_message, content_name, user_id, send_time, chat_name} = data[i];
 
                 function getTime(send_time) {
@@ -783,17 +783,21 @@ const uploadMessage = async () => {
                     continue;
                 }
             }
+            if (data.length != 5) {
+                up = data.length;
+            } else {
                 uploaded += 1;
+                up = 0;
+            }
         }, error: function (error) {
             error = error.responseJSON.message
             createPopupBox(error)
         }
     });
 };
-
-// $("#dialog__refresh").click(() => {
-//     uploadMessage();
-// });
+$("#dialog__refresh").click(() => {
+    uploadMessage();
+});
 
 $(document).ready(function () {
     setInterval(() => {
