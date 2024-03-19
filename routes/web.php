@@ -31,6 +31,6 @@ Route::prefix('messages')->middleware(['throttle:messenger'])->group(function ()
     Route::get('/update', [MessageController::class, 'update']);
     Route::get('/delete', [MessageController::class, 'delete']);
     Route::post('/uploadFile', [MessageController::class, 'uploadFile']);
+    Route::get('/get', [MessageController::class, 'get']);
 });
-Route::get('messages/get', [MessageController::class, 'get']);
 

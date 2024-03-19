@@ -49,7 +49,7 @@ class RouteServiceProvider extends ServiceProvider
 //            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
 //        });
         RateLimiter::for('messenger', function () {
-            return Limit::perMinute(3);
+            return Limit::perMinute(10);
         });
     }
 }
