@@ -111,9 +111,10 @@
     </div>
 </section>
 
-<section id="addContact" class="section-Contact" style="display: none">
+<section id="addContact" class="section-Contact" style="height: 300px;display: none">
     <button id="closed" class="close-btn"></button>
     <form name="form-contact" id="form-contact" method="post">
+        @csrf
         <h3 class="chatlist__title">اضافه کردن مخاطب</h3>
         <div class="main-input">
             <input class="input-add" type="tel" name="phone-Contact" id="phone-Contact" placeholder=" " autofocus
@@ -126,7 +127,7 @@
             <div class="cut cut-long"></div>
             <label for="Contact" class="placeholder">نام مخاطب</label>
         </div>
-        <input id="addition" type="button" class="submit-add" value="افزودن مخاطب"/>
+        <button id="addition" type="submit" class="submit-add">افزودن مخاطب</button>
     </form>
 </section>
 

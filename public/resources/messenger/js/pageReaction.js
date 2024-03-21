@@ -278,38 +278,7 @@ const CreateContactBox = (object) => {
     ContactlistSection.appendChild(chatlistCard);
 };
 
-const addContact = function () {
-    let sectionAddContact = document.getElementById("addContact");
-    sectionAddContact.style = "display: block;";
 
-    let Messenger = document.getElementById("messenger");
-    Messenger.setAttribute("style", "display:none;");
-
-    let closebtn = document.getElementById("closed");
-    closebtn.onclick = closeWindow = () => {
-        sectionAddContact.style = "display: none;";
-        Messenger.removeAttribute("style", "display:block;");
-    };
-
-    let addbtn = document.getElementById("addition");
-    addbtn.onclick = AddContact = () => {
-        const phone = document.forms["form-contact"]["phone-Contact"].value;
-        const Name = document.forms["form-contact"]["name-Contact"].value;
-
-        const contactObject = {
-            fName: Name, phone: phone, fullNname: Name, chatType: "pv",
-        };
-
-        CreateContactBox(contactObject);
-
-        alert("مخاطب با موفقیت اضافه شد");
-
-        document.forms["form-contact"]["phone-Contact"].value = null;
-        document.forms["form-contact"]["name-Contact"].value = null;
-
-        closeWindow();
-    };
-};
 const refreshChatlist = function () {
     if (Contacts.length > 0) {
         ContactlistSection.innerHTML = "";
@@ -849,3 +818,45 @@ function createPopupBox(text) {
     box.appendChild(submitBtn);
     dialogBody.appendChild(box);
 }
+
+
+//contacts part
+const addContact = function () {
+    let sectionAddContact = document.getElementById("addContact");
+    sectionAddContact.style = "display: block;";
+    sectionAddContact.style = "height: 300px;";
+    let Messenger = document.getElementById("messenger");
+    let closebtn = document.getElementById("closed");
+    closebtn.onclick = closeWindow = () => {
+        sectionAddContact.style = "display: none;";
+        Messenger.removeAttribute("style", "display:block;");
+    };
+};
+
+$("#form-contact").submit(function (event) {
+    event.preventDefault();
+    var values = $(this).serialize();
+    $.ajax({
+        type: "post",
+        url: "contacts/set",
+        data: values,
+        success: function () {
+            const contactObject = {
+                fName: Name, phone: phone, fullNname: Name, chatType: "pv",
+            };
+
+            CreateContactBox(contactObject);
+
+            alert("مخاطب با موفقیت اضافه شد");
+
+            document.forms["form-contact"]["phone-Contact"].value = null;
+            document.forms["form-contact"]["name-Contact"].value = null;
+
+            closeWindow();
+        },
+        error: function (error) {
+            error = error.responseJSON.message
+            createPopupBox(error)
+        }
+    });
+})
