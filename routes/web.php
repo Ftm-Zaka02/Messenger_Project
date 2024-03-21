@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\messenger\MessageController;
+use App\Http\Controllers\messenger\ContactController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,5 +33,10 @@ Route::prefix('messages')->middleware(['throttle:messenger'])->group(function ()
     Route::get('/delete', [MessageController::class, 'delete']);
     Route::post('/uploadFile', [MessageController::class, 'uploadFile']);
     Route::get('/get', [MessageController::class, 'get']);
+});
+
+Route::prefix('contacts')->middleware(['throttle:messenger'])->group(function () {
+    Route::post('/set', [ContactController::class, 'set']);
+    Route::get('/get', [ContactController::class, 'get']);
 });
 
