@@ -32,5 +32,20 @@ class ContactController extends Controller
 
     public static function get()
     {
+        try {
+            $model = Contact::getContact();
+            $response = json_encode([
+                'status' => 'success',
+                'data' => $model
+            ]);
+            return response($response, 200);
+        } catch (\Exception $error) {
+            Log::error('getting contact got error: ' . $error->getMessage());
+            $response = json_encode([
+                'status' => 'error',
+                'message' => $error->getMessage(),
+            ]);
+            return response($response, 500);
+        }
     }
 }
