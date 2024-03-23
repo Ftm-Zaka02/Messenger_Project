@@ -13,9 +13,9 @@ class Contact extends Model
     protected $table = 'contacts';
     protected $fillable = ['phone', 'name', 'deleted_at'];
 
-    public static function setContact($phone, $name)
+    public static function setContact($data)
     {
-        $model = self::create(['phone' => $phone, 'name' => $name]);
+        $model = self::create($data);
         return $model;
     }
 

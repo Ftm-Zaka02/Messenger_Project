@@ -3,18 +3,17 @@
 namespace App\Http\Controllers\messenger;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\validator\contacts\SetContactRequest;
 use App\Models\messenger\Contact;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
 {
-    public static function set(Request $request)
+    public static function set(SetContactRequest $request)
     {
-        $phone=$request['phone'];
-        $name=$request['name'];
+        $data=$request->validated();
         try {
-            $model = Contact::setContact($phone,$name);
+            $model = Contact::setContact($data);
             $response = json_encode([
                 'status' => 'success',
                 'data' => $model
