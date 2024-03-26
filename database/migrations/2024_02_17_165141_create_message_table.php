@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('messages', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->longText('text_message')->nullable();
             $table->integer('send_time');
             $table->unsignedBigInteger('user_id');
-            $table->text('chat_name')->nullable();
+            $table->string('chat_name')->nullable();
             $table->enum('chat_type', ['pv','group','channel'])->default('group');
             $table->text('content_name')->nullable();
             $table->timestamp('deleted_at')->nullable();

@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('contacts', function (Blueprint $table) {
-            $table->id();
-            $table->tinyText('phone');
+            $table->bigIncrements('id');
+            $table->string('phone',12);
             $table->mediumText('name');
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
