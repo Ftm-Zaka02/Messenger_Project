@@ -117,13 +117,12 @@
         @csrf
         <h3 class="chatlist__title">اضافه کردن مخاطب</h3>
         <div class="main-input">
-            <input class="input-add" type="tel" name="phone" id="phone-Contact" placeholder=" " autofocus
-                   required/>
+            <input class="input-add" type="tel" name="phone" id="phone-Contact" placeholder=" " autofocus/>
             <div class="cut"></div>
             <label for="phone-Contact" class="placeholder">شماره موبایل مخاطب</label>
         </div>
         <div class="main-input">
-            <input class="input-add" type="text" name="name" id="name-Contact" placeholder=" " required/>
+            <input class="input-add" type="text" name="name" id="name-Contact" placeholder=" "/>
             <div class="cut cut-long"></div>
             <label for="Contact" class="placeholder">نام مخاطب</label>
         </div>

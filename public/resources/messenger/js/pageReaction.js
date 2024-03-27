@@ -14,6 +14,7 @@ const footerChannels = document.getElementById("footerChannels");
 const dialogIconattach = document.getElementById("dialog__attach");
 const Contacts = chatlist.getElementsByClassName("chatlist__cadre");
 let activeChatlist;
+let Messenger = document.getElementById("Messenger");
 
 const ChatList = function () {
     let ClosedChatList = () => {
@@ -524,8 +525,12 @@ $(document).ready(function () {
                 dialog.value = null;
             },
             error: function (error) {
-                error = error.responseJSON.message
-                createPopupBox(error)
+                const errors = error.responseJSON.errors
+                for (const errorKey in errors) {
+                    errors[errorKey].forEach((error) => {
+                        createPopupBox(error)
+                    });
+                }
             }
         });
     });
@@ -590,8 +595,12 @@ function deleteMessageBox(messageBox) {
             $("#popup").remove();
         },
         error: function (error) {
-            error = error.responseJSON.message
-            createPopupBox(error)
+            const errors = error.responseJSON.errors
+            for (const errorKey in errors) {
+                errors[errorKey].forEach((error) => {
+                    createPopupBox(error)
+                });
+            }
         }
     });
 }
@@ -614,8 +623,12 @@ $("#deleteChat").click(() => {
                 }
             },
             error: function (error) {
-                error = error.responseJSON.message
-                createPopupBox(error)
+                const errors = error.responseJSON.errors
+                for (const errorKey in errors) {
+                    errors[errorKey].forEach((error) => {
+                        createPopupBox(error)
+                    });
+                }
             }
         });
         $("#popup").remove();
@@ -646,8 +659,12 @@ function updateMessage(messageBox) {
                     dialog.value = null;
                 },
                 error: function (error) {
-                    error = error.responseJSON.message
-                    createPopupBox(error)
+                    const errors = error.responseJSON.errors
+                    for (const errorKey in errors) {
+                        errors[errorKey].forEach((error) => {
+                            createPopupBox(error)
+                        });
+                    }
                 }
             });
         });
@@ -759,8 +776,12 @@ const uploadMessage = async () => {
                 uploaded = 0;
             }
         }, error: function (error) {
-            error = error.responseJSON.message
-            createPopupBox(error)
+            const errors = error.responseJSON.errors
+            for (const errorKey in errors) {
+                errors[errorKey].forEach((error) => {
+                    createPopupBox(error)
+                });
+            }
         }
     });
 };
@@ -797,8 +818,12 @@ $("#dialog__attach").click(() => {
                 $("#uploadFileForm").remove();
             },
             error: function (error) {
-                error = error.responseJSON.message
-                createPopupBox(error)
+                const errors = error.responseJSON.errors
+                for (const errorKey in errors) {
+                    errors[errorKey].forEach((error) => {
+                        createPopupBox(error)
+                    });
+                }
             }
         });
     })
@@ -807,16 +832,17 @@ $("#dialog__attach").click(() => {
 function createPopupBox(text) {
     let box = document.createElement("section");
     box.classList.add("section-Contact");
+    box.style.zIndex = "10";
     box.id = "popup";
     let submitBtn = document.createElement("button");
     box.textContent = text;
     submitBtn.classList.add("submit-add");
     submitBtn.textContent = "تایید";
     submitBtn.addEventListener("click", () => {
-        dialogBody.removeChild(box);
+        Messenger.removeChild(box);
     });
     box.appendChild(submitBtn);
-    dialogBody.appendChild(box);
+    Messenger.appendChild(box);
 }
 
 
@@ -846,17 +872,18 @@ $("#form-contact").submit(function (event) {
             };
 
             CreateContactBox(contactObject);
-
-            alert("مخاطب با موفقیت اضافه شد");
-
             document.forms["form-contact"]["phone-Contact"].value = null;
             document.forms["form-contact"]["name-Contact"].value = null;
 
             closeWindow();
         },
         error: function (error) {
-            error = error.responseJSON.message
-            createPopupBox(error)
+            const errors = error.responseJSON.errors
+            for (const errorKey in errors) {
+                errors[errorKey].forEach((error) => {
+                    createPopupBox(error)
+                });
+            }
         }
     });
 })
