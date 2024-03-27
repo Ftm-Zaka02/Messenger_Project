@@ -148,6 +148,27 @@ const foldersISactive = function (chatType) {
 //   footer.appendChild(dialogMessage);
 //   footer.appendChild(dialogTools);
 // };
+function createContactObject(info){
+    let name=info.name
+    let firstName=name.split(" ")[0]
+    let lastName=name.split(" ")[1]
+    let contact={
+        "nationalCode": "",
+        "fName": firstName,
+        "lName": lastName,
+        "phone": info.phone,
+        "fullNname": info.name,
+        "userName": "",
+        "profile": "../resources/messenger/image/user.png",
+        "chatType": "pv",
+        "sender": "you",
+        "lastMessage": "bye",
+        "date": "12:00 ب.ط",
+        "numberMessages": "10",
+        "messageSendingStatus": ""
+    }
+    return contact;
+}
 const CreateContactBox = (object) => {
     let chatlistCard = document.createElement("div");
     chatlistCard.classList.add("chatlist__cadre");
@@ -789,11 +810,11 @@ $("#dialog__refresh").click(() => {
     uploadMessage();
 });
 
-$(document).ready(function () {
-    setInterval(() => {
-        uploadMessage();
-    }, 10000);
-});
+// $(document).ready(function () {
+//     setInterval(() => {
+//         uploadMessage();
+//     }, 10000);
+// });
 $("#dialog__attach").click(() => {
     document.getElementById('uploadFileForm').style = "display:block;";
     $("#uploadFileForm").submit(function (event) {
@@ -886,4 +907,19 @@ $("#form-contact").submit(function (event) {
             }
         }
     });
+})
+
+$("#refreshIcon").click(() => {
+    $.ajax({
+        type: "get",
+        url: "contacts/get",
+        dataType: "json",
+        success: function (response) {
+            let Contacts = response['data'];
+            for (let i = 0; i < Contacts.length; i++) {
+                let contactInfo=createContactObject(Contacts[i]);
+                CreateContactBox(contactInfo)
+            }
+        },
+    })
 })
