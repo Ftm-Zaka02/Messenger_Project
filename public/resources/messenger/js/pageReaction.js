@@ -153,6 +153,7 @@ function createContactObject(info){
     let firstName=name.split(" ")[0]
     let lastName=name.split(" ")[1]
     let contact={
+        "id":info.id,
         "nationalCode": "",
         "fName": firstName,
         "lName": lastName,
@@ -171,8 +172,13 @@ function createContactObject(info){
 }
 const CreateContactBox = (object) => {
     let chatlistCard = document.createElement("div");
+    chatlistCard.setAttribute('data-id',object.id)
     chatlistCard.classList.add("chatlist__cadre");
-
+    chatlistCard.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        const sectionTools = createContanctMenu(chatlistCard);
+        chatlistCard.appendChild(sectionTools);
+    });
     chatlistCard.addEventListener("click", () => {
         let chatlistisActive = document.getElementsByClassName("chatlist--is--active");
         let nameDialog = document.getElementById("dialog__name");
@@ -404,7 +410,7 @@ const sendMesseg = (dialogg = dialog.value, type = "text", sender = 0, dataId, s
         messageCard.appendChild(messageSendTime);
         messageSelf.addEventListener("contextmenu", (e) => {
             e.preventDefault();
-            const sectionTools = creatMessageMenu(messageSelf);
+            const sectionTools = createMessageMenu(messageSelf);
             messageCard.appendChild(sectionTools);
         });
         dialog.value = null;
@@ -416,7 +422,7 @@ const sendMesseg = (dialogg = dialog.value, type = "text", sender = 0, dataId, s
         messageCard.appendChild(file);
         messageSelf.addEventListener("contextmenu", (e) => {
             e.preventDefault();
-            const sectionTools = creatMessageMenu(messageSelf);
+            const sectionTools = createMessageMenu(messageSelf);
             messageCard.appendChild(sectionTools);
         });
     }
@@ -693,7 +699,7 @@ function updateMessage(messageBox) {
 
 //! create message menu
 
-function creatMessageMenu(messageBox) {
+function createMessageMenu(messageBox) {
     let dataID = messageBox.getAttribute("data-id");
     const sectionTools = document.createElement("section");
     sectionTools.classList.add("section-tools");
@@ -867,7 +873,7 @@ function createPopupBox(text) {
 }
 
 
-//contacts part
+////////////////////////////contacts part
 const addContact = function () {
     let sectionAddContact = document.getElementById("addContact");
     sectionAddContact.style = "display: block;";
@@ -880,6 +886,54 @@ const addContact = function () {
     };
 };
 
+function createContanctMenu(contactBox) {
+    let dataID = contactBox.getAttribute("data-id");
+    const sectionTools = document.createElement("section");
+    sectionTools.classList.add("section-tools");
+    sectionTools.classList.add("contact-section-tools");
+    const closeBtn = document.createElement("button");
+    closeBtn.classList.add("close-btn");
+    sectionTools.appendChild(closeBtn);
+    closeBtn.addEventListener("click", () => {
+        sectionTools.style.display = "none";
+    });
+    const table = document.createElement("table");
+    for (let i = 0; i < 2; i++) {
+        let tr = document.createElement("tr");
+        let td = document.createElement("td");
+        switch (i) {
+            case 0:
+                td.id = "contact__tools--delete";
+                td.textContent = "حذف";
+                td.addEventListener("click", () => {
+                    if (dataID) {
+                        let submitBtn = createDeletePopup("پیام حذف شود؟");
+                        submitBtn.addEventListener("click", () => {
+                            deleteContact(contactBox);
+                        });
+                    }
+                    sectionTools.style.display = "none";
+                });
+                break;
+            case 1:
+                td.id = "contact__tools--edit";
+                td.textContent = "ویرایش";
+                td.addEventListener("click", () => {
+                    if (dataID) {
+                        updateContact(messageBox);
+                    }
+                    sectionTools.style.display = "none";
+                });
+                break;
+        }
+        tr.appendChild(td);
+        table.appendChild(tr);
+    }
+    sectionTools.appendChild(table);
+    return sectionTools;
+}
+
+//set contact
 $("#form-contact").submit(function (event) {
     event.preventDefault();
     var values = $(this).serialize();
@@ -909,6 +963,7 @@ $("#form-contact").submit(function (event) {
     });
 })
 
+//get
 $("#refreshIcon").click(() => {
     $.ajax({
         type: "get",
@@ -923,3 +978,15 @@ $("#refreshIcon").click(() => {
         },
     })
 })
+
+function deleteContact(contactBox){
+    let dataID = contactBox.getAttribute("data-id");
+    $.ajax({
+        type: "get",
+        url: "contacts/delete",
+        data: {dataID:dataID},
+        success: function (response) {
+            alert('yes')
+        },
+    })
+}
