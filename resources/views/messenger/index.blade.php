@@ -111,7 +111,7 @@
     </div>
 </section>
 
-<section id="addContact" class="section-Contact" style="height: 300px;display: none">
+<section id="addContact" class="section-Contact">
     <button id="closed" class="close-btn"></button>
     <form name="form-contact" id="form-contact" method="post">
         @csrf
@@ -127,6 +127,25 @@
             <label for="Contact" class="placeholder">نام مخاطب</label>
         </div>
         <button id="addition" type="submit" class="submit-add">افزودن مخاطب</button>
+    </form>
+</section>
+
+<section id="editContact" class="section-Contact">
+    <button id="closed" class="close-btn"></button>
+    <form name="edit-form-contact" id="edit-form-contact" method="post">
+        @csrf
+        <h3 class="chatlist__title">ویرایش مخاطب</h3>
+        <div class="main-input">
+            <input class="input-add" type="tel" name="firstName" id="phone-Contact" placeholder=" " autofocus/>
+            <div class="cut"></div>
+            <label for="firstName-Contact" class="placeholder"> نام مخاطب</label>
+        </div>
+        <div class="main-input">
+            <input class="input-add" type="text" name="lastName" id="name-Contact" placeholder=" "/>
+            <div class="cut cut-long"></div>
+            <label for="lastName" class="placeholder">نام خانوادگی مخاطب</label>
+        </div>
+        <button id="editBtn" type="submit" class="submit-add">ویرایش مخاطب</button>
     </form>
 </section>
 

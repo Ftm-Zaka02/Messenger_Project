@@ -148,12 +148,12 @@ const foldersISactive = function (chatType) {
 //   footer.appendChild(dialogMessage);
 //   footer.appendChild(dialogTools);
 // };
-function createContactObject(info){
-    let name=info.name
-    let firstName=name.split(" ")[0]
-    let lastName=name.split(" ")[1]
-    let contact={
-        "id":info.id,
+function createContactObject(info) {
+    let name = info.name
+    let firstName = name.split(" ")[0]
+    let lastName = name.split(" ")[1]
+    let contact = {
+        "id": info.id,
         "nationalCode": "",
         "fName": firstName,
         "lName": lastName,
@@ -170,9 +170,10 @@ function createContactObject(info){
     }
     return contact;
 }
+
 const CreateContactBox = (object) => {
     let chatlistCard = document.createElement("div");
-    chatlistCard.setAttribute('data-id',object.id)
+    chatlistCard.setAttribute('data-id', object.id)
     chatlistCard.classList.add("chatlist__cadre");
     chatlistCard.addEventListener("contextmenu", (e) => {
         e.preventDefault();
@@ -876,8 +877,7 @@ function createPopupBox(text) {
 ////////////////////////////contacts part
 const addContact = function () {
     let sectionAddContact = document.getElementById("addContact");
-    sectionAddContact.style = "display: block;";
-    sectionAddContact.style = "height: 300px;";
+    sectionAddContact.style = "display: block;height: 340px;";
     let Messenger = document.getElementById("messenger");
     let closebtn = document.getElementById("closed");
     closebtn.onclick = closeWindow = () => {
@@ -920,7 +920,7 @@ function createContanctMenu(contactBox) {
                 td.textContent = "ویرایش";
                 td.addEventListener("click", () => {
                     if (dataID) {
-                        updateContact(messageBox);
+                        updateContact(contactBox);
                     }
                     sectionTools.style.display = "none";
                 });
@@ -972,21 +972,47 @@ $("#refreshIcon").click(() => {
         success: function (response) {
             let Contacts = response['data'];
             for (let i = 0; i < Contacts.length; i++) {
-                let contactInfo=createContactObject(Contacts[i]);
+                let contactInfo = createContactObject(Contacts[i]);
                 CreateContactBox(contactInfo)
             }
         },
     })
 })
 
-function deleteContact(contactBox){
+function deleteContact(contactBox) {
     let dataID = contactBox.getAttribute("data-id");
     $.ajax({
         type: "get",
         url: "contacts/delete",
-        data: {dataID:dataID},
+        data: {dataID: dataID},
         success: function (response) {
-            alert('yes')
+
         },
     })
+}
+
+function updateContact(contactBox) {
+    let dataID = contactBox.getAttribute("data-id");
+    let sectionEditContact = document.getElementById("editContact");
+    sectionEditContact.style = "display: block;height: 340px;";
+    let Messenger = document.getElementById("messenger");
+    let editBtn = document.getElementById("editBtn");
+    let closebtn = document.getElementById("closed");
+    closebtn.onclick = closeWindow = () => {
+        sectionEditContact.style = "display: none;";
+        Messenger.removeAttribute("style", "display:block;");
+    };
+    editBtn.addEventListener('click', (e) => {
+        e.preventDefault()
+        let values=$("#edit-form-contact").serialize();
+        $.ajax({
+            type: "post",
+            url: "contacts/update",
+            data: values,
+            success: function (response) {
+
+            },
+        })
+    })
+
 }

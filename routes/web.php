@@ -39,6 +39,6 @@ Route::prefix('contacts')->middleware(['throttle:messenger'])->group(function ()
     Route::post('/set', [ContactController::class, 'set']);
     Route::get('/get', [ContactController::class, 'get']);
     Route::get('/delete', [ContactController::class, 'delete']);
-    Route::get('/update', [ContactController::class, 'update']);
+    Route::post('/update', [ContactController::class, 'update']);
 });
 
