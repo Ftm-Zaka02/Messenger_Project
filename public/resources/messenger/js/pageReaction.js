@@ -1008,7 +1008,7 @@ function updateContact(contactBox) {
         $.ajax({
             type: "post",
             url: "contacts/update",
-            data: values,
+            data: values + "&dataID=" + dataID,
             success: function (response) {
 
             },

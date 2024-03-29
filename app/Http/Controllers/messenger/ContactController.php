@@ -33,8 +33,10 @@ class ContactController extends Controller
     public static function update(UpdateContactRequest $request)
     {
         $data = $request->validated();
+        $newData=$data['firstName']." ".$data["lastName"];
+        $dataID=$data['dataID'];
         try {
-            $model = Contact::updateContact($data);
+            $model = Contact::updateContact($newData,$dataID);
             $response = json_encode([
                 'status' => 'success',
                 'data' => $model,

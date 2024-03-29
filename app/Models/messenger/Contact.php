@@ -19,6 +19,12 @@ class Contact extends Model
         return $model;
     }
 
+    public static function updateContact($newData, $dataID)
+    {
+        $model = self::find($dataID)->update(['name' => $newData]);
+        return $model;
+    }
+
     public static function getContact()
     {
         $data = self::get();
