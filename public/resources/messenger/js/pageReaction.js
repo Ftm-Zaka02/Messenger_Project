@@ -600,6 +600,7 @@ function createDeletePopup(text, deleteType) {
     box.appendChild(submitBtn);
     box.appendChild(closeBtn);
     box.classList.add("section-Contact");
+    box.style.display='block'
     dialogBody.appendChild(box);
     return submitBtn;
 }
@@ -907,9 +908,10 @@ function createContanctMenu(contactBox) {
                 td.textContent = "حذف";
                 td.addEventListener("click", () => {
                     if (dataID) {
-                        let submitBtn = createDeletePopup("پیام حذف شود؟");
+                        let submitBtn = createDeletePopup("مخاطب حذف شود؟");
                         submitBtn.addEventListener("click", () => {
                             deleteContact(contactBox);
+                              submitBtn.parentNode.remove()
                         });
                     }
                     sectionTools.style.display = "none";

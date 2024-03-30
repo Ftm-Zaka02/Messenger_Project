@@ -24,6 +24,10 @@ class Contact extends Model
         $model = self::find($dataID)->update(['name' => $newData]);
         return $model;
     }
+    public static function deleteContact($dataID){
+        $model = self::find($dataID)->delete();
+        return $model;
+    }
 
     public static function getContact()
     {
