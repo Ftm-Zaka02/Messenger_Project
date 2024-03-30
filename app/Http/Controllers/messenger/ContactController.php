@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\messenger;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\validator\contacts\DeleteContactRequest;
 use App\Http\Requests\validator\contacts\SetContactRequest;
 use App\Http\Requests\validator\contacts\UpdateContactRequest;
-use App\Http\Requests\validator\contacts\DeleteContactRequest;
 use App\Models\messenger\Contact;
 use Illuminate\Support\Facades\Log;
 
@@ -34,10 +34,10 @@ class ContactController extends Controller
     public static function update(UpdateContactRequest $request)
     {
         $data = $request->validated();
-        $newData=$data['firstName']." ".$data["lastName"];
-        $dataID=$data['dataID'];
+        $newData = $data['firstName'] . " " . $data["lastName"];
+        $dataID = $data['dataID'];
         try {
-            $model = Contact::updateContact($newData,$dataID);
+            $model = Contact::updateContact($newData, $dataID);
             $response = json_encode([
                 'status' => 'success',
                 'data' => $model,
@@ -53,6 +53,28 @@ class ContactController extends Controller
             return response($response, 500);
         }
     }
+
+    public static function delete(DeleteContactRequest $request)
+    {
+        $data = $request->validated();
+        $dataID = $data['dataID'];
+        try {
+            $model = Contact::deleteContact($dataID);
+            $response = json_encode([
+                'status' => 'success',
+                'data' => $model
+            ]);
+            return response($response, 200);
+        } catch (\Exception $error) {
+            Log::error('deleting contact got error: ' . $error->getMessage());
+            $response = json_encode([
+                'status' => 'error',
+                'message' => $error->getMessage(),
+            ]);
+            return response($response, 500);
+        }
+    }
+
     public static function get()
     {
         try {
