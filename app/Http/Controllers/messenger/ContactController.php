@@ -5,6 +5,7 @@ namespace App\Http\Controllers\messenger;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\validator\contacts\SetContactRequest;
 use App\Http\Requests\validator\contacts\UpdateContactRequest;
+use App\Http\Requests\validator\contacts\DeleteContactRequest;
 use App\Models\messenger\Contact;
 use Illuminate\Support\Facades\Log;
 
@@ -52,7 +53,6 @@ class ContactController extends Controller
             return response($response, 500);
         }
     }
-
     public static function get()
     {
         try {

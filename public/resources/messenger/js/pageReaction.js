@@ -990,7 +990,6 @@ function deleteContact(contactBox) {
         },
     })
 }
-
 function updateContact(contactBox) {
     let dataID = contactBox.getAttribute("data-id");
     let sectionEditContact = document.getElementById("editContact");
@@ -1008,7 +1007,7 @@ function updateContact(contactBox) {
         $.ajax({
             type: "post",
             url: "contacts/update",
-            data: values + "&dataID=" + dataID,
+            data: values+ "&dataID=" + dataID,
             success: function (response) {
 
             },
