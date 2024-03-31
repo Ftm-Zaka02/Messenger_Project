@@ -131,7 +131,7 @@
 </section>
 
 <section id="editContact" class="section-Contact">
-    <button id="closed" class="close-btn"></button>
+    <button id="closeBtn" class="close-btn"></button>
     <form name="edit-form-contact" id="edit-form-contact" method="post">
         @csrf
         <h3 class="chatlist__title">ویرایش مخاطب</h3>

@@ -600,7 +600,7 @@ function createDeletePopup(text, deleteType) {
     box.appendChild(submitBtn);
     box.appendChild(closeBtn);
     box.classList.add("section-Contact");
-    box.style.display='block'
+    box.style.display = 'block'
     dialogBody.appendChild(box);
     return submitBtn;
 }
@@ -862,6 +862,7 @@ function createPopupBox(text) {
     let box = document.createElement("section");
     box.classList.add("section-Contact");
     box.style.zIndex = "10";
+    box.style.display = "block";
     box.id = "popup";
     let submitBtn = document.createElement("button");
     box.textContent = text;
@@ -911,7 +912,7 @@ function createContanctMenu(contactBox) {
                         let submitBtn = createDeletePopup("مخاطب حذف شود؟");
                         submitBtn.addEventListener("click", () => {
                             deleteContact(contactBox);
-                              submitBtn.parentNode.remove()
+                            submitBtn.parentNode.remove()
                         });
                     }
                     sectionTools.style.display = "none";
@@ -978,6 +979,14 @@ $("#refreshIcon").click(() => {
                 CreateContactBox(contactInfo)
             }
         },
+        error: function (error) {
+            const errors = error.responseJSON.errors
+            for (const errorKey in errors) {
+                errors[errorKey].forEach((error) => {
+                    createPopupBox(error)
+                });
+            }
+        }
     })
 })
 
@@ -990,29 +999,47 @@ function deleteContact(contactBox) {
         success: function (response) {
 
         },
+        error: function (error) {
+            const errors = error.responseJSON.errors
+            for (const errorKey in errors) {
+                errors[errorKey].forEach((error) => {
+                    createPopupBox(error)
+                });
+            }
+        }
     })
 }
+
 function updateContact(contactBox) {
     let dataID = contactBox.getAttribute("data-id");
     let sectionEditContact = document.getElementById("editContact");
     sectionEditContact.style = "display: block;height: 340px;";
     let Messenger = document.getElementById("messenger");
     let editBtn = document.getElementById("editBtn");
-    let closebtn = document.getElementById("closed");
-    closebtn.onclick = closeWindow = () => {
+    let closebtn = document.getElementById("closeBtn");
+    closebtn.addEventListener("click",() => {
         sectionEditContact.style = "display: none;";
         Messenger.removeAttribute("style", "display:block;");
-    };
+    })
+
     editBtn.addEventListener('click', (e) => {
         e.preventDefault()
-        let values=$("#edit-form-contact").serialize();
+        let values = $("#edit-form-contact").serialize();
         $.ajax({
             type: "post",
             url: "contacts/update",
-            data: values+ "&dataID=" + dataID,
+            data: values + "&dataID=" + dataID,
             success: function (response) {
 
             },
+            error: function (error) {
+                const errors = error.responseJSON.errors
+                for (const errorKey in errors) {
+                    errors[errorKey].forEach((error) => {
+                        createPopupBox(error)
+                    });
+                }
+            }
         })
     })
 
