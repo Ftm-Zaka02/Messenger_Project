@@ -25,7 +25,8 @@ class Message extends Model
 
     public static function updateMessage($dataID, $newMessage)
     {
-        $model = self::find($dataID)->update(['text_message' => $newMessage]);
+        $model = self::find($dataID);
+        $model->update(['text_message' => $newMessage]);
         return $model;
     }
 
@@ -42,13 +43,15 @@ class Message extends Model
 
     public static function softDeleteMessage($dataID)
     {
-        $model = self::find($dataID)->delete();
+        $model = self::find($dataID);
+        $model->delete();
         return $model;
     }
 
     public static function chatHistoryDelete($chatListName)
     {
-        $model = self::where('chat_name', $chatListName)->forceDelete();
+        $model = self::where('chat_name', $chatListName);
+        $model->forceDelete();
         return $model;
     }
 

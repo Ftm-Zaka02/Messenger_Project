@@ -21,11 +21,13 @@ class Contact extends Model
 
     public static function updateContact($newData, $dataID)
     {
-        $model = self::find($dataID)->update(['name' => $newData]);
+        $model = self::find($dataID);
+        $model->update(['name' => $newData]);
         return $model;
     }
     public static function deleteContact($dataID){
-        $model = self::find($dataID)->delete();
+        $model = self::find($dataID);
+        $model->delete();
         return $model;
     }
 

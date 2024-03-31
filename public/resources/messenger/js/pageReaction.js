@@ -824,7 +824,8 @@ $("#dialog__refresh").click(() => {
 //     }, 10000);
 // });
 $("#dialog__attach").click(() => {
-    document.getElementById('uploadFileForm').style = "display:block;";
+    let fileUploadForm=document.getElementById('uploadFileForm')
+    fileUploadForm.style='display:block;'
     $("#uploadFileForm").submit(function (event) {
         event.preventDefault();
         var file = document.getElementById('file').files[0];
