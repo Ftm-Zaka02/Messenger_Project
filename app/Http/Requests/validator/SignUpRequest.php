@@ -25,8 +25,8 @@ class SignUpRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone' => 'bail|required|max:11',
-            'password' => ['bail|required', 'confirmed',
+            'phone' => 'required|max:11|exists:users',
+            'password' => ['required', 'confirmed',
                 Password::min(8)
                     ->mixedCase()
                     ->letters()

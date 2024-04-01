@@ -24,7 +24,7 @@ class DeleteContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'dataID' => 'bail|required',
+            'dataID' => 'bail|required|exists:contacts,id',
         ];
     }
 }

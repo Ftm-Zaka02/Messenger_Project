@@ -27,7 +27,7 @@ class DeletePostRequest extends FormRequest
     {
         return [
             'chatListName' => 'bail|nullable|max:255|string',
-            'dataID' => 'bail|nullable|max:3',
+            'dataID' => 'bail|nullable|exists:messages,id',
             'deleteType' => 'bail|required|max:255',
         ];
     }

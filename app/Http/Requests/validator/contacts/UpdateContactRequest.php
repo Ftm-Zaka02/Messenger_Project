@@ -26,7 +26,7 @@ class UpdateContactRequest extends FormRequest
         return [
             'firstName' => 'bail|required|max:50|string',
             'lastName'=>'bail|required|max:50|string',
-            'dataID'=>'bail|required',
+            'dataID'=>'bail|required|exists:contacts,id',
         ];
     }
 }
