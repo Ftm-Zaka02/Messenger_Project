@@ -25,8 +25,8 @@ class SetPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'activeChatList' => 'required|max:255|string',
-            'dialogMessage' => 'required|max:255',
+            'activeChatList' => 'bail|required|max:255|string',
+            'dialogMessage' => 'bail|required|max:255',
         ];
     }
 }

@@ -24,8 +24,8 @@ class SetContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone' => 'required|max:11',
-            'name'=>'required|max:50|string'
+            'phone' => 'bail|required|max:11',
+            'name'=>'bail|required|max:50|string'
         ];
     }
 }

@@ -24,9 +24,9 @@ class UpdateContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'firstName' => 'required|max:50|string',
-            'lastName'=>'required|max:50|string',
-            'dataID'=>'required',
+            'firstName' => 'bail|required|max:50|string',
+            'lastName'=>'bail|required|max:50|string',
+            'dataID'=>'bail|required',
         ];
     }
 }

@@ -26,8 +26,8 @@ class UpdatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'dataID' => 'required|max:3',
-            'newMessage' => 'required|max:255',
+            'dataID' => 'bail|required|max:3',
+            'newMessage' => 'bail|required|max:255',
         ];
     }
 }

@@ -24,8 +24,8 @@ class UploadFileRequest extends FormRequest
     public function rules()
     {
         return [
-            'fileToUpload' => 'required|file|mimes:jpeg,png,pdf,txt|max:10048',
-            'activeChatList' => 'required|max:255|string',
+            'fileToUpload' => 'bail|required|file|mimes:jpeg,png,pdf,txt|max:10048',
+            'activeChatList' => 'bail|required|max:255|string',
         ];
     }
 }
