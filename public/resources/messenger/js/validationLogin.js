@@ -197,9 +197,13 @@ $("#SignupForm").submit(function (event) {
         data: values,
         success: function () {
         },
-        error:function (error){
-            error=error.responseJSON.message
-            createPopupBox(error)
+        error: function (error) {
+            const errors = error.responseJSON.errors
+            for (const errorKey in errors) {
+                errors[errorKey].forEach((error) => {
+                    createPopupBox(error)
+                });
+            }
         }
     });
 })
@@ -208,6 +212,7 @@ function createPopupBox(text){
     dialogBody=document.getElementById("dialogBody");
     let box = document.createElement("section");
     box.style.zIndex="100"
+    box.style.display="block"
     box.classList.add("section-Contact");
     box.id = "popup";
     let submitBtn = document.createElement("button");
