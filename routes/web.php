@@ -40,5 +40,6 @@ Route::prefix('contacts')->middleware(['throttle:messenger'])->group(function ()
     Route::get('/get', [ContactController::class, 'get']);
     Route::get('/delete', [ContactController::class, 'delete']);
     Route::post('/update', [ContactController::class, 'update']);
+    Route::post('/search', [ContactController::class, 'search']);
 });
 
