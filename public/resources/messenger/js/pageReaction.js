@@ -13,6 +13,9 @@ const ContactlistSection = document.getElementById("Contacts");
 const footerChannels = document.getElementById("footerChannels");
 const dialogIconattach = document.getElementById("dialog__attach");
 const Contacts = chatlist.getElementsByClassName("chatlist__cadre");
+let searchInput=document.getElementById('search_input')
+let searchBox=document.getElementById('searchBox')
+
 let activeChatlist;
 let Messenger = document.getElementById("Messenger");
 
@@ -1043,5 +1046,26 @@ function updateContact(contactBox) {
             }
         })
     })
-
 }
+
+searchBox.addEventListener('submit',(event)=>{
+    event.preventDefault();
+    values=$("#searchBox").serialize()
+    $.ajax({
+        type: "post",
+        url: "contacts/search",
+        data: values,
+        success: function (response) {
+
+        },
+        error: function (error) {
+            const errors = error.responseJSON.errors
+            for (const errorKey in errors) {
+                errors[errorKey].forEach((error) => {
+                    createPopupBox(error)
+                });
+            }
+        }
+    })
+})
+

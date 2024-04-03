@@ -38,10 +38,11 @@
                 <span onclick="addContact()" class="chatlist__addcontact"></span>
                 <span onclick="refreshChatlist()" id="refreshIcon" class="chatlist__refresh"></span>
             </div>
-            <div class="search__box">
-                <input type="search" name="search_input" id="search_input" class="search__input"
+            <form class="search__box" id="searchBox">
+                @csrf
+                <input type="search" name="searchKey" id="search_input" class="search__input"
                        placeholder="search"/>
-            </div>
+            </form>
         </div>
 
         <div id="Contacts"></div>
