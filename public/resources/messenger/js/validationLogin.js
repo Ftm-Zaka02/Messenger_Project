@@ -4,6 +4,7 @@ const container = document.getElementById("container");
 const mainDiv = document.getElementById("mainDiv");
 const SignInButton = document.getElementById("SignInButton");
 const SignUpButton = document.getElementById("SignUpButton");
+
 SignUpButton.addEventListener("click",()=>{
     container.classList.add("right-panel-active");
 })
@@ -224,4 +225,8 @@ function createPopupBox(text){
     });
     box.appendChild(submitBtn);
     dialogBody.appendChild(box);
+}
+
+function showError(error){
+    createPopupBox(error)
 }

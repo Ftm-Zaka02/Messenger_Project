@@ -128,4 +128,8 @@
 </div>
 </body>
 <script src="{{asset("resources/messenger/js/validationLogin.js")}}"></script>
+
+@if($errors->any())
+    <script>showError('{{ $errors->first() }}')</script>
+@endif
 </html>

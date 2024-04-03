@@ -20,16 +20,15 @@ class AuthController extends Controller
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
                 $response = json_encode([
-                    'status' => 'success',
+                    'status' => 'success'
                 ]);
                 event(new Login('Login was successful'));
                 return redirect()->route('chat');
             } else {
                 $response = json_encode([
-                    'status' => 'failed',
-                    'message' => 'phone and password not match!',
+                    'status' => 'failed'
                 ]);
-                return redirect()->back()->withErrors($response);
+                return redirect()->back()->withErrors('شماره موبایل و رمز عبور سازگار نیستند!');
             }
         } catch (\Exception $error) {
             Log::error('Login user got error: ' . $error->getMessage());
@@ -37,7 +36,7 @@ class AuthController extends Controller
                 'status' => 'error',
                 'message' => $error->getMessage(),
             ]);
-            return response($response, 500);
+            return redirect()->back()->withErrors($response);
         }
     }
 
