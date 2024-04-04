@@ -98,7 +98,7 @@ class ContactController extends Controller
     {
         $data = $request->validated();
         try {
-            $model = Contact::searchContact($data);
+            $model = Contact::searchContact($data['searchKey']);
             $response = json_encode([
                 'status' => 'success',
                 'data' => $model

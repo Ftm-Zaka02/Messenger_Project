@@ -36,4 +36,9 @@ class Contact extends Model
         $data = self::get();
         return $data;
     }
+    public static function searchContact($searchKey)
+    {
+       $data=self::where('name', 'LIKE','%'.$searchKey.'%')->get();
+       return $data;
+    }
 }
