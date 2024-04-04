@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\validator\contacts\DeleteContactRequest;
 use App\Http\Requests\validator\contacts\SetContactRequest;
 use App\Http\Requests\validator\contacts\UpdateContactRequest;
+use App\Http\Requests\validator\contacts\SearchContactRequest;
 use App\Models\messenger\Contact;
 use Illuminate\Support\Facades\Log;
 
@@ -86,6 +87,25 @@ class ContactController extends Controller
             return response($response, 200);
         } catch (\Exception $error) {
             Log::error('getting contact got error: ' . $error->getMessage());
+            $response = json_encode([
+                'status' => 'error',
+                'message' => $error->getMessage(),
+            ]);
+            return response($response, 500);
+        }
+    }
+    public static function search(SearchContactRequest $request)
+    {
+        $data = $request->validated();
+        try {
+            $model = Contact::searchContact($data);
+            $response = json_encode([
+                'status' => 'success',
+                'data' => $model
+            ]);
+            return response($response, 200);
+        } catch (\Exception $error) {
+            Log::error('searching contact got error: ' . $error->getMessage());
             $response = json_encode([
                 'status' => 'error',
                 'message' => $error->getMessage(),
