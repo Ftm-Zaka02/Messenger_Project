@@ -127,7 +127,7 @@
             <div class="cut cut-long"></div>
             <label for="Contact" class="placeholder">نام مخاطب</label>
         </div>
-        <button id="addition" type="submit" class="submit-add">افزودن مخاطب</button>
+        <button id="additionContact" type="submit" class="submit-add">افزودن مخاطب</button>
     </form>
 </section>
 

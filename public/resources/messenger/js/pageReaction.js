@@ -16,6 +16,7 @@ const Contacts = chatlist.getElementsByClassName("chatlist__cadre");
 let searchInput = document.getElementById('search_input')
 let searchBox = document.getElementById('searchBox')
 
+
 let activeChatlist;
 let Messenger = document.getElementById("Messenger");
 
@@ -163,7 +164,7 @@ function createContactObject(info) {
         "phone": info.phone,
         "fullNname": info.name,
         "userName": "",
-        "profile": "../resources/messenger/image/user.png",
+        "profile": "../../resources/messenger/image/user.png",
         "chatType": "pv",
         "sender": "you",
         "lastMessage": "bye",
@@ -257,7 +258,7 @@ const CreateContactBox = (object) => {
     chatlistMessage.classList.add("chatlist__message");
 
     if (object.profile === undefined) {
-        chatlistImg.src = "../image/user.png";
+        chatlistImg.src = "../../resources/messenger/image/user.png";
     } else if (object.profile !== "") {
         chatlistImg.src = object.profile;
     }
@@ -886,10 +887,13 @@ const addContact = function () {
     sectionAddContact.style = "display: block;height: 340px;";
     let Messenger = document.getElementById("messenger");
     let closebtn = document.getElementById("closed");
-    closebtn.onclick = closeWindow = () => {
+
+    closebtn.addEventListener("click",()=>{
         sectionAddContact.style = "display: none;";
         Messenger.removeAttribute("style", "display:block;");
-    };
+    })
+
+
 };
 
 function createContanctMenu(contactBox) {
@@ -946,18 +950,20 @@ $("#form-contact").submit(function (event) {
     var values = $(this).serialize();
     $.ajax({
         type: "post",
+        dataType:"json",
         url: "contacts/set",
         data: values,
-        success: function () {
+        success: function (response) {
+            let data=response['data']
             const contactObject = {
-                fName: Name, phone: phone, fullNname: Name, chatType: "pv",
+                firstName: data['name'], phone: data['phone'], fullNname: data['name'], chatType: "pv",
             };
 
             CreateContactBox(contactObject);
             document.forms["form-contact"]["phone-Contact"].value = null;
             document.forms["form-contact"]["name-Contact"].value = null;
-
-            closeWindow();
+            let contctSection=document.getElementById("addContact")
+            contctSection.style.display="none";
         },
         error: function (error) {
             const errors = error.responseJSON.errors
@@ -1003,8 +1009,7 @@ function deleteContact(contactBox) {
         type: "get",
         url: "contacts/delete",
         data: {dataID: dataID},
-        success: function (response) {
-
+        success: function () {
         },
         error: function (error) {
             const errors = error.responseJSON.errors
@@ -1037,7 +1042,7 @@ function updateContact(contactBox) {
             url: "contacts/update",
             data: values + "&dataID=" + dataID,
             success: function (response) {
-
+                sectionEditContact.style = "display: none;";
             },
             error: function (error) {
                 const errors = error.responseJSON.errors
