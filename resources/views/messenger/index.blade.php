@@ -36,7 +36,7 @@
             <div class="chatlist__icon">
                 <span class="chatlist__title">Messenger</span>
                 <span onclick="addContact()" class="chatlist__addcontact"></span>
-                <span onclick="refreshChatlist()" id="refreshIcon" class="chatlist__refresh"></span>
+                <span id="refreshIcon" class="chatlist__refresh"></span>
             </div>
             <form class="search__box" id="searchBox">
                 @csrf

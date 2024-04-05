@@ -13,8 +13,8 @@ const ContactlistSection = document.getElementById("Contacts");
 const footerChannels = document.getElementById("footerChannels");
 const dialogIconattach = document.getElementById("dialog__attach");
 const Contacts = chatlist.getElementsByClassName("chatlist__cadre");
-let searchInput=document.getElementById('search_input')
-let searchBox=document.getElementById('searchBox')
+let searchInput = document.getElementById('search_input')
+let searchBox = document.getElementById('searchBox')
 
 let activeChatlist;
 let Messenger = document.getElementById("Messenger");
@@ -827,8 +827,8 @@ $("#dialog__refresh").click(() => {
 //     }, 10000);
 // });
 $("#dialog__attach").click(() => {
-    let fileUploadForm=document.getElementById('uploadFileForm')
-    fileUploadForm.style='display:block;'
+    let fileUploadForm = document.getElementById('uploadFileForm')
+    fileUploadForm.style = 'display:block;'
     $("#uploadFileForm").submit(function (event) {
         event.preventDefault();
         var file = document.getElementById('file').files[0];
@@ -971,17 +971,20 @@ $("#form-contact").submit(function (event) {
 })
 
 //get
+let uploadedContact=0;
 $("#refreshIcon").click(() => {
+    searchInput.value=""
     $.ajax({
         type: "get",
         url: "contacts/get",
         dataType: "json",
         success: function (response) {
             let Contacts = response['data'];
-            for (let i = 0; i < Contacts.length; i++) {
+            for (let i = uploadedContact; i < Contacts.length; i++) {
                 let contactInfo = createContactObject(Contacts[i]);
                 CreateContactBox(contactInfo)
             }
+            uploadedContact=Contacts.length
         },
         error: function (error) {
             const errors = error.responseJSON.errors
@@ -1021,7 +1024,7 @@ function updateContact(contactBox) {
     let Messenger = document.getElementById("messenger");
     let editBtn = document.getElementById("editBtn");
     let closebtn = document.getElementById("closeBtn");
-    closebtn.addEventListener("click",() => {
+    closebtn.addEventListener("click", () => {
         sectionEditContact.style = "display: none;";
         Messenger.removeAttribute("style", "display:block;");
     })
@@ -1048,15 +1051,26 @@ function updateContact(contactBox) {
     })
 }
 
-searchBox.addEventListener('submit',(event)=>{
+searchBox.addEventListener('submit', (event) => {
     event.preventDefault();
-    values=$("#searchBox").serialize()
+    values = $("#searchBox").serialize()
     $.ajax({
         type: "post",
+        dataType: "json",
         url: "contacts/search",
         data: values,
         success: function (response) {
-
+            let data = response['data'];
+            let ids=[]
+            data.map((value)=>{
+                ids.push(value['id'])
+            })
+            for (let contact of Contacts) {
+                let dataID = Number(contact.getAttribute("data-id"))
+                if (!ids.includes(dataID)) {
+                    contact.style.display = "none"
+                }
+            }
         },
         error: function (error) {
             const errors = error.responseJSON.errors
