@@ -944,36 +944,49 @@ function createContanctMenu(contactBox) {
     return sectionTools;
 }
 
+function validateSetContactInput(){
+    let message
+    let phoneInput = $("#phone-Contact")[0].value
+    if (phoneInput.length == 11 && phoneInput.startsWith("09")) {
+        return true
+    }else{
+        message = "شماره تلفن صحیح نمی باشد"
+        createPopupBox(message)
+        return false
+    }
+}
 //set contact
 $("#form-contact").submit(function (event) {
     event.preventDefault();
     var values = $(this).serialize();
-    $.ajax({
-        type: "post",
-        dataType:"json",
-        url: "contacts/set",
-        data: values,
-        success: function (response) {
-            let data=response['data']
-            const contactObject = {
-                firstName: data['name'], phone: data['phone'], fullNname: data['name'], chatType: "pv",
-            };
+    if(validateSetContactInput()) {
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "contacts/set",
+            data: values,
+            success: function (response) {
+                let data = response['data']
+                const contactObject = {
+                    firstName: data['name'], phone: data['phone'], fullNname: data['name'], chatType: "pv",
+                };
 
-            CreateContactBox(contactObject);
-            document.forms["form-contact"]["phone-Contact"].value = null;
-            document.forms["form-contact"]["name-Contact"].value = null;
-            let contctSection=document.getElementById("addContact")
-            contctSection.style.display="none";
-        },
-        error: function (error) {
-            const errors = error.responseJSON.errors
-            for (const errorKey in errors) {
-                errors[errorKey].forEach((error) => {
-                    createPopupBox(error)
-                });
+                CreateContactBox(contactObject);
+                document.forms["form-contact"]["phone-Contact"].value = null;
+                document.forms["form-contact"]["name-Contact"].value = null;
+                let contctSection = document.getElementById("addContact")
+                contctSection.style.display = "none";
+            },
+            error: function (error) {
+                const errors = error.responseJSON.errors
+                for (const errorKey in errors) {
+                    errors[errorKey].forEach((error) => {
+                        createPopupBox(error)
+                    });
+                }
             }
-        }
-    });
+        });
+    }
 })
 
 //get
