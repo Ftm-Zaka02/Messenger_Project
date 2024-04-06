@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\Login;
 use App\Http\Requests\validator\LoginRequest;
 use App\Http\Requests\validator\SignUpRequest;
-use App\Notifications\LoginConfirmation;
+use App\Jobs\LoginEmailJob;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-
 
 
 class AuthController extends Controller
@@ -22,7 +20,7 @@ class AuthController extends Controller
                 $response = json_encode([
                     'status' => 'success'
                 ]);
-                event(new Login('Login was successful'));
+                LoginEmailJob::dispatch(auth::user())->onQueue('email')->delay(now()->addMinutes(1));
                 return redirect()->route('chat');
             } else {
                 $response = json_encode([

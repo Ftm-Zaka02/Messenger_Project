@@ -27,7 +27,6 @@ class LoginEmail
      */
     public function handle($event)
     {
-        $message=$event->emailMessage;
-        Notification::send(auth()->user(),new LoginConfirmation($message));
+        Notification::send($event->user,new LoginConfirmation($event->emailMessage));
     }
 }
