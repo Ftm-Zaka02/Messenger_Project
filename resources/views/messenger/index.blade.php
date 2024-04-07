@@ -35,7 +35,7 @@
         <div class="chatlist__icon--sticky">
             <div class="chatlist__icon">
                 <span class="chatlist__title">Messenger</span>
-                <span onclick="addContact()" class="chatlist__addcontact"></span>
+                <span onclick="createChat()" class="chatlist__addcontact"></span>
                 <span id="refreshIcon" class="chatlist__refresh"></span>
             </div>
             <form class="search__box" id="searchBox">
@@ -112,11 +112,30 @@
     </div>
 </section>
 
+<section id="createChat" class="section-Contact">
+    <button id="createChatClose" class="close-btn"></button>
+    <form>
+        <h3 class="chatlist__title">افزودن گفت و گو</h3>
+        <div class="main-input">
+            <span class="chatlist__name--group"></span>
+            <label class="create-chat-lbl">ایجاد گروه</label>
+        </div>
+        <div class="main-input" >
+            <span class="chatlist__name--channel"></span>
+            <label class="create-chat-lbl">ایجاد کانال</label>
+        </div>
+        <div class="main-inpu" onclick="addContact()">
+            <span class="chatlist__name--pv"></span>
+            <label class="create-chat-lbl">ایجاد مخاطب</label>
+        </div>
+    </form>
+</section>
+
 <section id="addContact" class="section-Contact">
-    <button id="closed" class="close-btn"></button>
+    <button id="addContactClose" class="close-btn"></button>
     <form name="form-contact" id="form-contact" method="post">
         @csrf
-        <h3 class="chatlist__title">اضافه کردن مخاطب</h3>
+        <h3 class="chatlist__title">افزودن مخاطب</h3>
         <div class="main-input">
             <input class="input-add" type="tel" name="phone" id="phone-Contact" placeholder=" " autofocus/>
             <div class="cut"></div>

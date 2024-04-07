@@ -130,9 +130,17 @@
     color: #ddd;
 }
 
-.chatlist__name--group::after {
+.chatlist__name--pv::after {
     /* نکته اگر نام لاتین باشد باید after گذاشت */
     content: '\f500';
+    margin: 6px;
+    font-size: 12px;
+    vertical-align: middle;
+    color: #716f79;
+}
+.chatlist__name--group::after {
+    /* نکته اگر نام لاتین باشد باید after گذاشت */
+    content: '\f0c0';
     margin: 6px;
     font-size: 12px;
     vertical-align: middle;
@@ -204,3 +212,7 @@
     left: 300px;
 }
 
+.create-chat-lbl{
+    font-family: 'shabnam', 'fonticon2', 'Arial';
+    cursor: pointer;
+}

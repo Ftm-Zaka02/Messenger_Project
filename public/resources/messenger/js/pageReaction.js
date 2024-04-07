@@ -291,6 +291,8 @@ const CreateContactBox = (object) => {
         chatlistName.classList.add("chatlist__name--channel");
     } else if (object.chatType === "pv") {
         chatlistName.setAttribute("date", "pv");
+        chatlistName.classList.add("chatlist__name--pv");
+
     }
 
     chatlistPhoto.appendChild(chatlistImg);
@@ -882,18 +884,29 @@ function createPopupBox(text) {
 
 
 ////////////////////////////contacts part
-const addContact = function () {
-    let sectionAddContact = document.getElementById("addContact");
-    sectionAddContact.style = "display: block;height: 340px;";
+const createChat = function () {
+    let sectionCreateChat = document.getElementById("createChat");
+    sectionCreateChat.style = "display: block;height: 340px;";
     let Messenger = document.getElementById("messenger");
-    let closebtn = document.getElementById("closed");
+    let createChatClose = document.getElementById("createChatClose");
 
-    closebtn.addEventListener("click",()=>{
-        sectionAddContact.style = "display: none;";
+    createChatClose.addEventListener("click",()=>{
+        sectionCreateChat.style = "display: none;";
         Messenger.removeAttribute("style", "display:block;");
     })
 
 
+};
+const addContact = function () {
+    let sectionAddContact = document.getElementById("addContact");
+    sectionAddContact.style = "display: block;height: 340px;";
+    let Messenger = document.getElementById("messenger");
+    let addContactClose = document.getElementById("addContactClose");
+
+    addContactClose.addEventListener("click",()=>{
+        sectionAddContact.style = "display: none;";
+        Messenger.removeAttribute("style", "display:block;");
+    })
 };
 
 function createContanctMenu(contactBox) {
