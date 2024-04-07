@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\messenger\MessageController;
 use App\Http\Controllers\messenger\ContactController;
+use App\Http\Controllers\messenger\MessageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,11 +23,18 @@ Route::get('/loginPage', function () {
     return view('messenger.login');
 })->name('loginPage');
 
-Route::middleware('throttle:3,1')->post('/login', [AuthController::class, 'login']);
-Route::post('/signup', [AuthController::class, 'signUp']);
 
+Route::group([
+    'middleware' => 'throttle:3,1',
+], function () {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/signup', [AuthController::class, 'signUp']);
+});
 
-Route::prefix('messages')->middleware(['throttle:messenger'])->group(function () {
+Route::group([
+    'middleware' => 'throttle:messenger',
+    'prefix' => '/messages'
+], function () {
     Route::post('/set', [MessageController::class, 'set']);
     Route::get('/update', [MessageController::class, 'update']);
     Route::get('/delete', [MessageController::class, 'delete']);
@@ -35,11 +42,13 @@ Route::prefix('messages')->middleware(['throttle:messenger'])->group(function ()
     Route::get('/get', [MessageController::class, 'get']);
 });
 
-Route::prefix('contacts')->middleware(['throttle:messenger'])->group(function () {
+Route::group([
+    'middleware' => 'throttle:messenger',
+    'prefix' => '/contacts'
+], function () {
     Route::post('/set', [ContactController::class, 'set']);
     Route::get('/get', [ContactController::class, 'get']);
     Route::get('/delete', [ContactController::class, 'delete']);
     Route::post('/update', [ContactController::class, 'update']);
     Route::post('/search', [ContactController::class, 'search']);
 });
-
