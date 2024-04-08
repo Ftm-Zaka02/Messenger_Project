@@ -25,7 +25,9 @@ class Contact extends Model
         $model->update(['name' => $newData]);
         return $model;
     }
-    public static function deleteContact($dataID){
+
+    public static function deleteContact($dataID)
+    {
         $model = self::find($dataID);
         $model->delete();
         return $model;
@@ -36,9 +38,15 @@ class Contact extends Model
         $data = self::get();
         return $data;
     }
+
     public static function searchContact($searchKey)
     {
-       $data=self::where('name', 'LIKE','%'.$searchKey.'%')->get();
-       return $data;
+        $data = self::where('name', 'LIKE', '%' . $searchKey . '%')->get();
+        return $data;
+    }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = ucwords($value);
     }
 }
