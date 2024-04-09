@@ -18,12 +18,12 @@ return new class extends Migration
             $table->longText('text_message')->nullable();
             $table->integer('send_time');
             $table->unsignedBigInteger('user_id');
-            $table->string('chat_name')->nullable();
-            $table->enum('chat_type', ['pv','group','channel'])->default('group');
+            $table->unsignedBigInteger('chat_id');
             $table->text('content_name')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('chat_id')->references('id')->on('chats')->onDelete('cascade');
         });
     }
 

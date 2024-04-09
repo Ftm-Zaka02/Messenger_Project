@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('chats', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->mediumText('chat_name');
-            $table->mediumText('chat_type');
+            $table->enum('chat_type', ['pv','group','channel'])->default('group');
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });

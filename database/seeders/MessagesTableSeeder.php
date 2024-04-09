@@ -20,7 +20,6 @@ class MessagesTableSeeder extends Seeder
                 'text_message'=>$faker->realText($maxNbChars = 50),
                 'send_time'=>$faker->unixTime($max = 'now'),
                 'user_id'=>191,
-                'chat_name'=>'farawin',
             ]);
 
         }
