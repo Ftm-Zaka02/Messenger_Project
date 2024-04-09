@@ -9,5 +9,5 @@ use Illuminate\Support\Facades\Log;
 
 class ChatController extends Controller
 {
-    
+
 }
