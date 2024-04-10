@@ -152,30 +152,31 @@ const foldersISactive = function (chatType) {
 //   footer.appendChild(dialogMessage);
 //   footer.appendChild(dialogTools);
 // };
-function createContactObject(info) {
-    let name = info.name
+function createChatObject(info) {
+    let type = info.chat_type
+    let name = info.chat_name
     let firstName = name.split(" ")[0]
     let lastName = name.split(" ")[1]
-    let contact = {
+    let chat = {
         "id": info.id,
         "nationalCode": "",
         "fName": firstName,
         "lName": lastName,
-        "phone": info.phone,
-        "fullNname": info.name,
+        "phone": "",
+        "fullNname": info.chat_name,
         "userName": "",
         "profile": "../../resources/messenger/image/user.png",
-        "chatType": "pv",
+        "chatType": type,
         "sender": "you",
         "lastMessage": "bye",
         "date": "12:00 ب.ط",
         "numberMessages": "10",
         "messageSendingStatus": ""
     }
-    return contact;
+    return chat;
 }
 
-const CreateContactBox = (object) => {
+const CreateChatBox = (object) => {
     let chatlistCard = document.createElement("div");
     chatlistCard.setAttribute('data-id', object.id)
     chatlistCard.classList.add("chatlist__cadre");
@@ -1003,20 +1004,20 @@ $("#form-contact").submit(function (event) {
 })
 
 //get
-let uploadedContact=0;
+let uploadedChat=0;
 $("#refreshIcon").click(() => {
     searchInput.value=""
     $.ajax({
         type: "get",
-        url: "contacts/get",
+        url: "chats/get",
         dataType: "json",
         success: function (response) {
-            let Contacts = response['data'];
-            for (let i = uploadedContact; i < Contacts.length; i++) {
-                let contactInfo = createContactObject(Contacts[i]);
-                CreateContactBox(contactInfo)
+            let Chats = response['data'];
+            for (let i = uploadedChat; i < Chats.length; i++) {
+                let ChatInfo = createChatObject(Chats[i]);
+                CreateChatBox(ChatInfo)
             }
-            uploadedContact=Contacts.length
+            uploadedChat=Chats.length
         },
         error: function (error) {
             const errors = error.responseJSON.errors
