@@ -11,4 +11,10 @@ class Chat extends Model
     protected $connection = "mysql";
     protected $table = 'chats';
     protected $fillable = ['chat_name', 'chat_type', 'deleted_at'];
+
+    public static function getChat()
+    {
+        $data = self::get();
+        return $data;
+    }
 }
