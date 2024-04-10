@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\messenger\ContactController;
 use App\Http\Controllers\messenger\MessageController;
+use App\Http\Controllers\messenger\ChatController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,8 +48,9 @@ Route::group([
     'prefix' => '/contacts'
 ], function () {
     Route::post('/set', [ContactController::class, 'set']);
-    Route::get('/get', [ContactController::class, 'get']);
     Route::get('/delete', [ContactController::class, 'delete']);
     Route::post('/update', [ContactController::class, 'update']);
     Route::post('/search', [ContactController::class, 'search']);
 });
+
+Route::get('chats/get', [ChatController::class, 'get']);
