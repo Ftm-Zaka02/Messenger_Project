@@ -44,10 +44,10 @@ class MessageController extends Controller
     {
         $data=$request->validated();
         $userID=Auth::user()->getAuthIdentifier();
-        $chatName = $data['activeChatList'];
+        $chatID = $data['chatID'];
         $messageText = strip_tags(trim($data['dialogMessage']));
         try {
-            $model = Message::insertMessage($chatName, $messageText, $userID);
+            $model = Message::insertMessage($chatID, $messageText, $userID);
             $response = json_encode([
                 'status' => 'success',
                 'data' => $model,

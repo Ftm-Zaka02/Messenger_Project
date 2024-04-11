@@ -25,7 +25,7 @@ class SetPostRequest extends FormRequest
     public function rules()
     {
         return [
-            'activeChatList' => 'bail|required|max:255|string',
+            'chatID' => 'bail|required|exists:chats,id',
             'dialogMessage' => 'bail|required|max:255',
         ];
     }

@@ -18,6 +18,7 @@ let searchBox = document.getElementById('searchBox')
 
 
 let activeChatlist;
+let chatID
 let Messenger = document.getElementById("Messenger");
 
 const ChatList = function () {
@@ -189,6 +190,7 @@ const CreateChatBox = (object) => {
         let chatlistisActive = document.getElementsByClassName("chatlist--is--active");
         let nameDialog = document.getElementById("dialog__name");
         activeChatlist = chatlistName.textContent;
+        chatID = object.id;
         nameDialog.textContent = chatlistName.textContent;
         dialogSection.setAttribute("style", "display:block;");
         fetch("resources/messenger/js/jsonFiles/ChatList.json")
@@ -326,7 +328,7 @@ const refreshChatlist = function () {
         })
         .then(function (Contacts) {
             for (let i = 0; i < Contacts.length; i++) {
-                CreateContactBox(Contacts[i]);
+                CreateChatBox(Contacts[i]);
             }
         });
 };
@@ -555,7 +557,7 @@ $(document).ready(function () {
         $.ajax({
             type: "post",
             url: "messages/set",
-            data: values + "&activeChatList=" + activeChatlist,
+            data: values + "&chatID=" + chatID,
             success: function () {
                 dialog.value = null;
             },
