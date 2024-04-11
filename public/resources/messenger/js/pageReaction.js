@@ -193,42 +193,42 @@ const CreateChatBox = (object) => {
         chatID = object.id;
         nameDialog.textContent = chatlistName.textContent;
         dialogSection.setAttribute("style", "display:block;");
-        fetch("resources/messenger/js/jsonFiles/ChatList.json")
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (Contacts) {
-                for (let i = 0; i < Contacts.length; i++) {
-                    if (Contacts[i].Name === nameDialog.textContent) {
-                        let dialogBody = document.getElementById("dialogBody");
-                        let subChannel = document.getElementsByClassName("dialog__status");
-                        let channels = chatlistCard.getElementsByClassName("chatlist__name--channel");
-                        let group = chatlistCard.getElementsByClassName("chatlist__name--channel");
-                        if (group.length > 0) {
-                            subChannel[0].classList.add("dialog__header-right--channel");
-                            footerChannels.style = "display: none;";
-                            footer.style = "display:flex;";
-                        } else {
-                            subChannel[0].classList.remove("dialog__header-right--channel");
-                            footerChannels.style = "display: none;";
-                            footer.style = "display:flex;";
-                        }
-                        if (channels.length > 0) {
-                            subChannel[0].classList.add("dialog__header-right--channel");
-                            footerChannels.style = "display: block;";
-                            footer.style = "display: none;";
-                        } else {
-                            footerChannels.style = "display: none;";
-                            footer.style = "display: flex;";
-                            subChannel[0].classList.remove("dialog__header-right--channel");
-                        }
-                        dialogBody.innerHTML = "";
-                        for (let j = 0; j < Contacts[i].chatlist.length; j++) {
-                            sendMesseg(Contacts[i].chatlist[j].text, "text", Contacts[i].chatlist[j].type);
-                        }
-                    }
-                }
-            });
+        // fetch("resources/messenger/js/jsonFiles/ChatList.json")
+        //     .then(function (response) {
+        //         return response.json();
+        //     })
+        //     .then(function (Contacts) {
+        //         for (let i = 0; i < Contacts.length; i++) {
+        //             if (Contacts[i].Name === nameDialog.textContent) {
+        //                 let dialogBody = document.getElementById("dialogBody");
+        //                 let subChannel = document.getElementsByClassName("dialog__status");
+        //                 let channels = chatlistCard.getElementsByClassName("chatlist__name--channel");
+        //                 let group = chatlistCard.getElementsByClassName("chatlist__name--channel");
+        //                 if (group.length > 0) {
+        //                     subChannel[0].classList.add("dialog__header-right--channel");
+        //                     footerChannels.style = "display: none;";
+        //                     footer.style = "display:flex;";
+        //                 } else {
+        //                     subChannel[0].classList.remove("dialog__header-right--channel");
+        //                     footerChannels.style = "display: none;";
+        //                     footer.style = "display:flex;";
+        //                 }
+        //                 if (channels.length > 0) {
+        //                     subChannel[0].classList.add("dialog__header-right--channel");
+        //                     footerChannels.style = "display: block;";
+        //                     footer.style = "display: none;";
+        //                 } else {
+        //                     footerChannels.style = "display: none;";
+        //                     footer.style = "display: flex;";
+        //                     subChannel[0].classList.remove("dialog__header-right--channel");
+        //                 }
+        //                 dialogBody.innerHTML = "";
+        //                 for (let j = 0; j < Contacts[i].chatlist.length; j++) {
+        //                     sendMesseg(Contacts[i].chatlist[j].text, "text", Contacts[i].chatlist[j].type);
+        //                 }
+        //             }
+        //         }
+        //     });
 
         if (chatlistisActive.length >= 1) {
             chatlistisActive[0].classList.remove("chatlist--is--active");
@@ -317,21 +317,21 @@ const CreateChatBox = (object) => {
 };
 
 
-const refreshChatlist = function () {
-    if (Contacts.length > 0) {
-        ContactlistSection.innerHTML = "";
-    }
-
-    fetch("resources/messenger/js/jsonFiles/Contacts.json")
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (Contacts) {
-            for (let i = 0; i < Contacts.length; i++) {
-                CreateChatBox(Contacts[i]);
-            }
-        });
-};
+// const refreshChatlist = function () {
+//     if (Contacts.length > 0) {
+//         ContactlistSection.innerHTML = "";
+//     }
+//
+//     fetch("resources/messenger/js/jsonFiles/Contacts.json")
+//         .then(function (response) {
+//             return response.json();
+//         })
+//         .then(function (Contacts) {
+//             for (let i = 0; i < Contacts.length; i++) {
+//                 CreateChatBox(Contacts[i]);
+//             }
+//         });
+// };
 
 const IconChanger = function () {
     if (dialog.value.length > 0 && dialog.value !== "") {

@@ -7,6 +7,7 @@ use App\Http\Requests\validator\messages\DeletePostRequest;
 use App\Http\Requests\validator\messages\SetPostRequest;
 use App\Http\Requests\validator\messages\UpdatePostRequest;
 use App\Http\Requests\validator\messages\UploadFileRequest;
+use App\Http\Requests\validator\messages\GetRequest;
 use App\Models\messenger\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -63,7 +64,7 @@ class MessageController extends Controller
         }
     }
 
-    public function get(Request $request)
+    public function get(GetRequest $request)
     {
         $page = $request->input('page');
         $chatID = $request->input('chatID');
