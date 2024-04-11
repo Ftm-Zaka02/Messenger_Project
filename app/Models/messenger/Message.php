@@ -55,9 +55,9 @@ class Message extends Model
         return $model;
     }
 
-    public static function getMessage($page)
+    public static function getMessage($page,$chatID)
     {
-        $dataPage = self::paginate(5, ['*'], 'page', $page);
+        $dataPage = self::where('chat_id',$chatID)->paginate(5, ['*'], 'page', $page);
         return $dataPage;
     }
 

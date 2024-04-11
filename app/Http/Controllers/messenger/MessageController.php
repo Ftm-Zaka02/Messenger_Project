@@ -9,22 +9,22 @@ use App\Http\Requests\validator\messages\UpdatePostRequest;
 use App\Http\Requests\validator\messages\UploadFileRequest;
 use App\Models\messenger\Message;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 
 class MessageController extends Controller
 {
     public static function uploadFile(UploadFileRequest $request)
     {
-        $data=$request->validated();
+        $data = $request->validated();
         $fileToUpload = $data['fileToUpload'];
         $fileName = $fileToUpload->getClientOriginalName();
-        $userID=Auth::user()->getAuthIdentifier();
+        $userID = Auth::user()->getAuthIdentifier();
         $chatName = $data['activeChatList'];
         try {
             $fileToUpload->storeAs('public/uploaded', $fileName);
-            $model=Message::uploadFile($fileName,$userID,$chatName);
+            $model = Message::uploadFile($fileName, $userID, $chatName);
             $response = json_encode([
                 'status' => 'success',
                 'data' => $model
@@ -42,8 +42,8 @@ class MessageController extends Controller
 
     public function set(SetPostRequest $request)
     {
-        $data=$request->validated();
-        $userID=Auth::user()->getAuthIdentifier();
+        $data = $request->validated();
+        $userID = Auth::user()->getAuthIdentifier();
         $chatID = $data['chatID'];
         $messageText = strip_tags(trim($data['dialogMessage']));
         try {
@@ -66,11 +66,12 @@ class MessageController extends Controller
     public function get(Request $request)
     {
         $page = $request->input('page');
+        $chatID = $request->input('chatID');
         try {
-            $model = Message::getMessage($page);
-            foreach ($model as $message){
-                if($message['content_name']){
-                    $message['content_name']='storage/uploaded/'.$message['content_name'];
+            $model = Message::getMessage($page,$chatID);
+            foreach ($model as $message) {
+                if ($message['content_name']) {
+                    $message['content_name'] = 'storage/uploaded/' . $message['content_name'];
                 }
             }
             $response = json_encode([
@@ -90,7 +91,7 @@ class MessageController extends Controller
 
     public function delete(DeletePostRequest $request)
     {
-        $data=$request->validated();
+        $data = $request->validated();
         $deleteType = $data['deleteType'];
         switch ($deleteType) {
             case 'physicalDelete':
@@ -164,7 +165,7 @@ class MessageController extends Controller
 
     public function update(UpdatePostRequest $request)
     {
-        $data=$request->validated();
+        $data = $request->validated();
         $dataID = strip_tags(trim($data['dataID']));
         $newMessage = strip_tags(trim($data['newMessage']));
         try {

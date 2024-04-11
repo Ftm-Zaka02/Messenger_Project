@@ -778,10 +778,10 @@ let page = 1;
 let uploaded = 0;
 const uploadMessage = async () => {
     await $.ajax({
-        type: "get", url: "messages/get", dataType: "json", data: {page: page}, success: function (response) {
+        type: "get", url: "messages/get", dataType: "json", data: {page: page,chatID:chatID}, success: function (response) {
             data = response["data"]["data"];
             for (let i = uploaded; i < data.length; i++) {
-                let {id, text_message, content_name, user_id, send_time, chat_name} = data[i];
+                let {id, text_message, content_name, user_id, send_time, chat_id} = data[i];
 
                 function getTime(send_time) {
                     const date = new Date(send_time * 1000);
@@ -789,7 +789,7 @@ const uploadMessage = async () => {
                     return time.join(":");
                 }
 
-                if (chat_name == activeChatlist) {
+                if (chat_id == chatID) {
                     if (content_name) {
                         if (user_id == 191) {
                             sendMesseg(content_name, "file", 0, id, getTime(send_time));
