@@ -15,7 +15,7 @@ const dialogIconattach = document.getElementById("dialog__attach");
 const Contacts = chatlist.getElementsByClassName("chatlist__cadre");
 let searchInput = document.getElementById('search_input')
 let searchBox = document.getElementById('searchBox')
-
+let chatPageChanged
 
 let activeChatlist;
 let chatID
@@ -187,6 +187,16 @@ const CreateChatBox = (object) => {
         chatlistCard.appendChild(sectionTools);
     });
     chatlistCard.addEventListener("click", () => {
+        function clearChatPage() {
+            for (const element of dialogBody.children) {
+                element.style.display = "none"
+            }
+            chatPageChanged=true
+            for (const element of dialogBody.children) {
+                dialogBody.removeChild(element)
+            }
+        }
+        clearChatPage()
         let chatlistisActive = document.getElementsByClassName("chatlist--is--active");
         let nameDialog = document.getElementById("dialog__name");
         activeChatlist = chatlistName.textContent;
@@ -778,7 +788,11 @@ let page = 1;
 let uploaded = 0;
 const uploadMessage = async () => {
     await $.ajax({
-        type: "get", url: "messages/get", dataType: "json", data: {page: page,chatID:chatID}, success: function (response) {
+        type: "get",
+        url: "messages/get",
+        dataType: "json",
+        data: {page: page, chatID: chatID},
+        success: function (response) {
             data = response["data"]["data"];
             for (let i = uploaded; i < data.length; i++) {
                 let {id, text_message, content_name, user_id, send_time, chat_id} = data[i];
@@ -813,7 +827,8 @@ const uploadMessage = async () => {
                 page += 1;
                 uploaded = 0;
             }
-        }, error: function (error) {
+        },
+        error: function (error) {
             const errors = error.responseJSON.errors
             for (const errorKey in errors) {
                 errors[errorKey].forEach((error) => {
@@ -824,6 +839,11 @@ const uploadMessage = async () => {
     });
 };
 $("#dialog__refresh").click(() => {
+    if(chatPageChanged){
+        uploaded=0;
+        page=1;
+        chatPageChanged=false
+    }
     uploadMessage();
 });
 
@@ -893,7 +913,7 @@ const createChat = function () {
     let Messenger = document.getElementById("messenger");
     let createChatClose = document.getElementById("createChatClose");
 
-    createChatClose.addEventListener("click",()=>{
+    createChatClose.addEventListener("click", () => {
         sectionCreateChat.style = "display: none;";
         Messenger.removeAttribute("style", "display:block;");
     })
@@ -906,7 +926,7 @@ const addContact = function () {
     let Messenger = document.getElementById("messenger");
     let addContactClose = document.getElementById("addContactClose");
 
-    addContactClose.addEventListener("click",()=>{
+    addContactClose.addEventListener("click", () => {
         sectionAddContact.style = "display: none;";
         Messenger.removeAttribute("style", "display:block;");
     })
@@ -960,22 +980,23 @@ function createContanctMenu(contactBox) {
     return sectionTools;
 }
 
-function validateSetContactInput(){
+function validateSetContactInput() {
     let message
     let phoneInput = $("#phone-Contact")[0].value
     if (phoneInput.length == 11 && phoneInput.startsWith("09")) {
         return true
-    }else{
+    } else {
         message = "شماره تلفن صحیح نمی باشد"
         createPopupBox(message)
         return false
     }
 }
+
 //set contact
 $("#form-contact").submit(function (event) {
     event.preventDefault();
     var values = $(this).serialize();
-    if(validateSetContactInput()) {
+    if (validateSetContactInput()) {
         $.ajax({
             type: "post",
             dataType: "json",
@@ -1006,9 +1027,9 @@ $("#form-contact").submit(function (event) {
 })
 
 //get
-let uploadedChat=0;
+let uploadedChat = 0;
 $("#refreshIcon").click(() => {
-    searchInput.value=""
+    searchInput.value = ""
     $.ajax({
         type: "get",
         url: "chats/get",
@@ -1019,7 +1040,7 @@ $("#refreshIcon").click(() => {
                 let ChatInfo = createChatObject(Chats[i]);
                 CreateChatBox(ChatInfo)
             }
-            uploadedChat=Chats.length
+            uploadedChat = Chats.length
         },
         error: function (error) {
             const errors = error.responseJSON.errors
@@ -1095,8 +1116,8 @@ searchBox.addEventListener('submit', (event) => {
         data: values,
         success: function (response) {
             let data = response['data'];
-            let ids=[]
-            data.map((value)=>{
+            let ids = []
+            data.map((value) => {
                 ids.push(value['id'])
             })
             for (let contact of Contacts) {
