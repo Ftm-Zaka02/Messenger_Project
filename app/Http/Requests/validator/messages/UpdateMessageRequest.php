@@ -4,7 +4,7 @@ namespace App\Http\Requests\validator\messages;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeletePostRequest extends FormRequest
+class UpdateMessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,9 +26,8 @@ class DeletePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'chatListName' => 'bail|nullable|max:255|string',
-            'dataID' => 'bail|nullable|exists:messages,id',
-            'deleteType' => 'bail|required|max:255',
+            'dataID' => 'bail|required|exists:messages,id',
+            'newMessage' => 'bail|required|max:255',
         ];
     }
 }

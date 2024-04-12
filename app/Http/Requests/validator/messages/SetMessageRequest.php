@@ -4,7 +4,7 @@ namespace App\Http\Requests\validator\messages;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SetPostRequest extends FormRequest
+class SetMessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

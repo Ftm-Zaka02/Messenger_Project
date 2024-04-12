@@ -4,13 +4,15 @@ namespace App\Http\Requests\validator\messages;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetRequest extends FormRequest
+class DeleteMessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
+    protected $stopOnFirstFailure = true;
+
     public function authorize()
     {
         return true;
@@ -24,8 +26,9 @@ class GetRequest extends FormRequest
     public function rules()
     {
         return [
-            'page'=>'bail|required',
-            'chatID'=>'bail|required|exists:chats,id'
+            'chatListName' => 'bail|nullable|max:255|string',
+            'dataID' => 'bail|nullable|exists:messages,id',
+            'deleteType' => 'bail|required|max:255',
         ];
     }
 }

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\messenger;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\validator\messages\DeletePostRequest;
-use App\Http\Requests\validator\messages\SetPostRequest;
-use App\Http\Requests\validator\messages\UpdatePostRequest;
+use App\Http\Requests\validator\messages\DeleteMessageRequest;
+use App\Http\Requests\validator\messages\SetMessageRequest;
+use App\Http\Requests\validator\messages\UpdateMessageRequest;
 use App\Http\Requests\validator\messages\UploadFileRequest;
-use App\Http\Requests\validator\messages\GetRequest;
+use App\Http\Requests\validator\messages\GetMessageRequest;
 use App\Models\messenger\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +41,7 @@ class MessageController extends Controller
         }
     }
 
-    public function set(SetPostRequest $request)
+    public function set(SetMessageRequest $request)
     {
         $data = $request->validated();
         $userID = Auth::user()->getAuthIdentifier();
@@ -64,7 +64,7 @@ class MessageController extends Controller
         }
     }
 
-    public function get(GetRequest $request)
+    public function get(GetMessageRequest $request)
     {
         $page = $request->input('page');
         $chatID = $request->input('chatID');
@@ -90,7 +90,7 @@ class MessageController extends Controller
         }
     }
 
-    public function delete(DeletePostRequest $request)
+    public function delete(DeleteMessageRequest $request)
     {
         $data = $request->validated();
         $deleteType = $data['deleteType'];
@@ -164,7 +164,7 @@ class MessageController extends Controller
         }
     }
 
-    public function update(UpdatePostRequest $request)
+    public function update(UpdateMessageRequest $request)
     {
         $data = $request->validated();
         $dataID = strip_tags(trim($data['dataID']));
