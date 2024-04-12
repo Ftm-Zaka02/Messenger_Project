@@ -13,7 +13,7 @@ class Contact extends Model
     protected $table = 'contacts';
     protected $fillable = ['phone', 'name', 'deleted_at'];
 
-    public static function setContact($data)
+    public static function insertContact($data)
     {
         $model = self::create($data);
         return $model;

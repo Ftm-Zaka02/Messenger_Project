@@ -16,7 +16,7 @@ class ContactController extends Controller
     {
         $data = $request->validated();
         try {
-            $model = Contact::setContact($data);
+            $model = Contact::insertContact($data);
             $response = json_encode([
                 'status' => 'success',
                 'data' => $model
