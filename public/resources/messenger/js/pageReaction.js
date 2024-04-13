@@ -181,26 +181,30 @@ const CreateChatBox = (object) => {
     let chatlistCard = document.createElement("div");
     chatlistCard.setAttribute('data-id', object.id)
     chatlistCard.classList.add("chatlist__cadre");
-    chatlistCard.addEventListener("contextmenu", (e) => {
-        e.preventDefault();
-        const sectionTools = createContanctMenu(chatlistCard);
-        chatlistCard.appendChild(sectionTools);
-    });
+    chatID = object.id;
+    chatType = object.chatType;
+    if (chatType == 'pv') {
+        chatlistCard.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+            const sectionTools = createContanctMenu(chatlistCard);
+            chatlistCard.appendChild(sectionTools);
+        });
+    }
     chatlistCard.addEventListener("click", () => {
         function clearChatPage() {
             for (const element of dialogBody.children) {
                 element.style.display = "none"
             }
-            chatPageChanged=true
+            chatPageChanged = true
             for (const element of dialogBody.children) {
                 dialogBody.removeChild(element)
             }
         }
+
         clearChatPage()
         let chatlistisActive = document.getElementsByClassName("chatlist--is--active");
         let nameDialog = document.getElementById("dialog__name");
         activeChatlist = chatlistName.textContent;
-        chatID = object.id;
         nameDialog.textContent = chatlistName.textContent;
         dialogSection.setAttribute("style", "display:block;");
         // fetch("resources/messenger/js/jsonFiles/ChatList.json")
@@ -839,10 +843,10 @@ const uploadMessage = async () => {
     });
 };
 $("#dialog__refresh").click(() => {
-    if(chatPageChanged){
-        uploaded=0;
-        page=1;
-        chatPageChanged=false
+    if (chatPageChanged) {
+        uploaded = 0;
+        page = 1;
+        chatPageChanged = false
     }
     uploadMessage();
 });
