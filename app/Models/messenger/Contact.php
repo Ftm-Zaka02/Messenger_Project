@@ -4,6 +4,7 @@ namespace App\Models\messenger;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Contact extends Model
 {
@@ -45,8 +46,10 @@ class Contact extends Model
         return $data;
     }
 
-    public function setNameAttribute($value)
+    protected function name(): Attribute
     {
-        $this->attributes['name'] = ucwords($value);
+        return Attribute::make(
+            set: fn (string $value) => ucwords($value),
+        );
     }
 }
