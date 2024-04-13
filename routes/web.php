@@ -24,13 +24,15 @@ Route::get('/loginPage', function () {
     return view('messenger.login');
 })->name('loginPage');
 
-
 Route::group([
     'middleware' => 'throttle:3,1',
 ], function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/signup', [AuthController::class, 'signUp']);
 });
+
+Route::get('chats/get', [ChatController::class, 'get'])->middleware('throttle:messenger');
+
 
 Route::group([
     'middleware' => 'throttle:messenger',
@@ -52,5 +54,3 @@ Route::group([
     Route::post('/update', [ContactController::class, 'update']);
     Route::post('/search', [ContactController::class, 'search']);
 });
-
-Route::get('chats/get', [ChatController::class, 'get']);

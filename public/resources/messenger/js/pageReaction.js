@@ -1007,12 +1007,11 @@ $("#form-contact").submit(function (event) {
                 const contactObject = {
                     firstName: data['name'], phone: data['phone'], fullNname: data['name'], chatType: "pv",
                 };
-
-                CreateContactBox(contactObject);
+                CreateChatBox(contactObject);
                 document.forms["form-contact"]["phone-Contact"].value = null;
                 document.forms["form-contact"]["name-Contact"].value = null;
-                let contctSection = document.getElementById("addContact")
-                contctSection.style.display = "none";
+                let contactSection = document.getElementById("addContact")
+                contactSection.style.display = "none";
             },
             error: function (error) {
                 const errors = error.responseJSON.errors
