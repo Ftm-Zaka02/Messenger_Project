@@ -4,6 +4,7 @@ namespace App\Models\messenger;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Chat extends Model
 {
@@ -23,5 +24,11 @@ class Chat extends Model
     {
         $model = self::create(['chat_name' => $chatName, 'chat_type' => $chatType]);
         return $model;
+    }
+    protected function chatName(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => ucwords($value),
+        );
     }
 }
