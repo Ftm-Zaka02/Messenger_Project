@@ -8,6 +8,7 @@ use App\Http\Requests\validator\contacts\SetContactRequest;
 use App\Http\Requests\validator\contacts\UpdateContactRequest;
 use App\Http\Requests\validator\contacts\SearchContactRequest;
 use App\Models\messenger\Contact;
+use App\Models\messenger\Chat;
 use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
@@ -17,6 +18,7 @@ class ContactController extends Controller
         $data = $request->validated();
         try {
             $model = Contact::insertContact($data);
+            Chat::insertChat($data['name'],'pv');
             $response = json_encode([
                 'status' => 'success',
                 'data' => $model
