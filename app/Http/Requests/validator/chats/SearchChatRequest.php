@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\validator\contacts;
+namespace App\Http\Requests\validator\chats;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SearchContactRequest extends FormRequest
+class SearchChatRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

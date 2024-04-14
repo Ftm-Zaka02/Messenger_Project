@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\messenger\ChatController;
 use App\Http\Controllers\messenger\ContactController;
 use App\Http\Controllers\messenger\MessageController;
-use App\Http\Controllers\messenger\ChatController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,9 +31,6 @@ Route::group([
     Route::post('/signup', [AuthController::class, 'signUp']);
 });
 
-Route::get('chats/get', [ChatController::class, 'get'])->middleware('throttle:messenger');
-
-
 Route::group([
     'middleware' => 'throttle:messenger',
     'prefix' => '/messages'
@@ -52,5 +49,15 @@ Route::group([
     Route::post('/set', [ContactController::class, 'set']);
     Route::get('/delete', [ContactController::class, 'delete']);
     Route::post('/update', [ContactController::class, 'update']);
-    Route::post('/search', [ContactController::class, 'search']);
 });
+
+Route::group([
+    'middleware' => 'throttle:messenger',
+    'prefix' => '/chats'
+], function () {
+    Route::get('/get', [ChatController::class, 'get']);
+    Route::post('/search', [ChatController::class, 'search']);
+});
+
+
+

@@ -25,6 +25,11 @@ class Chat extends Model
         $model = self::create(['chat_name' => $chatName, 'chat_type' => $chatType]);
         return $model;
     }
+    public static function searchChat($searchKey)
+    {
+        $data = self::where('chat_name', 'LIKE', '%' . $searchKey . '%')->get();
+        return $data;
+    }
     protected function chatName(): Attribute
     {
         return Attribute::make(

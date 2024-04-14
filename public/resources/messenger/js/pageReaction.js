@@ -191,6 +191,7 @@ const CreateChatBox = (object) => {
         });
     }
     chatlistCard.addEventListener("click", () => {
+        chatID = chatlistCard.getAttribute('data-id');
         function clearChatPage() {
             for (const element of dialogBody.children) {
                 element.style.display = "none"
@@ -1029,32 +1030,6 @@ $("#form-contact").submit(function (event) {
     }
 })
 
-//get
-let uploadedChat = 0;
-$("#refreshIcon").click(() => {
-    searchInput.value = ""
-    $.ajax({
-        type: "get",
-        url: "chats/get",
-        dataType: "json",
-        success: function (response) {
-            let Chats = response['data'];
-            for (let i = uploadedChat; i < Chats.length; i++) {
-                let ChatInfo = createChatObject(Chats[i]);
-                CreateChatBox(ChatInfo)
-            }
-            uploadedChat = Chats.length
-        },
-        error: function (error) {
-            const errors = error.responseJSON.errors
-            for (const errorKey in errors) {
-                errors[errorKey].forEach((error) => {
-                    createPopupBox(error)
-                });
-            }
-        }
-    })
-})
 
 function deleteContact(contactBox) {
     let dataID = contactBox.getAttribute("data-id");
@@ -1109,13 +1084,42 @@ function updateContact(contactBox) {
     })
 }
 
+
+//get
+let uploadedChat = 0;
+$("#refreshIcon").click(() => {
+    searchInput.value = ""
+    $.ajax({
+        type: "get",
+        url: "chats/get",
+        dataType: "json",
+        success: function (response) {
+            let Chats = response['data'];
+            for (let i = uploadedChat; i < Chats.length; i++) {
+                let ChatInfo = createChatObject(Chats[i]);
+                CreateChatBox(ChatInfo)
+            }
+            uploadedChat = Chats.length
+        },
+        error: function (error) {
+            const errors = error.responseJSON.errors
+            for (const errorKey in errors) {
+                errors[errorKey].forEach((error) => {
+                    createPopupBox(error)
+                });
+            }
+        }
+    })
+})
+
+
 searchBox.addEventListener('submit', (event) => {
     event.preventDefault();
     values = $("#searchBox").serialize()
     $.ajax({
         type: "post",
         dataType: "json",
-        url: "contacts/search",
+        url: "chats/search",
         data: values,
         success: function (response) {
             let data = response['data'];
