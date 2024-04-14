@@ -22,10 +22,10 @@ class MessageController extends Controller
         $fileToUpload = $data['fileToUpload'];
         $fileName = $fileToUpload->getClientOriginalName();
         $userID = Auth::user()->getAuthIdentifier();
-        $chatName = $data['activeChatList'];
+        $chatID = $data['chatID'];
         try {
             $fileToUpload->storeAs('public/uploaded', $fileName);
-            $model = Message::uploadFile($fileName, $userID, $chatName);
+            $model = Message::uploadFile($fileName, $userID, $chatID);
             $response = json_encode([
                 'status' => 'success',
                 'data' => $model

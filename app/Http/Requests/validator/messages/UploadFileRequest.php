@@ -25,7 +25,7 @@ class UploadFileRequest extends FormRequest
     {
         return [
             'fileToUpload' => 'bail|required|file|mimes:jpeg,png,pdf,txt|max:10048',
-            'activeChatList' => 'bail|required|max:255|string',
+            'chatID' => 'bail|required|exists:chats,id',
         ];
     }
 }

@@ -61,9 +61,9 @@ class Message extends Model
         return $dataPage;
     }
 
-    public static function uploadFile($name, $userID, $chatName)
+    public static function uploadFile($name, $userID, $chatID)
     {
-        $model = self::create(['content_name' => $name, 'send_time' => time(), 'user_id' => $userID, 'chat_name' => $chatName]);
+        $model = self::create(['content_name' => $name, 'send_time' => time(), 'user_id' => $userID, 'chat_id' => $chatID]);
         return $model;
     }
 }

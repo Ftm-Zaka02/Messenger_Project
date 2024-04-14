@@ -864,7 +864,7 @@ $("#dialog__attach").click(() => {
         event.preventDefault();
         var file = document.getElementById('file').files[0];
         var formData = $('#uploadFileForm').serialize();
-        formData += "&activeChatList=" + activeChatlist;
+        formData += "&chatID=" + chatID;
         var combinedData = new FormData();
         combinedData.append('fileToUpload', file);
         formData = decodeURIComponent(formData.replace(/\+/g, ' '));
