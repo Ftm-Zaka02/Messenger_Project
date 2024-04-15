@@ -197,6 +197,8 @@ $("#SignupForm").submit(function (event) {
         url: "signup",
         data: values,
         success: function () {
+            createPopupBox('ثبت نام با موفقیت انجام شد')
+            document.getElementById("SignupForm").reset();
         },
         error: function (error) {
             const errors = error.responseJSON.errors
