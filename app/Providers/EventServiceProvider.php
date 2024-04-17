@@ -4,12 +4,13 @@ namespace App\Providers;
 
 use App\Events\DeleteFile;
 use App\Events\Login;
+use App\Events\Signup;
 use App\Listeners\DeleteFileFromDatabase;
 use App\Listeners\LoginEmail;
+use App\Listeners\SignupEmail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -22,11 +23,14 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        DeleteFile::class=>[
+        DeleteFile::class => [
             DeleteFileFromDatabase::class,
         ],
-        Login::class=>[
+        Login::class => [
             LoginEmail::class,
+        ],
+        Signup::class => [
+            SignupEmail::class,
         ]
     ];
 
