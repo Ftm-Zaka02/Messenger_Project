@@ -13,15 +13,17 @@ use Illuminate\Queue\SerializesModels;
 class Signup
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
+    public $emailMessage;
+    public $user;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($message,$user)
     {
-        //
+        $this->emailMessage = $message;
+        $this->user = $user;
     }
 
     /**
