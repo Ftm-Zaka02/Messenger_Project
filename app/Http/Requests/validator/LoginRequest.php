@@ -25,7 +25,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'phone' => 'bail|required|max:11',
-            'password' => 'bail|required|max:9',
+            'password' => 'bail|required|min:8',
         ];
     }
 }
