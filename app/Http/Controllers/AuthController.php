@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\validator\LoginRequest;
 use App\Http\Requests\validator\SignUpRequest;
 use App\Jobs\LoginEmailJob;
+use App\Jobs\SignupEmailJob;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -47,6 +48,7 @@ class AuthController extends Controller
             $response = json_encode([
                 'status' => 'success',
             ]);
+            SignupEmailJob::dispatch(auth::user())->onQueue('email')->delay(now()->addMinutes(1));
             return response($response, 200);
         } catch (\Exception $error) {
             Log::error('inserting user got error: ' . $error->getMessage());
