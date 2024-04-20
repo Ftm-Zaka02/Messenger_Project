@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(MessagesTableSeeder::class);
         $this->call(ContactsTableSeeder::class);
+        $this->call(UserTableSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

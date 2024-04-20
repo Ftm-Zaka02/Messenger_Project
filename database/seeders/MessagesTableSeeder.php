@@ -21,7 +21,6 @@ class MessagesTableSeeder extends Seeder
                 'send_time'=>$faker->unixTime($max = 'now'),
                 'user_id'=>191,
             ]);
-
         }
     }
 }
