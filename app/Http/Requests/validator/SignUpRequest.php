@@ -25,7 +25,7 @@ class SignUpRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone' => 'required|max:11|unique ',
+            'phone' => 'required|max:11 ',
             'password' => ['required',
                 Password::min(8)
                     ->mixedCase()

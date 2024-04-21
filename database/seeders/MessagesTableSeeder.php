@@ -15,11 +15,12 @@ class MessagesTableSeeder extends Seeder
     public function run()
     {
         $faker=\Faker\Factory::create();
-        for ($i = 0; $i <= 10; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
             Message::create([
                 'text_message'=>$faker->realText($maxNbChars = 50),
                 'send_time'=>$faker->unixTime($max = 'now'),
-                'user_id'=>191,
+                'user_id'=>$i,
+                'chat_id'=>$i,
             ]);
         }
     }

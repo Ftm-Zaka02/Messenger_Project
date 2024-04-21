@@ -22,8 +22,6 @@ return new class extends Migration
             $table->text('content_name')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('chat_id')->references('id')->on('chats')->onDelete('cascade');
         });
     }
 
