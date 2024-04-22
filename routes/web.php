@@ -5,6 +5,8 @@ use App\Http\Controllers\Messenger\ChatController;
 use App\Http\Controllers\Messenger\ContactController;
 use App\Http\Controllers\Messenger\MessageController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::middleware('auth')->get('/', function () {
-    return view('messenger.index');
+    return view('messenger.index',['user' =>auth::user()]);
 })->name('chat');
 
 Route::get('/loginPage', function () {

@@ -18,7 +18,7 @@
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
 
-<body onload="refreshChatlist()">
+<body onload="getUserInformation({{ $user }})">
 <section id="Messenger" class="Messenger">
     <div class="folders" id="folders">
         <span onclick="ChatList()" class="folders__menu menu"></span>
@@ -34,7 +34,7 @@
     <div id="chatlist" class="chatlist chatlist__Open">
         <div class="chatlist__icon--sticky">
             <div class="chatlist__icon">
-                <span class="chatlist__title">Messenger</span>
+                <span class="chatlist__title">Messenger__{{$user->phone}}</span>
                 <span onclick="createChat()" class="chatlist__addcontact"></span>
                 <span id="refreshIcon" class="chatlist__refresh"></span>
             </div>
@@ -120,7 +120,7 @@
             <span class="chatlist__name--group"></span>
             <label class="create-chat-lbl">ایجاد گروه</label>
         </div>
-        <div class="main-input" >
+        <div class="main-input">
             <span class="chatlist__name--channel"></span>
             <label class="create-chat-lbl">ایجاد کانال</label>
         </div>

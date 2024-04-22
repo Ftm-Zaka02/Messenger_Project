@@ -16,6 +16,7 @@ const Contacts = chatlist.getElementsByClassName("chatlist__cadre");
 let searchInput = document.getElementById('search_input')
 let searchBox = document.getElementById('searchBox')
 let chatPageChanged
+let userInformation
 
 let activeChatlist;
 let chatID
@@ -563,6 +564,9 @@ const stopRecording = () => {
     }
 };
 
+function getUserInformation(userInfo){
+    userInformation=userInfo;
+}
 //! insert data into database
 
 $(document).ready(function () {
@@ -810,13 +814,13 @@ const uploadMessage = async () => {
 
                 if (chat_id == chatID) {
                     if (content_name) {
-                        if (user_id == 191) {
+                        if (user_id == userInformation['id']) {
                             sendMesseg(content_name, "file", 0, id, getTime(send_time));
                         } else {
                             sendMesseg(content_name, "file", 1, id, getTime(send_time));
                         }
                     } else if (text_message) {
-                        if (user_id == 191) {
+                        if (user_id == userInformation['id']) {
                             sendMesseg(text_message, "text", 0, id, getTime(send_time));
                         } else {
                             sendMesseg(text_message, "text", 1, id, getTime(send_time));
