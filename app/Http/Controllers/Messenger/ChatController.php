@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\messenger;
+namespace App\Http\Controllers\Messenger;
 
 use App\Http\Controllers\Controller;
-use App\Models\messenger\Chat;
-use Illuminate\Http\Request;
-use App\Http\Requests\validator\chats\SearchChatRequest;
+use App\Http\Requests\Validator\Chats\SearchChatRequest;
+use App\Models\Chat;
 use Illuminate\Support\Facades\Log;
 
 class ChatController extends Controller

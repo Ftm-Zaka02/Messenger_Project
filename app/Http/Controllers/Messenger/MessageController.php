@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\messenger;
+namespace App\Http\Controllers\Messenger;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\validator\messages\DeleteMessageRequest;
-use App\Http\Requests\validator\messages\SetMessageRequest;
-use App\Http\Requests\validator\messages\UpdateMessageRequest;
-use App\Http\Requests\validator\messages\UploadFileRequest;
-use App\Http\Requests\validator\messages\GetMessageRequest;
-use App\Models\messenger\Message;
-use Illuminate\Http\Request;
+use App\Http\Requests\Validator\Messages\DeleteMessageRequest;
+use App\Http\Requests\Validator\Messages\GetMessageRequest;
+use App\Http\Requests\Validator\Messages\SetMessageRequest;
+use App\Http\Requests\Validator\Messages\UpdateMessageRequest;
+use App\Http\Requests\Validator\Messages\UploadFileRequest;
+use App\Models\Message;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -48,7 +47,7 @@ class MessageController extends Controller
         $chatID = $data['chatID'];
         $messageText = strip_tags(trim($data['dialogMessage']));
         try {
-            $model = Message::insertMessage($chatID, $messageText, $userID);
+            $model = \App\Models\Message::insertMessage($chatID, $messageText, $userID);
             $response = json_encode([
                 'status' => 'success',
                 'data' => $model,
@@ -69,7 +68,7 @@ class MessageController extends Controller
         $page = $request->input('page');
         $chatID = $request->input('chatID');
         try {
-            $model = Message::getMessage($page,$chatID);
+            $model = \App\Models\Message::getMessage($page,$chatID);
             foreach ($model as $message) {
                 if ($message['content_name']) {
                     $message['content_name'] = 'storage/uploaded/' . $message['content_name'];
@@ -100,7 +99,7 @@ class MessageController extends Controller
                 $dataID = $data['dataID'];
                 if (!empty($dataID)) {
                     try {
-                        $model = Message::physicalDeleteMessage($dataID);
+                        $model = \App\Models\Message::physicalDeleteMessage($dataID);
                         $response = json_encode([
                             'status' => 'success',
                             'data' => $model,
@@ -122,7 +121,7 @@ class MessageController extends Controller
                 $dataID = $data['dataID'];
                 if (!empty($dataID)) {
                     try {
-                        $model = Message::softDeleteMessage($dataID);
+                        $model = \App\Models\Message::softDeleteMessage($dataID);
                         $response = json_encode([
                             'status' => 'success',
                             'data' => $model,

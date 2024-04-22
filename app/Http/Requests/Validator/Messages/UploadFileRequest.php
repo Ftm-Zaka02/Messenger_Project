@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\validator\chats;
+namespace App\Http\Requests\Validator\Messages;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SearchChatRequest extends FormRequest
+class UploadFileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class SearchChatRequest extends FormRequest
     public function rules()
     {
         return [
-            'searchKey'=>'bail|required|max:50|string',
+            'fileToUpload' => 'bail|required|file|mimes:jpeg,png,pdf,txt|max:10048',
+            'chatID' => 'bail|required|exists:chats,id',
         ];
     }
 }

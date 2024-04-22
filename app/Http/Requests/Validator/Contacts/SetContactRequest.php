@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Http\Requests\validator\messages;
+namespace App\Http\Requests\Validator\Contacts;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteMessageRequest extends FormRequest
+class SetContactRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    protected $stopOnFirstFailure = true;
-
     public function authorize()
     {
         return true;
@@ -26,9 +24,8 @@ class DeleteMessageRequest extends FormRequest
     public function rules()
     {
         return [
-            'chatListName' => 'bail|nullable|max:255|string',
-            'dataID' => 'bail|nullable|exists:messages,id',
-            'deleteType' => 'bail|required|max:255',
+            'phone' => 'bail|required|max:11',
+            'name'=>'bail|required|max:50|string'
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\messenger\Message;
+use App\Models\Message;
 use Illuminate\Database\Seeder;
 
 class MessagesTableSeeder extends Seeder

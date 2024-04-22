@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\messenger\Message;
+use App\Models\Message;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;

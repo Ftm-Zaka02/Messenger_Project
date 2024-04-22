@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\validator\LoginRequest;
-use App\Http\Requests\validator\SignUpRequest;
+use App\Http\Requests\Validator\LoginRequest;
+use App\Http\Requests\Validator\SignUpRequest;
 use App\Jobs\LoginEmailJob;
 use App\Jobs\SignupEmailJob;
 use Illuminate\Support\Facades\Auth;

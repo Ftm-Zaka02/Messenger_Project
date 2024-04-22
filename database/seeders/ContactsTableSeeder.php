@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\messenger\Contact;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Contact;
 use Illuminate\Database\Seeder;
 
 class ContactsTableSeeder extends Seeder

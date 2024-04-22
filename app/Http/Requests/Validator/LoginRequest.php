@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\validator\contacts;
+namespace App\Http\Requests\Validator;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SetContactRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class SetContactRequest extends FormRequest
     {
         return [
             'phone' => 'bail|required|max:11',
-            'name'=>'bail|required|max:50|string'
+            'password' => 'bail|required|min:8',
         ];
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\validator;
+namespace App\Http\Requests\Validator\Chats;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class SearchChatRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone' => 'bail|required|max:11',
-            'password' => 'bail|required|min:8',
+            'searchKey'=>'bail|required|max:50|string',
         ];
     }
 }

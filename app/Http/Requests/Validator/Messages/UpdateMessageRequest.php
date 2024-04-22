@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\validator\messages;
+namespace App\Http\Requests\Validator\Messages;
 
 use Illuminate\Foundation\Http\FormRequest;
 

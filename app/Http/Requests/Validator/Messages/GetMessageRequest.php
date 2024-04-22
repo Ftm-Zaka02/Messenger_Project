@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\validator\contacts;
+namespace App\Http\Requests\Validator\Messages;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateContactRequest extends FormRequest
+class GetMessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,8 @@ class UpdateContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'firstName' => 'bail|required|max:50|string',
-            'lastName'=>'bail|required|max:50|string',
-            'dataID'=>'bail|required|exists:contacts,id',
+            'page'=>'bail|required',
+            'chatID'=>'bail|required|exists:chats,id'
         ];
     }
 }

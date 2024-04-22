@@ -2,12 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Chat;
 use Illuminate\Database\Seeder;
-use App\Models\messenger\Chat;
 
 
-class ChatTableSeeder extends Seeder
+class ChatsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

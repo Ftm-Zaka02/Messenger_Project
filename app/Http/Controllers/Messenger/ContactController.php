@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\messenger;
+namespace App\Http\Controllers\Messenger;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\validator\contacts\DeleteContactRequest;
-use App\Http\Requests\validator\contacts\SetContactRequest;
-use App\Http\Requests\validator\contacts\UpdateContactRequest;
-use App\Models\messenger\Contact;
-use App\Models\messenger\Chat;
+use App\Http\Requests\Validator\Contacts\DeleteContactRequest;
+use App\Http\Requests\Validator\Contacts\SetContactRequest;
+use App\Http\Requests\Validator\Contacts\UpdateContactRequest;
+use App\Models\Chat;
+use App\Models\Contact;
 use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
@@ -16,7 +16,7 @@ class ContactController extends Controller
     {
         $data = $request->validated();
         try {
-            $model = Contact::insertContact($data);
+            $model = \App\Models\Contact::insertContact($data);
             Chat::insertChat($data['name'],'pv');
             $response = json_encode([
                 'status' => 'success',
@@ -80,7 +80,7 @@ class ContactController extends Controller
     public static function get()
     {
         try {
-            $model = Contact::getContact();
+            $model = \App\Models\Contact::getContact();
             $response = json_encode([
                 'status' => 'success',
                 'data' => $model

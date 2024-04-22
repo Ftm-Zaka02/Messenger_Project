@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\messenger\ChatController;
-use App\Http\Controllers\messenger\ContactController;
-use App\Http\Controllers\messenger\MessageController;
+use App\Http\Controllers\Messenger\ChatController;
+use App\Http\Controllers\Messenger\ContactController;
+use App\Http\Controllers\Messenger\MessageController;
 use Illuminate\Support\Facades\Route;
 
 /*

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\messenger;
+namespace App\Models;
 
 use App\Events\DeleteFile;
 use Illuminate\Database\Eloquent\Model;

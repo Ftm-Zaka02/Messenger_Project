@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\validator\messages;
+namespace App\Http\Requests\Validator\Contacts;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UploadFileRequest extends FormRequest
+class UpdateContactRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,9 @@ class UploadFileRequest extends FormRequest
     public function rules()
     {
         return [
-            'fileToUpload' => 'bail|required|file|mimes:jpeg,png,pdf,txt|max:10048',
-            'chatID' => 'bail|required|exists:chats,id',
+            'firstName' => 'bail|required|max:50|string',
+            'lastName'=>'bail|required|max:50|string',
+            'dataID'=>'bail|required|exists:contacts,id',
         ];
     }
 }
