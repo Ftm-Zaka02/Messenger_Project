@@ -856,11 +856,11 @@ $("#dialog__refresh").click(() => {
     uploadMessage();
 });
 
-// $(document).ready(function () {
-//     setInterval(() => {
-//         uploadMessage();
-//     }, 10000);
-// });
+$(document).ready(function () {
+    setInterval(() => {
+        uploadMessage();
+    }, 10000);
+});
 $("#dialog__attach").click(() => {
     let fileUploadForm = document.getElementById('uploadFileForm')
     fileUploadForm.style = 'display:block;'
