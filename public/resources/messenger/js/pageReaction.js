@@ -841,7 +841,7 @@ const uploadMessage = async () => {
             const errors = error.responseJSON.errors
             for (const errorKey in errors) {
                 errors[errorKey].forEach((error) => {
-                    createPopupBox(error)
+                    // createPopupBox(error)
                 });
             }
         }
@@ -858,8 +858,13 @@ $("#dialog__refresh").click(() => {
 
 $(document).ready(function () {
     setInterval(() => {
+        if (chatPageChanged) {
+            uploaded = 0;
+            page = 1;
+            chatPageChanged = false
+        }
         uploadMessage();
-    }, 10000);
+    }, 8000);
 });
 $("#dialog__attach").click(() => {
     let fileUploadForm = document.getElementById('uploadFileForm')
