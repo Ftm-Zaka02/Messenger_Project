@@ -364,19 +364,28 @@ const sendMesseg = (dialogg = dialog.value, type = "text", sender = 0, dataId, s
     let dialogBody = document.getElementById("dialogBody");
     let messageSelf = document.createElement("div");
     let messageCard = document.createElement("div");
-
     if (sender === 1) {
         messageCard.classList.remove("message__card", "message__card--self");
         messageSelf.classList.remove("message", "message__self");
 
         messageSelf.classList.add("message", "message__other");
         messageCard.classList.add("message__card", "message__card--other");
+        messageSelf.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+            const sectionTools = createMessageMenu(messageSelf,'other');
+            messageCard.appendChild(sectionTools);
+        });
     } else if (sender === 0) {
         messageSelf.classList.remove("message", "message__other");
         messageCard.classList.remove("message__card", "message__card--other");
 
         messageCard.classList.add("message__card", "message__card--self");
         messageSelf.classList.add("message", "message__self");
+        messageSelf.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+            const sectionTools = createMessageMenu(messageSelf,'self');
+            messageCard.appendChild(sectionTools);
+        });
     }
 
     dialogBody.appendChild(messageSelf);
@@ -435,11 +444,6 @@ const sendMesseg = (dialogg = dialog.value, type = "text", sender = 0, dataId, s
         messageText.textContent = dialogg;
         messageCard.appendChild(messageText);
         messageCard.appendChild(messageSendTime);
-        messageSelf.addEventListener("contextmenu", (e) => {
-            e.preventDefault();
-            const sectionTools = createMessageMenu(messageSelf);
-            messageCard.appendChild(sectionTools);
-        });
         dialog.value = null;
     } else if (type == "file") {
         let file = document.createElement("img");
@@ -447,11 +451,6 @@ const sendMesseg = (dialogg = dialog.value, type = "text", sender = 0, dataId, s
         messageSelf.setAttribute("data-id", dataId);
         file.src = dialogg;
         messageCard.appendChild(file);
-        messageSelf.addEventListener("contextmenu", (e) => {
-            e.preventDefault();
-            const sectionTools = createMessageMenu(messageSelf);
-            messageCard.appendChild(sectionTools);
-        });
     }
     messageSelf.appendChild(messageCard);
 };
@@ -717,9 +716,9 @@ $("#deleteChat").click(() => {
 //! update data from database
 
 function updateMessage(messageBox) {
-    let span = messageBox.children[1].children[0];
+    let textMessageSpan = messageBox.children[1].children[0];
     let dataID = messageBox.getAttribute("data-id");
-    dialog.value = span.textContent;
+    dialog.value = textMessageSpan.textContent;
     dialog.focus();
     const sendBtn = document
         .getElementById("dialog__icon")
@@ -732,7 +731,7 @@ function updateMessage(messageBox) {
                 dataType: "json",
                 data: {dataID: dataID, newMessage: newMessage},
                 success: function (response) {
-                    if (response["data"]) span.textContent = newMessage;
+                    textMessageSpan.textContent=response["data"]["text_message"]
                     dialog.value = null;
                 },
                 error: function (error) {
@@ -749,7 +748,7 @@ function updateMessage(messageBox) {
 
 //! create message menu
 
-function createMessageMenu(messageBox) {
+function createMessageMenu(messageBox,sender='self') {
     let dataID = messageBox.getAttribute("data-id");
     const sectionTools = document.createElement("section");
     sectionTools.classList.add("section-tools");
@@ -778,6 +777,9 @@ function createMessageMenu(messageBox) {
                 });
                 break;
             case 1:
+                if(sender=='other'){
+                    continue;
+                }
                 td.id = "message__tools--edit";
                 td.textContent = "ویرایش";
                 td.addEventListener("click", () => {
