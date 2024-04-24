@@ -18,7 +18,7 @@
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
 
-<body onload="getUserInformation({{ $user }})">
+<body onload="getUser()">
 <section id="Messenger" class="Messenger">
     <div class="folders" id="folders">
         <span onclick="ChatList()" class="folders__menu menu"></span>
@@ -34,7 +34,7 @@
     <div id="chatlist" class="chatlist chatlist__Open">
         <div class="chatlist__icon--sticky">
             <div class="chatlist__icon">
-                <span class="chatlist__title">Messenger__{{$user->phone}}</span>
+                <span class="chatlist__title" id="messengerTitle">Messenger</span>
                 <span onclick="createChat()" class="chatlist__addcontact"></span>
                 <span id="refreshIcon" class="chatlist__refresh"></span>
             </div>

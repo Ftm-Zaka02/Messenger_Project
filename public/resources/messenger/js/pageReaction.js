@@ -193,6 +193,7 @@ const CreateChatBox = (object) => {
     }
     chatlistCard.addEventListener("click", () => {
         chatID = chatlistCard.getAttribute('data-id');
+
         function clearChatPage() {
             for (const element of dialogBody.children) {
                 element.style.display = "none"
@@ -564,9 +565,28 @@ const stopRecording = () => {
     }
 };
 
-function getUserInformation(userInfo){
-    userInformation=userInfo;
+function getUser() {
+    $(document).ready(function () {
+        $.ajax({
+            type: "get",
+            url: "profile/get",
+            dataType: 'json',
+            success: function (response) {
+                userInformation =response;
+                document.getElementById("messengerTitle").innerHTML+="__"+userInformation['phone']
+            },
+            error: function (error) {
+                const errors = error.responseJSON.errors
+                for (const errorKey in errors) {
+                    errors[errorKey].forEach((error) => {
+                        createPopupBox(error)
+                    });
+                }
+            }
+        });
+    });
 }
+
 //! insert data into database
 
 $(document).ready(function () {
