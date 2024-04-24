@@ -372,7 +372,7 @@ const sendMesseg = (dialogg = dialog.value, type = "text", sender = 0, dataId, s
         messageCard.classList.add("message__card", "message__card--other");
         messageSelf.addEventListener("contextmenu", (e) => {
             e.preventDefault();
-            const sectionTools = createMessageMenu(messageSelf,'other');
+            const sectionTools = createMessageMenu(messageSelf, 'other');
             messageCard.appendChild(sectionTools);
         });
     } else if (sender === 0) {
@@ -383,7 +383,7 @@ const sendMesseg = (dialogg = dialog.value, type = "text", sender = 0, dataId, s
         messageSelf.classList.add("message", "message__self");
         messageSelf.addEventListener("contextmenu", (e) => {
             e.preventDefault();
-            const sectionTools = createMessageMenu(messageSelf,'self');
+            const sectionTools = createMessageMenu(messageSelf, 'self');
             messageCard.appendChild(sectionTools);
         });
     }
@@ -571,8 +571,8 @@ function getUser() {
             url: "profile/get",
             dataType: 'json',
             success: function (response) {
-                userInformation =response;
-                document.getElementById("messengerTitle").innerHTML+="__"+userInformation['phone']
+                userInformation = response;
+                document.getElementById("messengerTitle").innerHTML += "__" + userInformation['phone']
             },
             error: function (error) {
                 const errors = error.responseJSON.errors
@@ -731,7 +731,7 @@ function updateMessage(messageBox) {
                 dataType: "json",
                 data: {dataID: dataID, newMessage: newMessage},
                 success: function (response) {
-                    textMessageSpan.textContent=response["data"]["text_message"]
+                    textMessageSpan.textContent = response["data"]["text_message"]
                     dialog.value = null;
                 },
                 error: function (error) {
@@ -748,7 +748,7 @@ function updateMessage(messageBox) {
 
 //! create message menu
 
-function createMessageMenu(messageBox,sender='self') {
+function createMessageMenu(messageBox, sender = 'self') {
     let dataID = messageBox.getAttribute("data-id");
     const sectionTools = document.createElement("section");
     sectionTools.classList.add("section-tools");
@@ -777,7 +777,7 @@ function createMessageMenu(messageBox,sender='self') {
                 });
                 break;
             case 1:
-                if(sender=='other'){
+                if (sender == 'other') {
                     continue;
                 }
                 td.id = "message__tools--edit";
@@ -880,13 +880,15 @@ $("#dialog__refresh").click(() => {
 
 $(document).ready(function () {
     setInterval(() => {
-        if (chatPageChanged) {
-            uploaded = 0;
-            page = 1;
-            chatPageChanged = false
+        if (activeChatlist) {
+            if (chatPageChanged) {
+                uploaded = 0;
+                page = 1;
+                chatPageChanged = false
+            }
+            uploadMessage();
         }
-        uploadMessage();
-    }, 8000);
+    }, 5000);
 });
 $("#dialog__attach").click(() => {
     let fileUploadForm = document.getElementById('uploadFileForm')
