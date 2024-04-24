@@ -38,7 +38,7 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => 'throttle:messenger',
+    'middleware' => ['throttle:messenger','auth'],
     'prefix' => '/messages'
 ], function () {
     Route::post('/set', [MessageController::class, 'set']);
@@ -49,7 +49,7 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => 'throttle:messenger',
+    'middleware' => ['throttle:messenger','auth'],
     'prefix' => '/contacts'
 ], function () {
     Route::post('/set', [ContactController::class, 'set']);
@@ -58,7 +58,7 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => 'throttle:messenger',
+    'middleware' => ['throttle:messenger','auth'],
     'prefix' => '/chats'
 ], function () {
     Route::get('/get', [ChatController::class, 'get']);
