@@ -19,12 +19,16 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 Route::middleware('auth')->get('/', function () {
-    return view('messenger.index',['user' =>auth::user()]);
+    return view('messenger.index');
 })->name('chat');
 
 Route::get('/loginPage', function () {
     return view('messenger.login');
 })->name('loginPage');
+
+Route::middleware('auth')->get('/profile/get', function () {
+    return response(auth::user(),200);
+});
 
 Route::group([
     'middleware' => 'throttle:3,1',
