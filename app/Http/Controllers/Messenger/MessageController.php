@@ -140,10 +140,10 @@ class MessageController extends Controller
             }
             case 'integrated':
             {
-                $chatListName = $data['chatListName'];
-                if (!empty($chatListName)) {
+                $chatID = $data['chatID'];
+                if (!empty($chatID)) {
                     try {
-                        $model = Message::chatHistoryDelete($chatListName);
+                        $model = Message::chatHistoryDelete($chatID);
                         $response = json_encode([
                             'status' => 'success',
                             'data' => $model,

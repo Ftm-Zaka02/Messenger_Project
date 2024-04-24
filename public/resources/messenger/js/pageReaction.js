@@ -689,7 +689,7 @@ $("#deleteChat").click(() => {
             type: "get",
             url: "messages/delete",
             dataType: "json",
-            data: {chatListName: activeChatlist, deleteType: "integrated"},
+            data: {chatID: chatID, deleteType: "integrated"},
             success: function (res) {
                 let messages = document.getElementsByClassName("message");
                 let len = messages.length - 1;

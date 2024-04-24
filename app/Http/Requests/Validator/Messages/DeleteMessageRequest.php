@@ -26,7 +26,7 @@ class DeleteMessageRequest extends FormRequest
     public function rules()
     {
         return [
-            'chatListName' => 'bail|nullable|max:255|string',
+            'chatID' => 'bail|nullable|exists:chats,id',
             'dataID' => 'bail|nullable|exists:messages,id',
             'deleteType' => 'bail|required|max:255',
         ];

@@ -48,9 +48,9 @@ class Message extends Model
         return $model;
     }
 
-    public static function chatHistoryDelete($chatListName)
+    public static function chatHistoryDelete($chatID)
     {
-        $model = self::where('chat_name', $chatListName);
+        $model = self::where('chat_id', $chatID);
         $model->forceDelete();
         return $model;
     }
